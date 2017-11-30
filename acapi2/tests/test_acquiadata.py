@@ -1,16 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import base64
-import os
 import requests
 import requests_mock
 import unittest
-import uuid
 
 from acapi2.resources.acquiadata import AcquiaData
-from acapi2.exceptions import *
-from acapi2.tests import BaseTest
 
 
 @requests_mock.Mocker()
@@ -93,5 +88,3 @@ class TestAcquiaData(unittest.TestCase):
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"id", response.content)
         self.assertIn(b"name", response.content)
-
-    def test_badly_signed_headers(self, mocker): pass
