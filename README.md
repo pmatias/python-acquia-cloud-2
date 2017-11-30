@@ -4,6 +4,6 @@ Python implementation for the new Acquia API v2 (https://cloud.acquia.com/api-do
 based on the original acapi Python Library created by Dave Hall (http://github.com/skwashd/python-acquia-cloud)
 
 
-This library is a WIP.
+This library is a WIP and it is in an unusable state.
 
 More information coming soon.

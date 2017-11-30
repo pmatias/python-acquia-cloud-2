@@ -27,6 +27,7 @@ setup(
     packages=find_packages(exclude=['tests']),
     include_package_data=True,
     install_requires=[
+        'http-hmac-python==2.4.0',
         'requests==2.18.4',
         'requests-cache==0.4.13',
         'setuptools>=18.5'
