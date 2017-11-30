@@ -56,8 +56,42 @@ class TestAcquiaData(unittest.TestCase):
         with self.assertRaises(requests.HTTPError):
             acquia_data.request()
 
-    def test_post_request(self, mocker): pass
+    def test_post_request(self, mocker):
+        uri = self.endpoint + "organizations"
+        mocker.register_uri("POST", uri, status_code=200,
+                            json={"message": "Oganization created."})
 
-    def test_delete_request(self, mocker): pass
+        acquia_data = AcquiaData(uri, self.api_key,
+                                 self.api_secret)
+
+        rdata = {"name": "A Random name"}
+        response = acquia_data.request(method="POST", data=rdata)
+
+        self.assertEqual(response.status_code, 200)
+        print(response.content)
+        self.assertIn(b"created", response.content)
+
+    def test_delete_request(self, mocker):
+        uri = self.endpoint + "organizations/1234"
+        acquia_response = {
+            "id": "6",
+            "uuid": "g47ac10b-58cc-4372-a567-0e02b2c3d470",
+            "name": "Sample organization",
+            "subscriptions_total": "115",
+            "admins_total": "2",
+            "users_total": "82",
+            "teams_total": "13",
+            "roles_total": "4"
+        }
+        mocker.register_uri("DELETE", uri, status_code=202,
+                            json=acquia_response)
+
+        acquia_data = AcquiaData(uri, self.api_key,
+                                 self.api_secret)
+        response = acquia_data.request(method="DELETE")
+
+        self.assertEqual(response.status_code, 202)
+        self.assertIn(b"id", response.content)
+        self.assertIn(b"name", response.content)
 
     def test_badly_signed_headers(self, mocker): pass

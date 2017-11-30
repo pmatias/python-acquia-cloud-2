@@ -5,6 +5,7 @@
 
 import httphmac
 import logging
+import json
 import requests
 import time
 import uuid
@@ -30,8 +31,7 @@ class AcquiaData(object):
         self.last_response = None
 
     def request(self, uri: str = None, method: str = "GET",
-                data: dict = None, params: dict = None,
-                decode_json: bool = True):
+                data: dict = None, params: dict = None):
 
         params = params or {}
 
@@ -42,7 +42,7 @@ class AcquiaData(object):
 
         response = None
         request = httphmac.Request()
-        headers = {
+        auth_headers = {
             "realm": self._realm,
             "id": self.api_key,
             "nonce": uuid.uuid4().hex,
@@ -50,13 +50,13 @@ class AcquiaData(object):
         }
         request.with_url(uri).with_method(method)
         signer = httphmac.V2Signer()
-        signer.sign_direct(request, headers, self.api_secret)
+        signer.sign_direct(request, auth_headers, self.api_secret)
 
         if "GET" == method:
             attempt = 0
             while attempt <= 5:
                 # TODO: add params support in httphmac.Request()
-                response = request.with_headers(headers).do()
+                response = request.do()
                 if response.status_code not in list(range(500, 505)):
                     break
 
@@ -68,9 +68,15 @@ class AcquiaData(object):
             if "acapi_retry" in params:
                 del params["acapi_retry"]
 
-        self.last_response = response
+        if "POST" == method:
+            response = request.with_json_body(data).do()
 
-        if response.status_code != requests.codes.ok:
+        if "DELETE" == method:
+            response = request.do()
+
+        self.last_response = response
+        if response.status_code != requests.codes.ok\
+                and response.status_code != requests.codes.accepted:
             try:
                 raise response.raise_for_status()
             except requests.exceptions.HTTPError as exp:
