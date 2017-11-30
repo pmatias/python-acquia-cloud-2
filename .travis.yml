@@ -14,7 +14,7 @@ install:
 
 script:
   - nosetests --with-coverage --cover-package=acapi2
-  - flake8
+  #- flake8
 
 after_success:
   - codecov
