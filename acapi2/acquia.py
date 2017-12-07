@@ -6,29 +6,92 @@
 import acapi2.exceptions
 import os
 
+from acapi2.resources.application import Application
+from acapi2.resources.applicationlist import ApplicationList
+from acapi2.resources.subscription import Subscription
+from acapi2.resources.subscriptionlist import SubscriptionList
+
 
 class Acquia(object):
-
     _api_endpoint = "https://cloud.acquia.com/api"
 
     def __init__(self,
-                 key: str = None,
-                 secret: str = None,
+                 api_key: str = None,
+                 api_secret: str = None,
                  endpoint: str = None,
                  cache: int = 600):
 
         if endpoint:
             self._api_endpoint = endpoint
 
-        if not key or not secret:
-            key, secret = self.__find_credentials()
-            if not key or not secret:
+        if not api_key or not api_secret:
+            api_key, api_secret = self.__find_credentials()
+            if not api_key or not api_secret:
                 msg = "Credentials not provided"
                 raise acapi2.exceptions.AcquiaCloudException(msg)
+        self._api_key = api_key
+        self._api_secret = api_secret
+
+    def applications(self, filters: dict = None) -> ApplicationList:
+        apps = ApplicationList(self.api_endpoint, self.api_key,
+                               self.api_secret, filters=filters)
+        return apps
+
+    def application(self, uuid):
+        namespace = "applications/" + uuid
+        uri = self.get_uri(namespace)
+        application = Application(uri, self.api_key,
+                                  self.api_secret)
+        return application
+
+    @property
+    def api_endpoint(self) -> str:
+        return self._api_endpoint
+
+    @api_endpoint.setter
+    def api_endpoint(self, endpoint: str):
+        self._api_endpoint = endpoint
+
+    @property
+    def api_key(self) -> str:
+        return self._api_key
+
+    @api_key.setter
+    def api_key(self, api_key: str):
+        # TODO: validate api_key
+        self._api_key = api_key
+
+    @property
+    def api_secret(self) -> str:
+        return self._api_secret
+
+    @api_secret.setter
+    def api_secret(self, api_secret: str):
+        # TODO: validate api_secret
+        self._api_secret = api_secret
+
+    def health(self):
+        raise NotImplementedError
+
+    def get_uri(self, path: str) -> str:
+        uri = "{endpoint}/{path}".format(endpoint=self.api_endpoint,
+                                         path=path)
+        return uri
+
+    def subscription(self, uuid: str) -> Subscription:
+        namespace = "subscriptions/" + uuid
+        uri = self.get_uri(namespace)
+        subscription = Subscription(uri, self.api_key,
+                                    self.api_secret)
+        return subscription
+
+    def subscriptions(self, filters: dict = None) -> SubscriptionList:
+        subs = SubscriptionList(self.api_endpoint, self.api_key,
+                                self.api_secret, filters=filters)
+        return subs
 
     @staticmethod
-    def __find_credentials():
+    def __find_credentials() -> tuple:
         key = os.environ.get("ACQUIA_CLOUD_API_KEY")
         secret = os.environ.get("ACQUIA_CLOUD_API_SECRET")
         return key, secret
-

@@ -5,7 +5,6 @@
 
 import httphmac
 import logging
-import json
 import requests
 import time
 import uuid
@@ -75,7 +74,7 @@ class AcquiaData(object):
             response = request.do()
 
         self.last_response = response
-        if response.status_code != requests.codes.ok\
+        if response.status_code != requests.codes.ok \
                 and response.status_code != requests.codes.accepted:
             try:
                 raise response.raise_for_status()
