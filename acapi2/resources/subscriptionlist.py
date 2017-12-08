@@ -9,7 +9,7 @@ from acapi2.resources.subscription import Subscription
 
 class SubscriptionList(AcquiaList):
     def __init__(self, uri: str, api_key: str, api_secret: str, *args,
-                 **kwargs):
+                 **kwargs) -> None:
         # TODO Filters
         super().__init__(uri, api_key, api_secret, *args, **kwargs)
         self.fetch()

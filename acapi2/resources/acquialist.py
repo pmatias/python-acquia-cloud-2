@@ -3,6 +3,7 @@
 
 """Dictionary of Acquia Cloud API resources."""
 import abc
+import typing
 
 from acapi2.exceptions import AcquiaCloudNoDataException
 from acapi2.resources.acquiadata import AcquiaData
@@ -10,14 +11,14 @@ from acapi2.resources.acquiadata import AcquiaData
 
 class AcquiaList(AcquiaData, dict):
     def __init__(self, base_uri: str, api_key: str, api_secret: str,
-                 *args, **kwargs):
-        self._sorted_keys = []
+                 *args, **kwargs) -> None:
+        self._sorted_keys = []  # type: typing.List[typing.Any]
 
         # Initialise the dict
         dict.__init__(self, *args, **kwargs)
 
         # Initialise the list
-        self._base_uri = None
+        self._base_uri = ""
         self.base_uri = base_uri
         AcquiaData.__init__(self, self.base_uri, api_key, api_secret)
 
@@ -29,7 +30,7 @@ class AcquiaList(AcquiaData, dict):
         super(AcquiaList, self).__setitem__(key, value)
         self.sorted_keys = []
 
-    def first(self) -> any:
+    def first(self) -> typing.Any:
         if not len(self):
             raise AcquiaCloudNoDataException("No data available.")
 
@@ -63,12 +64,12 @@ class AcquiaList(AcquiaData, dict):
     def sorted_keys(self, keys: list):
         self._sorted_keys = keys
 
-    @property
+    @property  # type: ignore
     @abc.abstractmethod
     def base_uri(self) -> str:
         return self._base_uri
 
-    @base_uri.setter
+    @base_uri.setter  # type: ignore
     @abc.abstractmethod
     def base_uri(self, base_uri: str):
         self._base_uri = base_uri

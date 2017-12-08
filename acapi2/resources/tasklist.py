@@ -9,7 +9,7 @@ from acapi2.resources.task import Task
 
 class TaskList(AcquiaList):
     def __init__(self, base_uri: str, api_key: str, api_secret: str,
-                 *args, **kwargs):
+                 *args, **kwargs) -> None:
         super().__init__(base_uri, api_key, api_secret, *args,
                          **kwargs)
         self.fetch()

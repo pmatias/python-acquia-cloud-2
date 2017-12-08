@@ -2,12 +2,11 @@
 # -*- coding: utf-8 -*-
 
 """Acquia application resource."""
-import requests
-
 from acapi2.resources.acquiaresource import AcquiaResource
 from acapi2.resources.environment import Environment
 from acapi2.resources.environmentlist import EnvironmentList
 from acapi2.resources.tasklist import TaskList
+from requests.sessions import Session
 
 
 class Application(AcquiaResource):
@@ -15,7 +14,7 @@ class Application(AcquiaResource):
         raise NotImplementedError
 
     def create_environment(self, label: str, branch: str,
-                           databases: list = None) -> requests:
+                           databases: list = None) -> Session:
         if not databases:
             databases = ["database-" + branch]
 

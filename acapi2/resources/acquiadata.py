@@ -22,7 +22,7 @@ class AcquiaData(object):
                            pver=python_version())
 
     def __init__(self, uri: str, api_key: str, api_secret: str,
-                 data: dict = None):
+                 data: dict = None) -> None:
         self.uri = uri
         self.api_key = api_key
         self.api_secret = api_secret

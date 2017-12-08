@@ -19,7 +19,7 @@ class Acquia(object):
                  api_key: str = None,
                  api_secret: str = None,
                  endpoint: str = None,
-                 cache: int = 600):
+                 cache: int = 600) -> None:
 
         if endpoint:
             self._api_endpoint = endpoint
