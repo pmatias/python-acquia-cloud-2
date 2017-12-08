@@ -8,13 +8,15 @@ from acapi2.resources.acquiadata import AcquiaData
 
 class AcquiaResource(AcquiaData):
 
-    def __getitem__(self, item):
-        print("OH HAI MARK!", item)
-        exit(9)
+    def __getitem__(self, key):
+        if not self.data:
+            self.get()
+
+        return self.data[key]
 
     def get(self):
-        if self.data is None:
+        if not self.data:
             response = self.request()
-            #self.data = response
+            self.data = response.content
 
         return self.data
