@@ -9,4 +9,6 @@ from acapi2.resources.acquiaresource import AcquiaResource
 class Environment(AcquiaResource):
 
     def destroy(self):
-        raise NotImplementedError
+        response = self.request(uri=self.uri, method="DELETE")
+
+        return response

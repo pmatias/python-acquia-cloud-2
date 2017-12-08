@@ -5,7 +5,6 @@
 
 import requests_mock
 
-from acapi2.exceptions import *
 from acapi2.resources.subscriptionlist import SubscriptionList
 from acapi2.resources.applicationlist import ApplicationList
 from acapi2.tests import BaseTest

@@ -3,9 +3,9 @@
 
 """Applications tests"""
 
+import requests
 import requests_mock
 
-from acapi2.resources.application import Application
 from acapi2.resources.applicationlist import ApplicationList
 from acapi2.resources.environmentlist import EnvironmentList
 from acapi2.tests import BaseTest
@@ -122,13 +122,16 @@ class TestApplications(BaseTest):
         self.assertIsInstance(apps, ApplicationList)
 
     def test_application_not_found(self, mocker):
-        response = {
-            "error": "not_found",
-            "message": "The application you are trying to "
-                       "access does not exist, or you do not "
-                       "have permission to access it."
-        }
-        pass
+        app_uuid = "a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        uri = "{base_uri}/applications/{uuid}"
+        uri = uri.format(base_uri=self.endpoint, uuid=app_uuid)
+
+        mocker.register_uri(url=uri, method="GET", status_code=404)
+
+        acquia_data = self.acquia.application(app_uuid)
+
+        with self.assertRaises(requests.HTTPError):
+            acquia_data.request()
 
     def test_create_environment(self, mocker):
         response = {

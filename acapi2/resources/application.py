@@ -5,6 +5,7 @@
 import requests
 
 from acapi2.resources.acquiaresource import AcquiaResource
+from acapi2.resources.environment import Environment
 from acapi2.resources.environmentlist import EnvironmentList
 from acapi2.resources.tasklist import TaskList
 
@@ -29,10 +30,18 @@ class Application(AcquiaResource):
 
         return response
 
-    def environments(self, filters: dict = None):
+    def environments(self, filters: dict = None) -> EnvironmentList:
         envs = EnvironmentList(self.uri, self.api_key,
                                self.api_secret, filters=filters)
         return envs
+
+    def environment(self, environment_id: str) -> Environment:
+        # TODO resolve environment name instead?
+        uri = "{base_uri}/environments/{env_id}".format(
+            base_uri=self.uri,
+            env_id=environment_id)
+        env = Environment(uri, self.api_key, self.api_secret)
+        return env
 
     def tasks(self, filters: dict = None):
         tasks = TaskList(self.uri, self.api_key,

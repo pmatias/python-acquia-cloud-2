@@ -3,7 +3,6 @@
 
 """Acquia API task queue resource."""
 import logging
-import re
 import requests_cache
 import time
 

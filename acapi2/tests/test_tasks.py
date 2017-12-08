@@ -5,7 +5,6 @@
 
 import requests_mock
 
-from acapi2.exceptions import *
 from acapi2.resources.tasklist import TaskList
 from acapi2.tests import BaseTest
 

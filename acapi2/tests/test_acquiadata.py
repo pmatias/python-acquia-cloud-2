@@ -63,7 +63,6 @@ class TestAcquiaData(unittest.TestCase):
         response = acquia_data.request(method="POST", data=rdata)
 
         self.assertEqual(response.status_code, 200)
-        print(response.content)
         self.assertIn(b"created", response.content)
 
     def test_delete_request(self, mocker):
