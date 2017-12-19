@@ -12,6 +12,7 @@ import uuid
 from acapi2.version import __version__
 from platform import python_version
 from pprint import pformat
+from urllib.parse import urlencode
 
 _logger = logging.getLogger("acapi2.resources.acquiadata")
 
@@ -26,8 +27,23 @@ class AcquiaData(object):
         self.uri = uri
         self.api_key = api_key
         self.api_secret = api_secret
-        self.data = data
+        self._data = data or {}
         self.last_response = None
+
+    @property
+    def data(self):
+        return self._data
+
+    @data.setter
+    def data(self, data: dict):
+        self._data = data
+
+    @staticmethod
+    def generate_url_query(uri: str, params: dict) -> str:
+        # TODO: add params support in httphmac.Request()
+        qry = urlencode(params)
+        url = "{uri}?{qry}".format(uri=uri, qry=qry)
+        return url
 
     def request(self, uri: str = None, method: str = "GET",
                 data: dict = None, params: dict = None):
@@ -39,6 +55,9 @@ class AcquiaData(object):
         if not uri:
             uri = self.uri
 
+        if params:
+            uri = self.generate_url_query(uri, params)
+
         response = None
         request = httphmac.Request()
         auth_headers = {
@@ -47,14 +66,13 @@ class AcquiaData(object):
             "nonce": uuid.uuid4().hex,
             "version": "2.0"
         }
-        request.with_url(uri).with_method(method)
+        request.with_url(uri).with_method(method).with_time()
         signer = httphmac.V2Signer()
         signer.sign_direct(request, auth_headers, self.api_secret)
 
         if "GET" == method:
             attempt = 0
             while attempt <= 5:
-                # TODO: add params support in httphmac.Request()
                 response = request.do()
                 if response.status_code not in list(range(500, 505)):
                     break
@@ -67,8 +85,10 @@ class AcquiaData(object):
             if "acapi_retry" in params:
                 del params["acapi_retry"]
 
-        if "POST" == method:
-            response = request.with_json_body(data).do()
+        if "POST" == method or "PUT" == method:
+            request.with_json_body(data)
+            signer.sign_direct(request, auth_headers, self.api_secret)
+            response = request.do()
 
         if "DELETE" == method:
             response = request.do()

@@ -17,20 +17,21 @@ LOGGER = logging.getLogger('acapi2.resources.task')
 class Task(AcquiaResource):
     POLL_INTERVAL = 3
 
+    """
     def __init__(self, uri: str, api_key: str, api_secret: str,
                  data: dict = None) -> None:
         self.loops = 0
         super().__init__(uri, api_key, api_secret, data)
-
+    """
     def mangle_uri(self, uri: str, task_data: dict):
         raise NotImplementedError
 
     def is_pending(self) -> bool:
         with requests_cache.disabled():
-            task = self.request().json()["embedded"]["_items"]
+            tasks = self.request().json()["embedded"]["_items"]
 
-        self.data = task
-        return task["progress"] is not 100
+        self.data = tasks[self.__getitem__("uuid")]
+        return self.data["status"] is not "in-progress"
 
     def wait(self, timeout: int = 1000) -> "Task":
         start = datetime.now()
@@ -43,9 +44,8 @@ class Task(AcquiaResource):
                 raise AcquiaCloudTaskFailedException(msg, self.data)
             time.sleep(self.POLL_INTERVAL)
 
-        task = self.get()
-        # TODO We may have to inquiry Acquia for the new statuses
-        if task["status"] is not "completed":
+        task = self.data
+        if task["status"] is "failed":
             msg = "Task {} failed".format(self.data["uuid"])
             raise AcquiaCloudTaskFailedException(msg, task)
 

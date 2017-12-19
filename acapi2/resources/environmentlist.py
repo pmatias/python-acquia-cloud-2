@@ -8,15 +8,17 @@ from acapi2.resources.environment import Environment
 
 
 class EnvironmentList(AcquiaList):
-    def __init__(self, uri: str, api_key: str, api_secret: str, *args,
+    def __init__(self, uri: str, api_key: str, api_secret: str,
+                 filters: dict = None, *args,
                  **kwargs) -> None:
-        # TODO Filters
+        self._filters = filters
         super().__init__(uri, api_key, api_secret, *args, **kwargs)
         self.fetch()
 
     def fetch(self):
         # TODO should this method live in AcquiaList?
-        envs = super().request(uri=self.uri).json()
+        envs = super().request(uri=self.uri,
+                               params=self._filters).json()
         try:
             env_items = envs["_embedded"]["items"]
         except KeyError:
@@ -28,8 +30,8 @@ class EnvironmentList(AcquiaList):
                 # called id and not uuid :/
                 env_id = env["id"]
                 name = env["name"]
-                envs_uri = "{base_uri}/{env_id}".format(
-                    base_uri=self.uri, env_id=env_id)
+                envs_uri = "{base_uri}/environments/{env_id}".format(
+                    base_uri=self.base_uri, env_id=env_id)
                 self.__setitem__(name,
                                  Environment(envs_uri,
                                              self.api_key,

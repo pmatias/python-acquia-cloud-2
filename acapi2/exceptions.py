@@ -49,3 +49,8 @@ class AcquiaCloudTaskFailedException(AcquiaCloudException):
         """
         task = pformat(self.task, indent=4)
         return "{msg}\n{task}".format(msg=self.message, task=task)
+
+
+class AcquiaCloudPermissionException(AcquiaCloudException):
+
+    pass

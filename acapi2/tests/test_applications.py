@@ -121,6 +121,8 @@ class TestApplications(BaseTest):
         apps = self.acquia.applications()
         self.assertIsInstance(apps, ApplicationList)
 
+    def test_applications_filters(self, mocker): pass
+
     def test_application_not_found(self, mocker):
         app_uuid = "a47ac10b-58cc-4372-a567-0e02b2c3d470"
         uri = "{base_uri}/applications/{uuid}"

@@ -8,14 +8,19 @@ from acapi2.resources.application import Application
 
 
 class ApplicationList(AcquiaList):
-    def __init__(self, uri: str, api_key: str, api_secret: str, *args,
-                 **kwargs) -> None:
-        # TODO Filters
+    def __init__(self, uri: str,
+                 api_key: str,
+                 api_secret: str,
+                 filters: dict = None,
+                 *args, **kwargs) -> None:
+
         super().__init__(uri, api_key, api_secret, *args, **kwargs)
+        self._filters = filters
         self.fetch()
 
-    def fetch(self):
-        apps = super().request(uri=self.uri).json()
+    def fetch(self) -> None:
+        apps = super().request(uri=self.uri,
+                               params=self._filters).json()
         try:
             app_items = apps["_embedded"]["items"]
         except KeyError:
@@ -24,8 +29,7 @@ class ApplicationList(AcquiaList):
         else:
             for app in app_items:
                 app_id = app["uuid"]
-                subs_uri = "{base_uri}/{uuid}".format(
-                    base_uri=self.uri, uuid=app_id)
+                subs_uri = app["_links"]["self"]["href"]
                 self.__setitem__(app_id,
                                  Application(subs_uri,
                                              self.api_key,

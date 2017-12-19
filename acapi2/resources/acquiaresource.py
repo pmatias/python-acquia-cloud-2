@@ -9,14 +9,22 @@ from acapi2.resources.acquiadata import AcquiaData
 class AcquiaResource(AcquiaData):
 
     def __getitem__(self, key):
-        if not self.data:
-            self.get()
+        if not key and not self.data:
+            print("going to populate, brace yourself")
+            self.populate_data()
 
         return self.data[key]
 
-    def get(self):
-        if not self.data:
-            response = self.request()
-            self.data = response.content
+    @property
+    def data(self):
+        if not self._data:
+            self.populate_data()
+        return self._data
 
-        return self.data
+    @data.setter
+    def data(self, data: dict):
+        self._data = data
+
+    def populate_data(self) -> None:
+        results = self.request().json()
+        self.data = results
