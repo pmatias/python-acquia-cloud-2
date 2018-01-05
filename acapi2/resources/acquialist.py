@@ -10,7 +10,10 @@ from acapi2.resources.acquiadata import AcquiaData
 
 
 class AcquiaList(AcquiaData, dict):
-    def __init__(self, base_uri: str, api_key: str, api_secret: str,
+    def __init__(self,
+                 base_uri: str,
+                 api_key: str,
+                 api_secret: str,
                  *args, **kwargs) -> None:
         self._sorted_keys = []  # type: typing.List[typing.Any]
 

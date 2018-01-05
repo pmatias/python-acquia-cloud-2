@@ -48,14 +48,14 @@ class AcquiaData(object):
     def request(self, uri: str = None, method: str = "GET",
                 data: dict = None, params: dict = None):
 
-        params = params or {}
-
         self.last_response = None
 
         if not uri:
             uri = self.uri
 
         if params:
+            params = {k: v for k, v in params.items() if
+                      v is not None}
             uri = self.generate_url_query(uri, params)
 
         response = None
@@ -79,11 +79,11 @@ class AcquiaData(object):
 
                 attempt += 1
                 # this is not yet supported
-                params["acapy_retry"] = attempt
+                params["acapi_retry"] = attempt
                 time.sleep((attempt ** 2.0) / 10)
 
-            if "acapi_retry" in params:
-                del params["acapi_retry"]
+            # if "acapi_retry" in params:
+            #     del params["acapi_retry"]
 
         if "POST" == method or "PUT" == method:
             request.with_json_body(data)

@@ -10,7 +10,6 @@ class AcquiaResource(AcquiaData):
 
     def __getitem__(self, key):
         if not key and not self.data:
-            print("going to populate, brace yourself")
             self.populate_data()
 
         return self.data[key]

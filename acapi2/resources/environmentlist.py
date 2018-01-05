@@ -8,34 +8,28 @@ from acapi2.resources.environment import Environment
 
 
 class EnvironmentList(AcquiaList):
-    def __init__(self, uri: str, api_key: str, api_secret: str,
-                 filters: dict = None, *args,
+    def __init__(self, uri: str,
+                 api_key: str,
+                 api_secret: str,
+                 qry_params: dict = None,
+                 *args,
                  **kwargs) -> None:
-        self._filters = filters
         super().__init__(uri, api_key, api_secret, *args, **kwargs)
+        self._qry_params = qry_params
         self.fetch()
 
     def fetch(self):
-        # TODO should this method live in AcquiaList?
         envs = super().request(uri=self.uri,
-                               params=self._filters).json()
+                               params=self._qry_params).json()
         try:
             env_items = envs["_embedded"]["items"]
         except KeyError:
-            # TODO Handle this
+            # TODO Handle this (raise EmptyError maybe?)
             pass
         else:
             for env in env_items:
-                # The Acquia API is quite specific about this being
-                # called id and not uuid :/
-                env_id = env["id"]
                 name = env["name"]
-                envs_uri = "{base_uri}/environments/{env_id}".format(
-                    base_uri=self.base_uri, env_id=env_id)
-                self.__setitem__(name,
-                                 Environment(envs_uri,
-                                             self.api_key,
-                                             self.api_secret))
+                self.__setitem__(name, env)
 
     @property
     def base_uri(self) -> str:

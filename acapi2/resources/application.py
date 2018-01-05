@@ -50,14 +50,26 @@ class Application(AcquiaResource):
         else:
             return response
 
-    def environments(self, filters: dict = None) -> EnvironmentList:
+    def environments(self,
+                     filters: dict = None,
+                     sort: str = None,
+                     limit: int = None,
+                     offset: int = None) -> EnvironmentList:
+
+        qry_params = {
+            "filters": filters,
+            "sort": sort,
+            "limit": limit,
+            "offset": offset
+        }
+
         envs = EnvironmentList(self.uri, self.api_key,
-                               self.api_secret, filters=filters)
+                               self.api_secret, qry_params=qry_params)
         return envs
 
     def environment(self, environment_id: str) -> Environment:
         # TODO resolve environment name instead?
-        uri = "{base_uri}/environments/{env_id}".format(
+        uri = "{base_uri}/{env_id}".format(
             base_uri=self.uri,
             env_id=environment_id)
         env = Environment(uri, self.api_key, self.api_secret)

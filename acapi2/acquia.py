@@ -32,9 +32,20 @@ class Acquia(object):
         self._api_key = api_key
         self._api_secret = api_secret
 
-    def applications(self, filters: dict = None) -> ApplicationList:
+    def applications(self,
+                     filters: str = None,
+                     sort: str = None,
+                     limit: int = None,
+                     offset: int = None) -> ApplicationList:
+        qry_params = {
+            "filter": filters,
+            "sort": sort,
+            "limit": limit,
+            "offset": offset
+        }
+
         apps = ApplicationList(self.api_endpoint, self.api_key,
-                               self.api_secret, filters=filters)
+                               self.api_secret, qry_params=qry_params)
         return apps
 
     def application(self, uuid):
@@ -43,6 +54,12 @@ class Acquia(object):
         application = Application(uri, self.api_key,
                                   self.api_secret)
         return application
+
+    def environments(self, env_id):
+        # TODO Re-do
+        # namespace = "environments/" + env_id
+        # uri = self.get_uri(namespace)
+        pass
 
     @property
     def api_endpoint(self) -> str:

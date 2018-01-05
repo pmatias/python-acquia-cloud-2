@@ -11,29 +11,30 @@ class ApplicationList(AcquiaList):
     def __init__(self, uri: str,
                  api_key: str,
                  api_secret: str,
-                 filters: dict = None,
+                 qry_params: dict = None,
                  *args, **kwargs) -> None:
 
         super().__init__(uri, api_key, api_secret, *args, **kwargs)
-        self._filters = filters
+        self._qry_params = qry_params
         self.fetch()
 
     def fetch(self) -> None:
         apps = super().request(uri=self.uri,
-                               params=self._filters).json()
+                               params=self._qry_params).json()
         try:
             app_items = apps["_embedded"]["items"]
         except KeyError:
             # TODO Handle this
             pass
         else:
+            index = 0
             for app in app_items:
-                app_id = app["uuid"]
                 subs_uri = app["_links"]["self"]["href"]
-                self.__setitem__(app_id,
+                self.__setitem__(index,
                                  Application(subs_uri,
                                              self.api_key,
                                              self.api_secret))
+                index += index
 
     @property
     def base_uri(self) -> str:
