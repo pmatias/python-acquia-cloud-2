@@ -8,6 +8,7 @@ import os
 
 from acapi2.resources.application import Application
 from acapi2.resources.applicationlist import ApplicationList
+from acapi2.resources.environment import Environment
 from acapi2.resources.subscription import Subscription
 from acapi2.resources.subscriptionlist import SubscriptionList
 
@@ -48,18 +49,17 @@ class Acquia(object):
                                self.api_secret, qry_params=qry_params)
         return apps
 
-    def application(self, uuid):
+    def application(self, uuid) -> Application:
         namespace = "applications/" + uuid
         uri = self.get_uri(namespace)
         application = Application(uri, self.api_key,
                                   self.api_secret)
         return application
 
-    def environments(self, env_id):
-        # TODO Re-do
-        # namespace = "environments/" + env_id
-        # uri = self.get_uri(namespace)
-        pass
+    def environment(self, env_id: int) -> Environment:
+        namespace = "environments/" + str(env_id)
+        uri = self.get_uri(namespace)
+        return Environment(uri, self.api_key, self.api_secret)
 
     @property
     def api_endpoint(self) -> str:

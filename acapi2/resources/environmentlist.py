@@ -4,7 +4,6 @@
 """Acquia Environment resource"""
 
 from acapi2.resources.acquialist import AcquiaList
-from acapi2.resources.environment import Environment
 
 
 class EnvironmentList(AcquiaList):
