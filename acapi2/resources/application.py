@@ -68,7 +68,6 @@ class Application(AcquiaResource):
         return envs
 
     def environment(self, environment_id: str) -> Environment:
-        # TODO resolve environment name instead?
         uri = "{base_uri}/{env_id}".format(
             base_uri=self.uri,
             env_id=environment_id)
