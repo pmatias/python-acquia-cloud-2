@@ -56,7 +56,7 @@ class Acquia(object):
                                   self.api_secret)
         return application
 
-    def environment(self, env_id: int) -> Environment:
+    def environment(self, env_id: str) -> Environment:
         namespace = "environments/" + str(env_id)
         uri = self.get_uri(namespace)
         return Environment(uri, self.api_key, self.api_secret)

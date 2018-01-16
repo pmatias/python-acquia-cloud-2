@@ -24,7 +24,7 @@ class Environment(AcquiaResource):
             return response
 
     def configure(self, data: dict) -> Session:
-        return self.request(uri=self.uri, method="POST", data=data)
+        return self.request(uri=self.uri, method="PUT", data=data)
 
     def destroy(self):
         response = self.request(uri=self.uri, method="DELETE")
