@@ -44,4 +44,16 @@ dev_environment = application.environments()["dev"]
 print(dev_environment["id"])
 
 dev_environment.set_php_version("7.0")
+
+more_settings = {
+  "max_execution_time": 10,
+  "memory_limit": 192,
+  "apc": 128,
+  "max_input_vars": 1000,
+  "max_post_size": 256,
+  "sendmail_path": "/usr/bin/sendmail",
+  "varnish_over_ssl": false
+}
+
+dev_environment.configure(more_settings)
 ```
