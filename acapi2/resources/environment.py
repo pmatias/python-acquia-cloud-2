@@ -15,16 +15,20 @@ class Environment(AcquiaResource):
         data = {
             "branch": branch
         }
-
-        try:
-            response = self.request(uri=uri, method="POST", data=data)
-        except RequestException:
-            print("There was an error on the request")
-        else:
-            return response
+        response = self.request(uri=uri, method="POST", data=data)
+        return response
 
     def configure(self, data: dict) -> Session:
         return self.request(uri=self.uri, method="PUT", data=data)
+
+    def create_domain(self, domain: str) -> Session:
+        uri = self.uri + "/domains"
+        data = {
+            "hostname": domain
+        }
+        response = self.request(uri=uri, method="POST", data=data)
+
+        return response
 
     def destroy(self):
         response = self.request(uri=self.uri, method="DELETE")
@@ -37,12 +41,8 @@ class Environment(AcquiaResource):
             "source": id_from
         }
 
-        try:
-            response = self.request(uri=uri, method="POST", data=data)
-        except RequestException:
-            print("There was an error on the request")
-        else:
-            return response
+        response = self.request(uri=uri, method="POST", data=data)
+        return response
 
     def deploy_database(self, id_from: str, db_name: str) -> None:
         uri = self.uri + "/databases"
@@ -51,12 +51,8 @@ class Environment(AcquiaResource):
             "source": id_from
         }
 
-        try:
-            response = self.request(uri=uri, method="POST", data=data)
-        except RequestException:
-            print("There was an error on the request")
-        else:
-            return response
+        response = self.request(uri=uri, method="POST", data=data)
+        return response
 
     def set_php_version(self, version: str) -> Session:
 
