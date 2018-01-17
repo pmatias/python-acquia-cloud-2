@@ -22,18 +22,18 @@ class Application(AcquiaResource):
         try:
             response = self.request(uri=uri, method="POST", data=data)
         except RequestException:
-            print("Fix this message")
+            print("There was an error in the request.")
         else:
             return response
 
-    def create_environment(self, label: str, branch: str,
+    def create_environment(self, label: str, env_name: str,
                            databases: list = None) -> Session:
         if not databases:
-            databases = ["database_" + branch]
+            databases = ["database_" + env_name]
 
         data = {
             "label": label,
-            "branch": branch,
+            "branch": env_name,
             "databases": databases
         }
 
@@ -46,7 +46,7 @@ class Application(AcquiaResource):
             response = self.request(uri=uri,
                                     method="POST", data=data)
         except RequestException:
-            print(dir(RequestException))
+            print("There was an error in the request.")
         else:
             return response
 
