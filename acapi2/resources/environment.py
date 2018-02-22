@@ -54,6 +54,15 @@ class Environment(AcquiaResource):
         response = self.request(uri=uri, method="POST", data=data)
         return response
 
+    def deploy_files(self, id_from: str) -> Session:
+        uri = self.uri + "/files"
+        data = {
+            "source": id_from
+        }
+
+        response = self.request(uri=uri, method="POST", data=data)
+        return response
+
     def set_php_version(self, version: str) -> Session:
 
         data = {

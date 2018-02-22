@@ -89,9 +89,11 @@ class AcquiaData(object):
             request.with_json_body(data)
             signer.sign_direct(request, auth_headers, self.api_secret)
             response = request.do()
+            logging.debug(response.content)
 
         if "DELETE" == method:
             response = request.do()
+            logging.debug(response.content)
 
         self.last_response = response
         if response.status_code != requests.codes.ok \
