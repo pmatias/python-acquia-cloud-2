@@ -32,7 +32,7 @@ class Environment(AcquiaResource):
 
     def destroy(self):
         response = self.request(uri=self.uri, method="DELETE")
-
+        
         return response
 
     def deploy_code(self, id_from: str) -> Session:
@@ -62,6 +62,12 @@ class Environment(AcquiaResource):
 
         response = self.request(uri=uri, method="POST", data=data)
         return response
+
+    def get_servers(self) -> dict:
+        uri = self.uri + "/servers"
+
+        response = self.request(uri=uri)
+        return response.json()
 
     def set_php_version(self, version: str) -> Session:
 
