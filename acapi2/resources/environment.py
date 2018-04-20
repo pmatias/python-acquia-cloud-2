@@ -5,7 +5,6 @@
 
 from acapi2.resources.acquiaresource import AcquiaResource
 from requests.sessions import Session
-from requests.exceptions import RequestException
 
 
 class Environment(AcquiaResource):
@@ -32,7 +31,6 @@ class Environment(AcquiaResource):
 
     def destroy(self):
         response = self.request(uri=self.uri, method="DELETE")
-        
         return response
 
     def deploy_code(self, id_from: str) -> Session:

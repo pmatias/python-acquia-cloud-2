@@ -7,7 +7,7 @@ from acapi2.resources.environment import Environment
 from acapi2.resources.environmentlist import EnvironmentList
 from acapi2.resources.tasklist import TaskList
 from requests.sessions import Session
-from requests.exceptions import HTTPError, RequestException
+from requests.exceptions import RequestException
 
 
 class Application(AcquiaResource):
@@ -39,7 +39,7 @@ class Application(AcquiaResource):
 
         uri = "{}/environments".format(self.uri)
 
-        #for db in databases:
+        # for db in databases:
         #    self.create_database(db)
 
         try:
