@@ -13,7 +13,7 @@ class TestEnvironments(BaseTest):
     def test_destroy_env(self, mocker):
         app_uuid = "a47ac10b-58cc-4372-a567-0e02b2c3d470"
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
-        uri = "{base_uri}/applications/{uuid}/environments/{env_id}"
+        uri = "{base_uri}/applications/{uuid}/{env_id}"
         uri = uri.format(base_uri=self.endpoint, uuid=app_uuid,
                          env_id=env_id)
         response = {

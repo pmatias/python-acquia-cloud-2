@@ -57,6 +57,8 @@ class AcquiaData(object):
             params = {k: v for k, v in params.items() if
                       v is not None}
             uri = self.generate_url_query(uri, params)
+        else:
+            params = {}
 
         response = None
         request = httphmac.Request()
