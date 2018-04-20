@@ -19,8 +19,8 @@ class ApplicationList(AcquiaList):
         self.fetch()
 
     def fetch(self) -> None:
-        apps = super().request(uri=self.uri,
-                               params=self._qry_params).json()
+        apps = self.request(uri=self.uri,
+                            params=self._qry_params).json()
         try:
             app_items = apps["_embedded"]["items"]
         except KeyError:
