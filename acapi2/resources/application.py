@@ -7,7 +7,7 @@ from acapi2.resources.environment import Environment
 from acapi2.resources.environmentlist import EnvironmentList
 from acapi2.resources.tasklist import TaskList
 from requests.sessions import Session
-from requests.exceptions import HTTPError, RequestException
+from requests.exceptions import RequestException
 
 
 class Application(AcquiaResource):
@@ -23,8 +23,8 @@ class Application(AcquiaResource):
             response = self.request(uri=uri, method="POST", data=data)
         except RequestException:
             print("There was an error in the request.")
-        else:
-            return response
+
+        return response
 
     def create_environment(self, label: str, env_name: str,
                            databases: list = None) -> Session:
@@ -39,7 +39,7 @@ class Application(AcquiaResource):
 
         uri = "{}/environments".format(self.uri)
 
-        #for db in databases:
+        # for db in databases:
         #    self.create_database(db)
 
         try:
@@ -47,8 +47,8 @@ class Application(AcquiaResource):
                                     method="POST", data=data)
         except RequestException:
             print("There was an error in the request.")
-        else:
-            return response
+
+        return response
 
     def environments(self,
                      filters: dict = None,
