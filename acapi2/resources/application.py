@@ -23,8 +23,8 @@ class Application(AcquiaResource):
             response = self.request(uri=uri, method="POST", data=data)
         except RequestException:
             print("There was an error in the request.")
-        else:
-            return response
+
+        return response
 
     def create_environment(self, label: str, env_name: str,
                            databases: list = None) -> Session:
@@ -47,8 +47,8 @@ class Application(AcquiaResource):
                                     method="POST", data=data)
         except RequestException:
             print("There was an error in the request.")
-        else:
-            return response
+
+        return response
 
     def environments(self,
                      filters: dict = None,
