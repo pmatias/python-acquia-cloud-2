@@ -79,7 +79,7 @@ class AcquiaData(object):
 
                 attempt += 1
                 # this is not yet supported
-                params["acapi_retry"] = attempt
+                # params["acapi_retry"] = attempt
                 time.sleep((attempt ** 2.0) / 10)
 
             # if "acapi_retry" in params:

@@ -18,7 +18,7 @@ class TaskList(AcquiaList):
         self.fetch()
 
     def fetch(self) -> None:
-        tasks = super().request(uri=self.uri,
+        tasks = self.request(uri=self.uri,
                                 params=self._filters).json()
         try:
             task_items = tasks["_embedded"]["items"]

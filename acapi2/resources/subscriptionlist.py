@@ -15,7 +15,7 @@ class SubscriptionList(AcquiaList):
         self.fetch()
 
     def fetch(self):
-        subs = super().request(uri=self.uri).json()
+        subs = self.request(uri=self.uri).json()
         try:
             sub_items = subs["_embedded"]["items"]
         except KeyError:
