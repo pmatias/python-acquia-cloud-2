@@ -9,11 +9,12 @@ from requests.sessions import Session
 
 class Environment(AcquiaResource):
 
-    def code_switch(self, branch: str) -> Session:
+    def code_switch(self, branch_tag: str) -> Session:
         uri = self.uri + "/code/actions/switch"
         data = {
-            "branch": branch
+            "branch": branch_tag
         }
+
         response = self.request(uri=uri, method="POST", data=data)
         return response
 
