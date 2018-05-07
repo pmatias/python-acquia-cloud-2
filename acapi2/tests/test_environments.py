@@ -64,13 +64,13 @@ class TestEnvironments(BaseTest):
         mocker.register_uri("POST", uri,
                             status_code=202, json=response_message)
 
-        response = self.acquia.environment(env_id).create_domain("ceruleanhq.com")
+        response = self.acquia.environment(env_id).create_domain(
+            "ceruleanhq.com")
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"added", response.content)
 
     def test_destroy(self, mocker):
-        app_uuid = "a47ac10b-58cc-4372-a567-0e02b2c3d470"
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         uri = "{base_uri}/environments/{env_id}"
         uri = uri.format(base_uri=self.endpoint, env_id=env_id)

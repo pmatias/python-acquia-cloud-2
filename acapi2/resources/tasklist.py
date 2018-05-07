@@ -19,7 +19,7 @@ class TaskList(AcquiaList):
 
     def fetch(self) -> None:
         tasks = self.request(uri=self.uri,
-                                params=self._filters).json()
+                             params=self._filters).json()
         try:
             task_items = tasks["_embedded"]["items"]
         except KeyError:
