@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
+import os
+
 from setuptools import setup, find_packages
+
+with open(os.path.join(os.path.dirname(__name__), 'README.md')) as f:
+    long_description = f.read()
 
 setup(
     name='acapi2',
-    version='2.0.0-alpha1',
+    version='2.0.0-a2',
     url='https://github.com/pmatias/python-acquia-cloud-2',
-    download_url='https://pypi.python.org/pypi/TBD',
+    download_url='https://pypi.org/project/acapi2',
     license='MIT',
     author='Pablo Fabregat',
     author_email='pablo@ceruleanhq.com',
-    description='Acquia Cloud API v2 client.',
+    description='Acquia Cloud API v2 client library.',
+    long_description=long_description,
     zip_safe=False,
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -22,6 +28,7 @@ setup(
         'Topic :: Internet',
     ],
     platforms='any',
+    python_requires='>=3.5',
     packages=find_packages(exclude=['tests']),
     include_package_data=True,
     install_requires=[
