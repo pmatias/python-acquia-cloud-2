@@ -1,6 +1,6 @@
 # Python Acquia Cloud API v2
 
-Client library to communicate with the [Acquia Cloud API](https://cloudapi.acquia.com/).
+Client library to communicate with the [Acquia Cloud API V2](http://cloud.acquia.com/api-docs).
 
 [Pablo Fabregat](http://pablofabregat.com) - [License](LICENSE.txt)
 
