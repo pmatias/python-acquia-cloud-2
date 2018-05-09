@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='acapi2',
-    version='2.0.0-a1',
+    version='2.0.0-alpha1',
     url='https://github.com/pmatias/python-acquia-cloud-2',
     download_url='https://pypi.python.org/pypi/TBD',
     license='MIT',
