@@ -18,8 +18,8 @@ class EnvironmentList(AcquiaList):
         self.fetch()
 
     def fetch(self):
-        envs = super().request(uri=self.uri,
-                               params=self._qry_params).json()
+        envs = self.request(uri=self.uri,
+                            params=self._qry_params).json()
         try:
             env_items = envs["_embedded"]["items"]
         except KeyError:
