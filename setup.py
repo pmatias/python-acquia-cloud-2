@@ -36,6 +36,6 @@ setup(
         'http-hmac-python==2.4.0',
         'requests==2.18.4',
         'requests-cache==0.4.13',
-        'setuptools>=18.5'
+        'setuptools>=38.5'
     ]
 )
