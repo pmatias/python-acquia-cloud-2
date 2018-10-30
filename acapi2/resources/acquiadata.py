@@ -46,9 +46,7 @@ class AcquiaData(object):
         return url
 
     def request(self, uri: str = None, method: str = "GET",
-                data: dict = None, params: dict = None,
-                attempts: int = 10,
-                wait_factor: float = 3.0):
+                data: dict = None, params: dict = None):
 
         self.last_response = None
 
@@ -74,7 +72,7 @@ class AcquiaData(object):
 
         if "GET" == method:
             attempt = 0
-            while attempt <= attempts:
+            while attempt <= 5:
                 response = request.do()
                 if response.status_code not in list(range(500, 505)):
                     break
@@ -82,7 +80,7 @@ class AcquiaData(object):
                 attempt += 1
                 # this is not yet supported
                 # params["acapi_retry"] = attempt
-                time.sleep((attempt ** wait_factor) / 10)
+                time.sleep((attempt ** 2.0) / 10)
 
             # if "acapi_retry" in params:
             #     del params["acapi_retry"]
