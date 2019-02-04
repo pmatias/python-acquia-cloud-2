@@ -63,6 +63,12 @@ class Environment(AcquiaResource):
         response = self.request(uri=uri, method="POST", data=data)
         return response
 
+    def get_crons(self) -> dict:
+        uri = self.uri + "/crons"
+
+        response = self.request(uri=uri)
+        return response.json()
+
     def get_servers(self) -> dict:
         uri = self.uri + "/servers"
 
