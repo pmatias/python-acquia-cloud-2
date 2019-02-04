@@ -253,7 +253,86 @@ class TestEnvironments(BaseTest):
 
         self.assertEqual(response["total"], 2)
         self.assertIn("_embedded", response)
+        
+    def test_get_crons(self, mocker):
+        env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        uri = "{base_uri}/environments/{env_id}/crons"
+        uri = uri.format(base_uri=self.endpoint, env_id=env_id)
 
+        response_message = {
+                    "_embedded": {
+                        "items": [
+                            {
+                                "_links": {
+                                    "self": {
+                                        "href": "{baseUri}/environments/24-a47ac10b-58cc-4372-a567-0e02b2c3d470/crons/43595"
+                                    }
+                                },
+                                "command": "/usr/local/bin/drush -r /var/www/html/mysub/docroot ah-db-backup mysub",
+                                "day_month": "*",
+                                "day_week": "*",
+                                "environment": {
+                                    "id": "24-a47ac10b-58cc-4372-a567-0e02b2c3d470",
+                                    "name": "prod"
+                                },
+                                "flags": {
+                                    "enabled": True,
+                                    "on_any_web": True,
+                                    "system": True
+                                },
+                                "hour": "8",
+                                "id": "43595",
+                                "label": None,
+                                "minute": "0",
+                                "month": "*",
+                                "server": []
+                            },
+                            {
+                                "_links": {
+                                    "self": {
+                                        "href": "{baseUri}/environments/24-a47ac10b-58cc-4372-a567-0e02b2c3d470/crons/56834"
+                                    }
+                                },
+                                "command": "/usr/local/bin/drush9 --uri=[http://[site-uri] --root=/var/www/html/${AH_SITE_NAME}/docroot -dv cron &>> /var/log/sites/${AH_SITE_NAME}/logs/$(hostname -s)/drush-cron.log",
+                                "day_month": "*",
+                                "day_week": "*",
+                                "environment": {
+                                    "id": "24-a47ac10b-58cc-4372-a567-0e02b2c3d470",
+                                    "name": "prod"
+                                },
+                                "flags": {
+                                    "enabled": True,
+                                    "on_any_web": True,
+                                    "system": False
+                                },
+                                "hour": "*",
+                                "id": "56834",
+                                "label": "Site Cron Every Hour",
+                                "minute": "0",
+                                "month": "*",
+                                "server": []
+                            },
+                        ]
+                    },
+                    "_links": {
+                        "parent": {
+                            "href": "{baseUri}/environments/24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+                        },
+                        "self": {
+                            "href": "{baseUri}/environments/24-a47ac10b-58cc-4372-a567-0e02b2c3d470/crons"
+                        }
+                    },
+                    "total": 2
+                }
+        
+        mocker.register_uri("GET", uri,
+                            status_code=200, json=response_message)
+
+        response = self.acquia.environment(env_id).get_crons()
+
+        self.assertEqual(response["total"], 2)
+        self.assertIn("_embedded", response)
+ 
     def test_set_php_version(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         uri = "{base_uri}/environments/{env_id}"
