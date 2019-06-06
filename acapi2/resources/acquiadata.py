@@ -9,6 +9,7 @@ import requests
 import time
 import uuid
 
+from acapi2.http_request import HttpRequest
 from acapi2.version import __version__
 from platform import python_version
 from pprint import pformat
@@ -59,7 +60,7 @@ class AcquiaData(object):
             uri = self.generate_url_query(uri, params)
 
         response = None
-        request = httphmac.Request()
+        request = HttpRequest()
         auth_headers = {
             "realm": self._realm,
             "id": self.api_key,

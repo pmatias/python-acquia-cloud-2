@@ -8,7 +8,7 @@ with open(os.path.join(os.path.dirname(__name__), 'README.md')) as f:
 
 setup(
     name='acapi2',
-    version='2.0.0a5',
+    version='2.0.0a6',
     url='https://github.com/pmatias/python-acquia-cloud-2',
     download_url='https://pypi.org/project/acapi2',
     license='MIT',
@@ -34,7 +34,7 @@ setup(
     include_package_data=True,
     install_requires=[
         'http-hmac-python==2.4.0',
-        'requests==2.18.4',
+        'requests==2.20.0',
         'requests-cache==0.4.13',
         'setuptools>=38.5'
     ]
