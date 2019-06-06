@@ -31,7 +31,7 @@ class Environment(AcquiaResource):
         return response
 
     def delete_domain(self, domain: str) -> Session:
-        uri = self.uri + f"/domains/{domain}"
+        uri = self.uri + "/domains/{domain}".format(domain=domain)
         response = self.request(uri=uri, method="DELETE")
 
         return response
