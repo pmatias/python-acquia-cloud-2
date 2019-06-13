@@ -70,6 +70,20 @@ class TestEnvironments(BaseTest):
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"added", response.content)
 
+    def test_delete_domain(self, mocker):
+        env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        domain = "ceruleanhq.com"
+        uri = "{base_uri}/environments/{env_id}/domains/{domain}"
+        uri = uri.format(base_uri=self.endpoint, env_id=env_id, domain=domain)
+
+        mocker.register_uri("DELETE", uri,
+                            status_code=202)
+
+        response = self.acquia.environment(env_id).delete_domain(
+            "ceruleanhq.com")
+
+        self.assertEqual(response.status_code, 202)
+
     def test_destroy(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         uri = "{base_uri}/environments/{env_id}"
