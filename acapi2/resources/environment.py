@@ -36,6 +36,15 @@ class Environment(AcquiaResource):
 
         return response
 
+    def clear_varnish_domain(self, domain: str) -> Session:
+        uri = self.uri + "/domains/{domain}/actions/clear-varnish".format(domain=domain)
+        data = {
+            "hostname": domain
+        }
+        response = self.request(uri=uri, method="POST", data=data)
+
+        return response
+
     def destroy(self):
         response = self.request(uri=self.uri, method="DELETE")
 

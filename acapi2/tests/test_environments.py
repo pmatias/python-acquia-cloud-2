@@ -84,6 +84,24 @@ class TestEnvironments(BaseTest):
 
         self.assertEqual(response.status_code, 202)
 
+    def test_clear_varnish_domain(self, mocker):
+        env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        domain = "ceruleanhq.com"
+        uri = "{base_uri}/environments/{env_id}/domains/{domain}/actions/clear-varnish"
+        uri = uri.format(base_uri=self.endpoint, env_id=env_id, domain=domain)
+
+        response_message = {
+            "message": "Varnish is being cleared for domain 'ceruleanhq.com'."
+        }
+
+        mocker.register_uri("POST", uri,
+                            status_code=202, json=response_message)
+
+        response = self.acquia.environment(env_id).clear_varnish_domain(
+            "ceruleanhq.com")
+
+        self.assertEqual(response.status_code, 202)
+
     def test_destroy(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         uri = "{base_uri}/environments/{env_id}"
