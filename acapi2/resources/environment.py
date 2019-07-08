@@ -37,7 +37,8 @@ class Environment(AcquiaResource):
         return response
 
     def clear_varnish_domain(self, domain: str) -> Session:
-        uri = self.uri + "/domains/{domain}/actions/clear-varnish".format(domain=domain)
+        uri = self.uri + \
+            "/domains/{domain}/actions/clear-varnish".format(domain=domain)
         data = {
             "hostname": domain
         }
