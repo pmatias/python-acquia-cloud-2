@@ -378,7 +378,11 @@ class TestEnvironments(BaseTest):
         uri = "{base_uri}/environments/{env_id}/"
         uri = uri.format(base_uri=self.endpoint, env_id=env_id)
         response_message = {
-            'php_version' : '7.2'
+            'configuration': {
+                'php': {
+                    'version': '7.2'
+                }
+            }
         }
 
         mocker.register_uri("GET", uri,
