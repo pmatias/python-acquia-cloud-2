@@ -91,6 +91,12 @@ class Environment(AcquiaResource):
         response = self.request(uri=uri)
         return response.json()
 
+    def get_php_version(self) -> dict:
+        uri = self.uri + "/"
+
+        response = self.request(uri=uri)
+        return response.json()
+
     def set_php_version(self, version: str) -> Session:
 
         data = {
