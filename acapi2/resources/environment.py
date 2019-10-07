@@ -30,6 +30,26 @@ class Environment(AcquiaResource):
 
         return response
 
+    def create_log_forwarding_destinations(
+        self,
+        label: str,
+        sources: list,
+        consumer: str,
+        credentials: dict,
+        address: str
+    ) -> Session:
+        uri = self.uri + "/log-forwarding-destinations"
+        data = {
+            "label": label,
+            "sources": sources,
+            "consumer": consumer,
+            "credentials": credentials,
+            "address": address
+        }
+        response = self.request(uri=uri, method="POST", data=data)
+
+        return response
+
     def delete_domain(self, domain: str) -> Session:
         uri = self.uri + "/domains/{domain}".format(domain=domain)
         response = self.request(uri=uri, method="DELETE")
@@ -81,6 +101,12 @@ class Environment(AcquiaResource):
 
     def get_crons(self) -> dict:
         uri = self.uri + "/crons"
+
+        response = self.request(uri=uri)
+        return response.json()
+
+    def get_log_forwarding_destinations(self) -> dict:
+        uri = self.uri + "/log-forwarding-destinations"
 
         response = self.request(uri=uri)
         return response.json()
