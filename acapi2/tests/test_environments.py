@@ -373,6 +373,25 @@ class TestEnvironments(BaseTest):
         self.assertEqual(response["total"], 2)
         self.assertIn("_embedded", response)
 
+    def test_get_php_version(self, mocker):
+        env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        uri = "{base_uri}/environments/{env_id}/"
+        uri = uri.format(base_uri=self.endpoint, env_id=env_id)
+        response_message = {
+            'configuration': {
+                'php': {
+                    'version': '7.2'
+                }
+            }
+        }
+
+        mocker.register_uri("GET", uri,
+                            status_code=200, json=response_message)
+
+        response = self.acquia.environment(env_id).get_php_version()
+
+        self.assertEqual(response['php_version'], '7.2')
+
     def test_set_php_version(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         uri = "{base_uri}/environments/{env_id}"
