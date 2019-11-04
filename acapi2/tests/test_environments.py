@@ -134,7 +134,7 @@ class TestEnvironments(BaseTest):
             env_id).clear_varnish_domain("ceruleanhq.com")
 
         self.assertEqual(response.status_code, 202)
-    
+
     def test_clear_varnish_domains(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         domains = ["ceruleanhq.com"]

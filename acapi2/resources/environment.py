@@ -65,7 +65,7 @@ class Environment(AcquiaResource):
         response = self.request(uri=uri, method="POST", data=data)
 
         return response
-    
+
     def clear_varnish_domains(self, domains: list) -> Session:
         uri = self.uri + \
             "/domains/actions/clear-varnish"
