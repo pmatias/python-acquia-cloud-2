@@ -15,6 +15,9 @@ LOGGER = logging.getLogger('acapi2.resources.task')
 
 
 class Task(AcquiaResource):
+    """
+    Task is deprecated, let's not use it anymore.
+    """
     POLL_INTERVAL = 3
 
     """
@@ -39,8 +42,8 @@ class Task(AcquiaResource):
 
         while self.is_pending():
             if start >= max_time:
-                msg = "Time out exceeded while waiting for {}".format(
-                    self.data["uuid"])
+                msg = f"Time out exceeded while " \
+                      f"waiting for {self.data['uuid']}"
                 raise AcquiaCloudTaskFailedException(msg, self.data)
             time.sleep(self.POLL_INTERVAL)
 

@@ -8,7 +8,7 @@ with open(os.path.join(os.path.dirname(__name__), 'README.md')) as f:
 
 setup(
     name='acapi2',
-    version='2.0.0b2',
+    version='2.0.2',
     url='https://github.com/pmatias/python-acquia-cloud-2',
     download_url='https://pypi.org/project/acapi2',
     license='MIT',
@@ -24,13 +24,12 @@ setup(
         'Intended Audience :: Education',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Topic :: Internet',
     ],
     platforms='any',
-    python_requires='>=3.5',
+    python_requires='>=3.6',
     packages=find_packages(exclude=['tests']),
     include_package_data=True,
     install_requires=[
