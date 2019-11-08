@@ -5,12 +5,7 @@
 
 
 import logging
-import requests_cache
-import time
 
-from datetime import datetime, timedelta
-
-from acapi2.exceptions import AcquiaCloudTaskFailedException
 from acapi2.resources.acquiaresource import AcquiaResource
 
 
@@ -25,4 +20,3 @@ class Notification(AcquiaResource):
                  filters: dict = None,
                  *args, **kwargs) -> None:
         super().__init__(uri, api_key, api_secret, *args, **kwargs)
-

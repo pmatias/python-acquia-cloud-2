@@ -20,12 +20,6 @@ class Task(AcquiaResource):
     """
     POLL_INTERVAL = 3
 
-    """
-    def __init__(self, uri: str, api_key: str, api_secret: str,
-                 data: dict = None) -> None:
-        self.loops = 0
-        super().__init__(uri, api_key, api_secret, data)
-    """
     def mangle_uri(self, uri: str, task_data: dict):
         raise NotImplementedError
 
@@ -34,7 +28,7 @@ class Task(AcquiaResource):
             tasks = self.request().json()["embedded"]["_items"]
 
         self.data = tasks[self.__getitem__("uuid")]
-        return self.data["status"] is not "in-progress"
+        return self.data["status"] != "in-progress"
 
     def wait(self, timeout: int = 1000) -> "Task":
         start = datetime.now()
@@ -48,8 +42,8 @@ class Task(AcquiaResource):
             time.sleep(self.POLL_INTERVAL)
 
         task = self.data
-        if task["status"] is "failed":
-            msg = "Task {} failed".format(self.data["uuid"])
+        if task["status"] == "failed":
+            msg = f"Task {self.data['uuid']} failed"
             raise AcquiaCloudTaskFailedException(msg, task)
 
         end = datetime.now()
