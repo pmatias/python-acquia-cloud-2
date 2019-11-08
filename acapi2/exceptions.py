@@ -6,11 +6,10 @@
 from pprint import pformat
 
 
-# TODO: This class needs CLEANING
 class AcquiaCloudException(Exception):
     """Generic Acquia Cloud API Exception.
 
-    All ACAPI exceptions should extend this class.
+    All acapi2 exceptions should extend this class.
     """
 
     pass
@@ -48,7 +47,7 @@ class AcquiaCloudTaskFailedException(AcquiaCloudException):
             The error message and pretty printed Task object properties.
         """
         task = pformat(self.task, indent=4)
-        return "{msg}\n{task}".format(msg=self.message, task=task)
+        return f"{self.message}\n{task}"
 
 
 class AcquiaCloudPermissionException(AcquiaCloudException):

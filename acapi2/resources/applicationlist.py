@@ -5,6 +5,7 @@
 
 from acapi2.resources.acquialist import AcquiaList
 from acapi2.resources.application import Application
+from acapi2.exceptions import AcquiaCloudNoDataException
 
 
 class ApplicationList(AcquiaList):
@@ -24,8 +25,7 @@ class ApplicationList(AcquiaList):
         try:
             app_items = apps["_embedded"]["items"]
         except KeyError:
-            # TODO Handle this
-            pass
+            raise AcquiaCloudNoDataException()
         else:
             index = 0
             for app in app_items:
@@ -34,7 +34,7 @@ class ApplicationList(AcquiaList):
                                  Application(subs_uri,
                                              self.api_key,
                                              self.api_secret))
-                index += index
+                index += 1
 
     @property
     def base_uri(self) -> str:
@@ -42,5 +42,4 @@ class ApplicationList(AcquiaList):
 
     @base_uri.setter
     def base_uri(self, base_uri: str):
-        uri = "{}/applications".format(base_uri)
-        self._base_uri = uri
+        self._base_uri = f"{base_uri}/applications"

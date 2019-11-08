@@ -6,6 +6,7 @@ from acapi2.resources.acquiaresource import AcquiaResource
 from acapi2.resources.environment import Environment
 from acapi2.resources.environmentlist import EnvironmentList
 from acapi2.resources.tasklist import TaskList
+from acapi2.resources.notificationlist import NotificationList
 from requests.sessions import Session
 from requests.exceptions import RequestException
 
@@ -15,7 +16,7 @@ class Application(AcquiaResource):
         raise NotImplementedError
 
     def create_database(self, name: str) -> Session:
-        uri = "{}/databases".format(self.uri)
+        uri = f"{self.uri}/databases"
         data = {
             "name": name
         }
@@ -39,7 +40,7 @@ class Application(AcquiaResource):
             "databases": databases
         }
 
-        uri = "{}/environments".format(self.uri)
+        uri = f"{self.uri}/environments"
 
         response = None
         try:
@@ -63,21 +64,33 @@ class Application(AcquiaResource):
             "offset": offset
         }
 
-        envs = EnvironmentList(self.uri, self.api_key,
+        return EnvironmentList(self.uri, self.api_key,
                                self.api_secret, qry_params=qry_params)
-        return envs
 
     def environment(self, environment_id: str) -> Environment:
-        uri = "{base_uri}/{env_id}".format(
-            base_uri=self.uri,
-            env_id=environment_id)
-        env = Environment(uri, self.api_key, self.api_secret)
-        return env
+        uri = f"{self.uri}/{environment_id}"
+        return Environment(uri, self.api_key, self.api_secret)
 
     def load(self) -> None:
         self.populate_data()
 
-    def tasks(self, filters: dict = None):
-        tasks = TaskList(self.uri, self.api_key,
-                         self.api_secret, filters=filters)
-        return tasks
+    def notifications(self, filters: dict = None,
+                      sort: str = None,
+                      limit: int = None,
+                      offset: int = None) -> NotificationList:
+        """Get the notifications for this tasks."""
+
+        qry_params = {
+            "filters": filters,
+            "sort": sort,
+            "limit": limit,
+            "offset": offset
+        }
+
+        return NotificationList(self.uri, self.api_key,
+                                self.api_secret, qry_params=qry_params)
+
+    def tasks(self, filters: dict = None) -> TaskList:
+        """DEPRECATED(use notifications): Get tasks for this application."""
+        return TaskList(self.uri, self.api_key,
+                        self.api_secret, filters=filters)
