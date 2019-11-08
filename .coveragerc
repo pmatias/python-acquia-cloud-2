@@ -1,0 +1,2 @@
+[run]
+omit = acapi2/tests/*
