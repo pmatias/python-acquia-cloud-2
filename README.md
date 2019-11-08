@@ -53,6 +53,7 @@ Current version: **2.0.0b2**
 
 ### 2.0.1
 
+* 2.x becomes the default repository branch,
 * Out of the beta status,
 * Notifications support,
 * Code coverage increase,
