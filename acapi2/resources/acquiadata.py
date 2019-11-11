@@ -29,7 +29,7 @@ class AcquiaData(object):
         self.api_key = api_key
         self.api_secret = api_secret
         self._data = data or {}
-        self.last_response = None
+        self.last_response: requests.Response
 
     @property
     def data(self):
@@ -49,8 +49,6 @@ class AcquiaData(object):
     def request(self, uri: str = None, method: str = "GET",
                 data: dict = None, params: dict = None):
 
-        self.last_response = None
-
         if not uri:
             uri = self.uri
 
@@ -59,7 +57,7 @@ class AcquiaData(object):
                       v is not None}
             uri = self.generate_url_query(uri, params)
 
-        response = None
+        response: requests.Response
         request = HttpRequest()
         auth_headers = {
             "realm": self._realm,
@@ -100,7 +98,7 @@ class AcquiaData(object):
         if response.status_code != requests.codes.ok \
                 and response.status_code != requests.codes.accepted:
             try:
-                raise response.raise_for_status()
+                raise response.raise_for_status()  # type: ignore
             except requests.exceptions.HTTPError as exp:
                 _logger.warning(
                     "Failed request response headers: \n%s",

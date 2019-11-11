@@ -21,7 +21,7 @@ class Application(AcquiaResource):
             "name": name
         }
 
-        response = None
+        response = Session()
         try:
             response = self.request(uri=uri, method="POST", data=data)
         except RequestException:
@@ -42,7 +42,7 @@ class Application(AcquiaResource):
 
         uri = f"{self.uri}/environments"
 
-        response = None
+        response = Session()
         try:
             response = self.request(uri=uri,
                                     method="POST", data=data)

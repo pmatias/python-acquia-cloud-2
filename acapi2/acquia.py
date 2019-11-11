@@ -9,6 +9,7 @@ import os
 from acapi2.resources.application import Application
 from acapi2.resources.applicationlist import ApplicationList
 from acapi2.resources.environment import Environment
+from acapi2.resources.permissionslist import PermissionsList
 from acapi2.resources.subscription import Subscription
 from acapi2.resources.subscriptionlist import SubscriptionList
 
@@ -94,6 +95,10 @@ class Acquia(object):
         uri = "{endpoint}/{path}".format(endpoint=self.api_endpoint,
                                          path=path)
         return uri
+
+    def permissions(self) -> PermissionsList:
+        return PermissionsList(self.api_endpoint,
+                               self.api_key, self.api_secret)
 
     def subscription(self, uuid: str) -> Subscription:
         namespace = "subscriptions/" + uuid

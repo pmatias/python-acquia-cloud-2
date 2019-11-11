@@ -38,9 +38,8 @@ class NotificationList(AcquiaList):
                 #                               self.api_secret)
                 #                  )
 
-                # TODO: Get the actual notification from the API
-                self.__setitem__(notification["uuid"],
-                                 notification)
+                # TODO: Get the actual notification from the API (See above)
+                self.__setitem__(notification["uuid"], notification)
 
     @property
     def base_uri(self) -> str:

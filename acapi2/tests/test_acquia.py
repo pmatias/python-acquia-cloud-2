@@ -22,7 +22,7 @@ class TestAcquia(BaseTest):
         os.environ["ACQUIA_CLOUD_API_SECRET"] = ""
 
         with self.assertRaises(AcquiaCloudException) as context:
-            Acquia(cache=None)
+            Acquia(cache=0)
 
         self.assertEqual(str(context.exception),
                          "Credentials not provided")

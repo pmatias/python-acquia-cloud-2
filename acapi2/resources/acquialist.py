@@ -21,8 +21,8 @@ class AcquiaList(AcquiaData, dict):
         dict.__init__(self, *args, **kwargs)
 
         # Initialise the list
-        self._base_uri = ""
-        self.base_uri = base_uri
+        self._base_uri: str = ""
+        self.base_uri: str = base_uri  # type: ignore
         AcquiaData.__init__(self, self.base_uri, api_key, api_secret)
 
     def __delitem__(self, key):

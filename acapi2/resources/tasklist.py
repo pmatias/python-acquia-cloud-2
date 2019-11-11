@@ -41,4 +41,4 @@ class TaskList(AcquiaList):
 
     @base_uri.setter
     def base_uri(self, base_uri: str):
-        self.base_uri = f"{base_uri}/tasks"
+        self._base_uri = f"{base_uri}/tasks"

@@ -9,7 +9,7 @@ import logging
 from acapi2.resources.acquiaresource import AcquiaResource
 
 
-LOGGER = logging.getLogger('acapi2.resources.task')
+LOGGER = logging.getLogger('acapi2.resources.notification')
 
 
 class Notification(AcquiaResource):
