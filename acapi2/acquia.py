@@ -18,19 +18,14 @@ class Acquia(object):
     _api_endpoint = "https://cloud.acquia.com/api"
 
     def __init__(self,
-                 api_key: str = None,
-                 api_secret: str = None,
+                 api_key: str,
+                 api_secret: str,
                  endpoint: str = None,
                  cache: int = 600) -> None:
 
         if endpoint:
             self._api_endpoint = endpoint
 
-        if not api_key or not api_secret:
-            api_key, api_secret = self.__find_credentials()
-            if not api_key or not api_secret:
-                msg = "Credentials not provided"
-                raise acapi2.exceptions.AcquiaCloudException(msg)
         self._api_key = api_key
         self._api_secret = api_secret
 
@@ -51,7 +46,7 @@ class Acquia(object):
         return apps
 
     def application(self, uuid) -> Application:
-        namespace = "applications/" + uuid
+        namespace = f"applications/{uuid}"
         uri = self.get_uri(namespace)
         application = Application(uri, self.api_key,
                                   self.api_secret)
@@ -111,10 +106,3 @@ class Acquia(object):
         subs = SubscriptionList(self.api_endpoint, self.api_key,
                                 self.api_secret, filters=filters)
         return subs
-
-    @staticmethod
-    def __find_credentials() -> tuple:
-        # TODO: This should go away.
-        key = os.environ.get("ACQUIA_CLOUD_API_KEY")
-        secret = os.environ.get("ACQUIA_CLOUD_API_SECRET")
-        return key, secret
