@@ -29,7 +29,7 @@ class AcquiaData(object):
         self.api_key = api_key
         self.api_secret = api_secret
         self._data = data or {}
-        self.last_response: requests.Response
+        self.last_response: requests.Response = requests.Response()
 
     @property
     def data(self):
@@ -77,12 +77,7 @@ class AcquiaData(object):
                     break
 
                 attempt += 1
-                # this is not yet supported
-                # params["acapi_retry"] = attempt
                 time.sleep((attempt ** 2.0) / 10)
-
-            # if "acapi_retry" in params:
-            #     del params["acapi_retry"]
 
         if "POST" == method or "PUT" == method:
             request.with_json_body(data)
@@ -98,7 +93,7 @@ class AcquiaData(object):
         if response.status_code != requests.codes.ok \
                 and response.status_code != requests.codes.accepted:
             try:
-                raise response.raise_for_status()  # type: ignore
+                response.raise_for_status()
             except requests.exceptions.HTTPError as exp:
                 _logger.warning(
                     "Failed request response headers: \n%s",

@@ -19,4 +19,5 @@ class Notification(AcquiaResource):
                  api_secret: str,
                  filters: dict = None,
                  *args, **kwargs) -> None:
+        print(f"{uri}")
         super().__init__(uri, api_key, api_secret, *args, **kwargs)

@@ -65,7 +65,8 @@ class Application(AcquiaResource):
         }
 
         return EnvironmentList(self.uri, self.api_key,
-                               self.api_secret, qry_params=qry_params)
+                               self.api_secret,
+                               qry_params=qry_params)
 
     def environment(self, environment_id: str) -> Environment:
         uri = f"{self.uri}/{environment_id}"

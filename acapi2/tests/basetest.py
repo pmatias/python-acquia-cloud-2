@@ -24,4 +24,4 @@ class BaseTest(unittest.TestCase):
         adapter = requests_mock.Adapter()
 
         session.mount("mock", adapter)
-        self.acquia = Acquia(api_key, api_secret, cache=None)
+        self.acquia = Acquia(api_key, api_secret)

@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""{Desctiption}"""
-
-import acapi2.exceptions
-import os
+"""Acquia Main Object"""
 
 from acapi2.resources.application import Application
 from acapi2.resources.applicationlist import ApplicationList
@@ -20,8 +17,7 @@ class Acquia(object):
     def __init__(self,
                  api_key: str,
                  api_secret: str,
-                 endpoint: str = None,
-                 cache: int = 600) -> None:
+                 endpoint: str = None) -> None:
 
         if endpoint:
             self._api_endpoint = endpoint
@@ -87,9 +83,7 @@ class Acquia(object):
         raise NotImplementedError
 
     def get_uri(self, path: str) -> str:
-        uri = "{endpoint}/{path}".format(endpoint=self.api_endpoint,
-                                         path=path)
-        return uri
+        return f"{self.api_endpoint}/{path}"
 
     def permissions(self) -> PermissionsList:
         return PermissionsList(self.api_endpoint,

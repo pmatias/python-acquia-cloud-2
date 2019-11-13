@@ -4,6 +4,7 @@
 """Acquia Environment resource"""
 
 from acapi2.resources.acquialist import AcquiaList
+from acapi2.exceptions import AcquiaCloudNoDataException
 
 
 class EnvironmentList(AcquiaList):
@@ -23,8 +24,7 @@ class EnvironmentList(AcquiaList):
         try:
             env_items = envs["_embedded"]["items"]
         except KeyError:
-            # TODO Handle this (raise EmptyError maybe?)
-            pass
+            raise AcquiaCloudNoDataException
         else:
             for env in env_items:
                 name = env["name"]
@@ -36,5 +36,4 @@ class EnvironmentList(AcquiaList):
 
     @base_uri.setter
     def base_uri(self, base_uri: str):
-        uri = "{}/environments".format(base_uri)
-        self._base_uri = uri
+        self._base_uri = f"{base_uri}/environments"

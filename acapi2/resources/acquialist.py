@@ -41,8 +41,7 @@ class AcquiaList(AcquiaData, dict):
         return self[key]
 
     def generate_resource_uri(self, resource: str) -> str:
-        uri = "{base_uri}/{resource}"
-        return uri.format(base_uri=self.base_uri, resource=resource)
+        return f"{self.base_uri}/{resource}"
 
     def last(self):
         if not len(self):

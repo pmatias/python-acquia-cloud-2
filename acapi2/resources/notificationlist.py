@@ -4,7 +4,7 @@
 """Acquia Cloud API notifications."""
 
 from acapi2.resources.acquialist import AcquiaList
-# from acapi2.resources.notification import Notification
+from acapi2.resources.notification import Notification
 from acapi2.exceptions import AcquiaCloudNoDataException
 
 
@@ -30,7 +30,7 @@ class NotificationList(AcquiaList):
         else:
             for notification in notif_items:
                 # Fetching the url provided by the API will throw a 404
-                # error. Well done, Acquia!
+                # error. Acquia is looking into this.
                 # notif_uri = notification["_links"]["self"]["href"]
                 # self.__setitem__(notification["uuid"],
                 #                  Notification(notif_uri,

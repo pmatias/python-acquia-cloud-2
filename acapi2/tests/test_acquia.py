@@ -16,13 +16,3 @@ class TestAcquia(BaseTest):
     def test_wrong_credentials_connection(self, mocker): pass
 
     def test_connection_system_health(self, mocker): pass
-
-    def test_missing_os_credentials(self, mocker: object):
-        os.environ["ACQUIA_CLOUD_API_KEY"] = ""
-        os.environ["ACQUIA_CLOUD_API_SECRET"] = ""
-
-        with self.assertRaises(AcquiaCloudException) as context:
-            Acquia(cache=0)
-
-        self.assertEqual(str(context.exception),
-                         "Credentials not provided")
