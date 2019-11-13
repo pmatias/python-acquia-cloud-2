@@ -91,6 +91,17 @@ class Application(AcquiaResource):
         return NotificationList(self.uri, self.api_key,
                                 self.api_secret, qry_params=qry_params)
 
+    def permissions(self) -> Session:
+        uri = f"{self.uri}/permissions"
+
+        response = Session()
+        try:
+            response = self.request(uri=uri, method="GET")
+        except RequestException:
+            print("There was an error in the request.")
+
+        return response
+
     def tasks(self, filters: dict = None) -> TaskList:
         """DEPRECATED(use notifications): Get tasks for this application."""
         return TaskList(self.uri, self.api_key,
