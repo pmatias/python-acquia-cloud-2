@@ -4,7 +4,7 @@
 """Acquia Cloud API notifications."""
 
 from acapi2.resources.acquialist import AcquiaList
-from acapi2.resources.notification import Notification
+# from acapi2.resources.notification import Notification
 from acapi2.exceptions import AcquiaCloudNoDataException
 
 

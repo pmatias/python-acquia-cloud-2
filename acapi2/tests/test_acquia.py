@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import requests_mock
 
-from acapi2 import Acquia
-from acapi2.exceptions import AcquiaCloudException
 from acapi2.tests import BaseTest
 
 
