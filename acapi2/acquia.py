@@ -3,6 +3,8 @@
 
 """Acquia Main Object"""
 
+from acapi2.resources.agreement import Agreement
+from acapi2.resources.agreementlist import AgreementList
 from acapi2.resources.application import Application
 from acapi2.resources.applicationlist import ApplicationList
 from acapi2.resources.environment import Environment
@@ -25,6 +27,14 @@ class Acquia(object):
         self._api_key = api_key
         self._api_secret = api_secret
 
+    def agreements(self) -> AgreementList:
+        return AgreementList(self.api_endpoint, self.api_key, self.api_secret)
+
+    def agreement(self, uuid) -> Agreement:
+        namespace = f"agreements/{uuid}"
+        uri = self.get_uri(namespace)
+        return Agreement(uri, self.api_key, self.api_secret)
+
     def applications(self,
                      filters: str = None,
                      sort: str = None,
@@ -44,8 +54,7 @@ class Acquia(object):
     def application(self, uuid) -> Application:
         namespace = f"applications/{uuid}"
         uri = self.get_uri(namespace)
-        application = Application(uri, self.api_key,
-                                  self.api_secret)
+        application = Application(uri, self.api_key, self.api_secret)
         return application
 
     def environment(self, env_id: str) -> Environment:

@@ -806,5 +806,3 @@ class TestApplications(BaseTest):
 
         self.assertEqual(perms.status_code, 200)
         self.assertIn(b"remote", perms.content)
-
-
