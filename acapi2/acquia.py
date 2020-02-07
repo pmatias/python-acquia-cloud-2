@@ -8,6 +8,7 @@ from acapi2.resources.agreementlist import AgreementList
 from acapi2.resources.application import Application
 from acapi2.resources.applicationlist import ApplicationList
 from acapi2.resources.environment import Environment
+from acapi2.resources.notification import Notification
 from acapi2.resources.permissionslist import PermissionsList
 from acapi2.resources.subscription import Subscription
 from acapi2.resources.subscriptionlist import SubscriptionList
@@ -51,11 +52,16 @@ class Acquia(object):
                                self.api_secret, qry_params=qry_params)
         return apps
 
-    def application(self, uuid) -> Application:
+    def application(self, uuid: str) -> Application:
         namespace = f"applications/{uuid}"
         uri = self.get_uri(namespace)
         application = Application(uri, self.api_key, self.api_secret)
         return application
+
+    def notification(self, uuid: str) -> Notification:
+        namespace = f"notifications/{uuid}"
+        uri = self.get_uri(namespace)
+        return Notification(uri, self.api_key, self.api_secret)
 
     def environment(self, env_id: str) -> Environment:
         namespace = "environments/" + str(env_id)

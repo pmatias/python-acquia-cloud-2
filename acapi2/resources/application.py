@@ -58,7 +58,7 @@ class Application(AcquiaResource):
                      offset: int = None) -> EnvironmentList:
 
         qry_params = {
-            "filters": filters,
+            "filter": filters,
             "sort": sort,
             "limit": limit,
             "offset": offset
@@ -82,7 +82,7 @@ class Application(AcquiaResource):
         """Get the notifications for this tasks."""
 
         qry_params = {
-            "filters": filters,
+            "filter": filters,
             "sort": sort,
             "limit": limit,
             "offset": offset

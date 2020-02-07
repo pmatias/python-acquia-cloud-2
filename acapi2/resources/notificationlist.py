@@ -4,7 +4,7 @@
 """Acquia Cloud API notifications."""
 
 from acapi2.resources.acquialist import AcquiaList
-# from acapi2.resources.notification import Notification
+from acapi2.resources.notification import Notification
 from acapi2.exceptions import AcquiaCloudNoDataException
 
 
@@ -31,15 +31,12 @@ class NotificationList(AcquiaList):
             for notification in notif_items:
                 # Fetching the url provided by the API will throw a 404
                 # error. Acquia is looking into this.
-                # notif_uri = notification["_links"]["self"]["href"]
-                # self.__setitem__(notification["uuid"],
-                #                  Notification(notif_uri,
-                #                               self.api_key,
-                #                               self.api_secret)
-                #                  )
-
-                # TODO: Get the actual notification from the API (See above)
-                self.__setitem__(notification["uuid"], notification)
+                notif_uri = notification["_links"]["self"]["href"]
+                self.__setitem__(notification["uuid"],
+                                 Notification(notif_uri,
+                                              self.api_key,
+                                              self.api_secret)
+                                 )
 
     @property
     def base_uri(self) -> str:
