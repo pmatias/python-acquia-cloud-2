@@ -4,7 +4,7 @@ Python Client library to communicate with the [Acquia Cloud API V2](http://cloud
 
 [Pablo Fabregat](http://pablofabregat.com) - [License](LICENSE.txt)
 
-[![Build Status](https://travis-ci.org/pmatias/python-acquia-cloud-2.svg?branch=master)](https://travis-ci.org/pmatias/python-acquia-cloud-2) [![codecov](https://codecov.io/gh/pmatias/python-acquia-cloud-2/branch/master/graph/badge.svg)](https://codecov.io/gh/pmatias/python-acquia-cloud-2)
+[![Build Status](https://travis-ci.org/pmatias/python-acquia-cloud-2.svg?branch=master)](https://travis-ci.org/pmatias/python-acquia-cloud-2) [![Documentation Status](https://readthedocs.org/projects/acapi2/badge/?version=latest)](https://acapi2.readthedocs.io/en/latest/?badge=latest) [![codecov](https://codecov.io/gh/pmatias/python-acquia-cloud-2/branch/master/graph/badge.svg)](https://codecov.io/gh/pmatias/python-acquia-cloud-2)
  [![Say Thanks](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/pmatias)
 
 ## Examples
@@ -47,6 +47,31 @@ more_settings = {
 dev_environment.configure(more_settings)
 ```
 
+### Notifications
+
+acapi2 now supports [the notifications endpoint](https://cloudapi-docs.acquia.com/#/Notifications/getNotificationByUuid)
+
+Whenever an action is executed (e.g. [a code import](https://cloudapi-docs.acquia.com/#/Environments/postEnvironmentsImportSite)),
+ the API will return a uuid for its correspondant 
+task status (notification), this can be used to check on the status of the task itself"
+
+```python
+notif_uuid = "d82a122d-b7b8-46fc-9999-39cb824fac8d"
+notification = acquia.notification(notif_uuid)
+print(notification.data)
+```
+
+You can also check on the [current notifications for a specific application](https://cloudapi-docs.acquia.com/#/Applications/getApplicationNotifications)
+
+````python
+filters = "name=@*myapp*"
+app = acquia.applications(filters=filters).first()
+
+notifications = app.notifications()
+for uuid, notification in notifications.items():
+        print(notification.data)
+````
+
 ## Roadmap
 
 Current version: **2.0.0b2**
@@ -61,6 +86,7 @@ Current version: **2.0.0b2**
 
 ### 2.0.2
 
+* Tasks endpoint removal (you should use notifications),
 * Distributions endpoint support,
 * Messages endpoing support,
 * Better exceptions handling.

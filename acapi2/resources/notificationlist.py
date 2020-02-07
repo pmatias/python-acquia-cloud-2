@@ -29,8 +29,6 @@ class NotificationList(AcquiaList):
             raise AcquiaCloudNoDataException()
         else:
             for notification in notif_items:
-                # Fetching the url provided by the API will throw a 404
-                # error. Acquia is looking into this.
                 notif_uri = notification["_links"]["self"]["href"]
                 self.__setitem__(notification["uuid"],
                                  Notification(notif_uri,
