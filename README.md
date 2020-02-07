@@ -5,7 +5,7 @@ Python Client library to communicate with the [Acquia Cloud API V2](http://cloud
 [Pablo Fabregat](http://pablofabregat.com) - [License](LICENSE.txt)
 
 [![Build Status](https://travis-ci.org/pmatias/python-acquia-cloud-2.svg?branch=master)](https://travis-ci.org/pmatias/python-acquia-cloud-2) [![Documentation Status](https://readthedocs.org/projects/acapi2/badge/?version=latest)](https://acapi2.readthedocs.io/en/latest/?badge=latest) [![codecov](https://codecov.io/gh/pmatias/python-acquia-cloud-2/branch/2.x/graph/badge.svg)](https://codecov.io/gh/pmatias/python-acquia-cloud-2)
- [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/pablo@ceruleanhq.com)
+ 
 
 ## Examples
 
