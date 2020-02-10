@@ -74,7 +74,7 @@ for uuid, notification in notifications.items():
 
 ## Roadmap
 
-Current version: **2.0.0b2**
+Current version: **2.0.1**
 
 ### 2.0.1
 
@@ -83,6 +83,7 @@ Current version: **2.0.0b2**
 * Notifications support,
 * Code coverage increase,
 * Clean up the original code a bit.
+* Support for backups.
 
 ### 2.0.2
 
