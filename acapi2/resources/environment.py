@@ -9,6 +9,24 @@ from requests.sessions import Session
 
 class Environment(AcquiaResource):
 
+    def backups(self, db_name: str) -> Session:
+        """
+        Return a list of backups.
+
+        :param db_name: Database name, typically lower snake case.
+        """
+        uri = f"{self.uri}/databases/{db_name}/backups"
+        return self.request(uri=uri, method="GET").json()
+
+    def backup_details(self, db_name: str, backup_id: str) -> Session:
+        """
+        Return details about a specific backup
+        :param db_name: Database name, typically lower snake case.
+        :param backup_id: Database backup id.
+        """
+        uri = f"{self.uri}/databases/{db_name}/backups/{backup_id}"
+        return self.request(uri=uri, method="GET").json()
+
     def code_switch(self, branch_tag: str) -> Session:
         """
         Switch code on this environment to a different branch or release tag.
@@ -31,6 +49,15 @@ class Environment(AcquiaResource):
         """
         return self.request(uri=self.uri, method="PUT", data=data)
 
+    def create_backup(self, db_name: str) -> Session:
+        """
+        Create a backup
+
+        :param db_name: Database name, typically lower snake case.
+        """
+        uri = f"{self.uri}/databases/{db_name}/backups"
+        return self.request(uri=uri, method="POST", data={}).json()
+
     def create_domain(self, domain: str) -> Session:
         """
         Add a domain to the environment.
@@ -46,12 +73,12 @@ class Environment(AcquiaResource):
         return response
 
     def create_log_forwarding_destinations(
-        self,
-        label: str,
-        sources: list,
-        consumer: str,
-        credentials: dict,
-        address: str
+            self,
+            label: str,
+            sources: list,
+            consumer: str,
+            credentials: dict,
+            address: str
     ) -> Session:
         """
         Create a log forwarding destination.
@@ -67,6 +94,13 @@ class Environment(AcquiaResource):
         response = self.request(uri=uri, method="POST", data=data)
 
         return response
+
+    def databases(self) -> Session:
+        """
+        Retrieve a list of databases.
+        """
+        uri = f"{self.uri}/databases"
+        return self.request(uri=uri, method="GET").json()
 
     def delete_domain(self, domain: str) -> Session:
         """

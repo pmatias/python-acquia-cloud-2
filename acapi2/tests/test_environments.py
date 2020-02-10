@@ -11,6 +11,285 @@ from acapi2.tests import BaseTest
 @requests_mock.Mocker()
 class TestEnvironments(BaseTest):
 
+    def test_backups(self, mocker):
+        env_id = "1-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        db_name = "db_name"
+        uri = f"{self.endpoint}/environments/{env_id}/" \
+              f"databases/{db_name}/backups"
+
+        response = {
+            "total": 2,
+            "pagination": {
+                "total": 2,
+                "limit": 2,
+                "offset": 0
+            },
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
+                            "databases/db_name/backups"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
+                            "databases/db_name"
+                },
+                "limit": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/databases"
+                            "/db_name/backups{?limit}",
+                    "templated": True
+                },
+                "offset": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/databases/"
+                            "db_name/backups{?offset}",
+                    "templated": True
+                },
+                "sort": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
+                            "databases/db_name/backups{?sort}",
+                    "templated": True
+                },
+                "filter": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/d"
+                            "atabases/db_name/backups{?filter}",
+                    "templated": True
+                }
+            },
+            "_embedded": {
+                "items": [
+                    {
+                        "id": 1,
+                        "database": {
+                            "id": 14,
+                            "name": "db_name"
+                        },
+                        "type": "daily",
+                        "started_at": "2012-05-15T12:00:00Z",
+                        "completed_at": "2012-05-15T12:00:00Z",
+                        "flags": {
+                            "deleted": False
+                        },
+                        "environment": {
+                            "id": "1-a47ac10b-58cc-4372-a567-0e02b2c3d470",
+                            "name": "Production"
+                        },
+                        "_links": {
+                            "self": {
+                                "href": "https://cloud.acquia.com/api/"
+                                        "environments/1-a47ac10b-58cc-4372-"
+                                        "a567-0e02b2c3d470/databases/"
+                                        "db_name/backups/1"
+                            },
+                            "parent": {
+                                "href": "https://cloud.acquia.com/api/"
+                                        "environments/1-a47ac10b-58cc-"
+                                        "4372-a567-0e02b2c3d470/databases"
+                            },
+                            "download": {
+                                "href": "https://cloud.acquia.com/api/"
+                                        "environments/1-a47ac10b-58cc-4372"
+                                        "-a567-0e02b2c3d470/databases/"
+                                        "db_name/backups/1/actions/download"
+                            }
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "database": {
+                            "id": 14,
+                            "name": "db_name"
+                        },
+                        "type": "daily",
+                        "started_at": "2012-03-28T12:00:00Z",
+                        "completed_at": "2012-03-28T12:00:01Z",
+                        "flags": {
+                            "deleted": False
+                        },
+                        "environment": {
+                            "id": "1-a47ac10b-58cc-4372-a567-0e02b2c3d470",
+                            "name": "Production"
+                        },
+                        "_links": {
+                            "self": {
+                                "href": "https://cloud.acquia.com/api/"
+                                        "environments/1-a47ac10b-58cc-4372-"
+                                        "a567-0e02b2c3d470/databases/"
+                                        "db_name/backups/2"
+                            },
+                            "parent": {
+                                "href": "https://cloud.acquia.com/api/"
+                                        "environments/1-a47ac10b-58cc-4372-"
+                                        "a567-0e02b2c3d470/databases"
+                            },
+                            "download": {
+                                "href": "https://cloud.acquia.com/api/"
+                                        "environments/1-a47ac10b-58cc-4372-"
+                                        "a567-0e02b2c3d470/databases/db_name"
+                                        "/backups/2/actions/download"
+                            }
+                        }
+                    },
+                    {
+                        "id": 3,
+                        "database": {
+                            "id": 14,
+                            "name": "db_name"
+                        },
+                        "type": "daily",
+                        "started_at": "2017-01-08T04:00:00Z",
+                        "completed_at": "2017-01-08T04:00:01Z",
+                        "flags": {
+                            "deleted": False
+                        },
+                        "environment": {
+                            "id": "1-a47ac10b-58cc-4372-a567-0e02b2c3d470",
+                            "name": "Production"
+                        },
+                        "_links": {
+                            "self": {
+                                "href": "https://cloud.acquia.com/api/"
+                                        "environments/1-a47ac10b-58cc-4372-"
+                                        "a567-0e02b2c3d470/databases/db_name"
+                                        "/backups/3"
+                            },
+                            "parent": {
+                                "href": "https://cloud.acquia.com/api/"
+                                        "environments/1-a47ac10b-58cc-4372-"
+                                        "a567-0e02b2c3d470/databases"
+                            },
+                            "download": {
+                                "href": "https://cloud.acquia.com/api/"
+                                        "environments/1-a47ac10b-58cc-4372-"
+                                        "a567-0e02b2c3d470/databases/db_name"
+                                        "/backups/3/actions/download"
+                            }
+                        }
+                    },
+                    {
+                        "id": 4,
+                        "database": {
+                            "id": 14,
+                            "name": "db_name"
+                        },
+                        "type": "daily",
+                        "started_at": "2017-01-08T05:00:02Z",
+                        "completed_at": "2017-01-08T05:00:03Z",
+                        "flags": {
+                            "deleted": False
+                        },
+                        "environment": {
+                            "id": "1-a47ac10b-58cc-4372-a567-0e02b2c3d470",
+                            "name": "Production"
+                        },
+                        "_links": {
+                            "self": {
+                                "href": "https://cloud.acquia.com/api/"
+                                        "environments/1-a47ac10b-58cc-4372-"
+                                        "a567-0e02b2c3d470/databases/db_name"
+                                        "/backups/4"
+                            },
+                            "parent": {
+                                "href": "https://cloud.acquia.com/api/"
+                                        "environments/1-a47ac10b-58cc-4372-"
+                                        "a567-0e02b2c3d470/databases"
+                            },
+                            "download": {
+                                "href": "https://cloud.acquia.com/api/"
+                                        "environments/1-a47ac10b-58cc-4372-"
+                                        "a567-0e02b2c3d470/databases/db_name"
+                                        "/backups/4/actions/download"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+
+        mocker.register_uri("GET", uri,
+                            status_code=200, json=response)
+
+        response = self.acquia.environment(env_id).backups(db_name)
+        self.assertEqual(response["total"], 2)
+        self.assertIn("_embedded", response)
+
+    def backup_details(self, mocker):
+        env_id = "1-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        db_name = "db_name"
+        id_backup = "1"
+        uri = f"{self.endpoint}/environments/{env_id}/" \
+              f"databases/{db_name}/backups/{id_backup}"
+
+        response = {
+            "id": 1,
+            "database": {
+                "id": 14,
+                "name": "db_name"
+            },
+            "type": "daily",
+            "started_at": "2012-05-15T12:00:00Z",
+            "completed_at": "2012-05-15T12:00:00Z",
+            "flags": {
+                "deleted": False
+            },
+            "environment": {
+                "id": "1-a47ac10b-58cc-4372-a567-0e02b2c3d470",
+                "name": "Production"
+            },
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
+                            "database-backups/1"
+                },
+                "download": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
+                            "database-backups/1/actions/download"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/d"
+                            "atabase-backups"
+                }
+            },
+            "_embedded": {
+                "environment": {
+                    "id": "1-a47ac10b-58cc-4372-a567-0e02b2c3d470",
+                    "name": "Production",
+                    "_links": {
+                        "self": {
+                            "href": "https://cloud.acquia.com/api/"
+                                    "environments/1-a47ac10b-58cc-4372-"
+                                    "a567-0e02b2c3d470"
+                        }
+                    }
+                },
+                "database": {
+                    "id": 14,
+                    "name": "db_name",
+                    "_links": {
+                        "self": {
+                            "href": "https://cloud.acquia.com/api/"
+                                    "environments/1-a47ac10b-58cc-4372-a567-"
+                                    "0e02b2c3d470/databases/db_name"
+                        }
+                    }
+                }
+            }
+        }
+        mocker.register_uri("GET", uri,
+                            status_code=200, json=response)
+
+        response = self.acquia.environment(env_id).backup_details(db_name,
+                                                                  id_backup)
+        self.assertEqual(response["id"], "1")
+        self.assertIn("_embedded", response)
+
     def test_code_switch(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         uri = "{base_uri}/environments/{env_id}/code/actions/switch"
@@ -51,6 +330,37 @@ class TestEnvironments(BaseTest):
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"updated", response.content)
+
+    def test_create_backup(self, mocker):
+        env_id = "1-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        db_name = "db_name"
+        uri = f"{self.endpoint}/environments/{env_id}/" \
+              f"databases/{db_name}/backups"
+
+        response = {
+            "message": "Creating the backup.",
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "12-d314739e-296f-11e9-b210-d663bd873d93/"
+                            "databases/my_db/backups/"
+                },
+                "notification": {
+                    "href": "https://cloud.acquia.com/api/notifications/"
+                            "42b56cff-0b55-4bdf-a949-1fd0fca61c6c"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "12-d314739e-296f-11e9-b210-d663bd873d93/"
+                            "databases/my_db/"
+                }
+            }
+        }
+
+        mocker.register_uri("POST", uri, status_code=202, json=response)
+        response = self.acquia.environment(env_id).create_backup(db_name)
+        self.assertEqual(response["message"], "Creating the backup.")
+        self.assertIn("_links", response)
 
     def test_create_domain(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
@@ -96,8 +406,8 @@ class TestEnvironments(BaseTest):
         address = "example.com:1234"
 
         response = self.acquia.environment(
-                   env_id).create_log_forwarding_destinations(
-                   label, sources, consumer, credentials, address)
+            env_id).create_log_forwarding_destinations(
+            label, sources, consumer, credentials, address)
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"created", response.content)
@@ -119,7 +429,7 @@ class TestEnvironments(BaseTest):
     def test_clear_varnish_domain(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         domain = "ceruleanhq.com"
-        uri = "{base_uri}/environments/{env_id}/domains/"\
+        uri = "{base_uri}/environments/{env_id}/domains/" \
               "{domain}/actions/clear-varnish"
         uri = uri.format(base_uri=self.endpoint, env_id=env_id, domain=domain)
 
@@ -138,7 +448,7 @@ class TestEnvironments(BaseTest):
     def test_clear_varnish_domains(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         domains = ["ceruleanhq.com"]
-        uri = "{base_uri}/environments/{env_id}/domains/"\
+        uri = "{base_uri}/environments/{env_id}/domains/" \
               "actions/clear-varnish"
         uri = uri.format(base_uri=self.endpoint, env_id=env_id)
 
