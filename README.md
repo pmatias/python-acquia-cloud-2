@@ -41,7 +41,7 @@ more_settings = {
   "max_input_vars": 1000,
   "max_post_size": 256,
   "sendmail_path": "/usr/bin/sendmail",
-  "varnish_over_ssl": false
+  "varnish_over_ssl": False
 }
 
 dev_environment.configure(more_settings)
