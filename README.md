@@ -5,7 +5,17 @@ Python Client library to communicate with the [Acquia Cloud API V2](http://cloud
 [Pablo Fabregat](http://pablofabregat.com) - [License](LICENSE.txt)
 
 [![Build Status](https://travis-ci.org/pmatias/python-acquia-cloud-2.svg?branch=master)](https://travis-ci.org/pmatias/python-acquia-cloud-2) [![Documentation Status](https://readthedocs.org/projects/acapi2/badge/?version=latest)](https://acapi2.readthedocs.io/en/latest/?badge=latest) [![codecov](https://codecov.io/gh/pmatias/python-acquia-cloud-2/branch/2.x/graph/badge.svg)](https://codecov.io/gh/pmatias/python-acquia-cloud-2)
- 
+
+
+## Deprecation notice:
+
+The following items will be removed in 2.0.3:
+
+* Support for environment variables `ACQUIA_CLOUD_API_KEY` and 
+`ACQUIA_CLOUD_API_SECRET`; how the credentials are provided to the library is
+responsibility of the user.
+* Tasks object; Acquia API is deprecating this as well, the Notifications object
+should be used instead   
 
 ## Examples
 
@@ -87,7 +97,13 @@ Current version: **2.0.1**
 
 ### 2.0.2
 
+* Small release to put back support of credentials in environment variables,
+which is now being announced as deprecated.
+
+### 2.0.3
+
 * Tasks endpoint removal (you should use notifications),
+* Credential environment variables removal,
 * Distributions endpoint support,
 * Messages endpoing support,
 * Better exceptions handling.
