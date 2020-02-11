@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """Acquia Cloud API Data network resource"""
-
+import backoff
 import httphmac
 import logging
 import requests
@@ -46,6 +46,9 @@ class AcquiaData(object):
         url = "{uri}?{qry}".format(uri=uri, qry=qry)
         return url
 
+    @backoff.on_exception(
+        backoff.expo, requests.exceptions.RequestException, max_time=10
+    )
     def request(self, uri: str = None, method: str = "GET",
                 data: dict = None, params: dict = None):
 
