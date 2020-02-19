@@ -855,3 +855,35 @@ class TestEnvironments(BaseTest):
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"updated", response.content)
+
+    def test_update_log_forwarding_destinations(self, mocker):
+        env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        destination_uuid = "df4c5428-8d2e-453d-9edf-e412647449b1"
+        uri = f"{self.endpoint}/environments/{env_id}/"\
+              f"log-forwarding-destinations/{destination_uuid}"
+
+        response_message = {
+            "message": "Log forwarding destination has been updated."
+        }
+
+        mocker.register_uri("PUT", uri,
+                            status_code=202, json=response_message)
+
+        label = "Test destination"
+        sources = [
+            "apache-access",
+            "apache-error"
+        ]
+        consumer = "syslog"
+        credentials = {
+            "certificate": "-----BEGIN CERTIFICATE-----...\
+            -----END CERTIFICATE-----"
+        }
+        address = "example.com:1234"
+
+        response = self.acquia.environment(
+            env_id).update_log_forwarding_destinations(
+            label, sources, consumer, credentials, address, destination_uuid)
+
+        self.assertEqual(response.status_code, 202)
+        self.assertIn(b"updated", response.content)

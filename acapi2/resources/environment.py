@@ -82,6 +82,12 @@ class Environment(AcquiaResource):
     ) -> Session:
         """
         Create a log forwarding destination.
+        :param label: Human-friendly identifier of the destination
+        :param sources: List of log sources to forward
+        :param consumer: Application or provider consuming the logs.
+        :param credentials: Dictionary of certificate,key and token.
+        :param address: URL or host name and port of the destination.
+        :param destination_uuid: Log forwarding destination uuid for given env.
         """
         uri = f"{self.uri}/log-forwarding-destinations"
         data = {
@@ -243,3 +249,33 @@ class Environment(AcquiaResource):
         }
 
         return self.configure(data)
+
+    def update_log_forwarding_destinations(
+        self,
+        label: str,
+        sources: list,
+        consumer: str,
+        credentials: dict,
+        address: str,
+        destination_uuid: str,
+    ) -> Session:
+        """
+        Update a log forwarding destination.
+        :param label: Human-friendly identifier of the destination
+        :param sources: List of log sources to forward
+        :param consumer: Application or provider consuming the logs.
+        :param credentials: Dictionary of certificate,key and token.
+        :param address: URL or host name and port of the destination.
+        :param destination_uuid: Log forwarding destination uuid for given env.
+        """
+        uri = f"{self.uri}/log-forwarding-destinations/{destination_uuid}"
+        data = {
+            "label": label,
+            "sources": sources,
+            "consumer": consumer,
+            "credentials": credentials,
+            "address": address,
+        }
+        response = self.request(uri=uri, method="PUT", data=data)
+
+        return response
