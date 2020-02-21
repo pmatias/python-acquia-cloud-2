@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from unittest.mock import patch
 
 import requests
 import requests_mock
 import unittest
 
+from acapi2.http_request import HttpRequest
 from acapi2.resources.acquiadata import AcquiaData
 
 
@@ -87,3 +89,16 @@ class TestAcquiaData(unittest.TestCase):
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"id", response.content)
         self.assertIn(b"name", response.content)
+
+    @patch.object(HttpRequest, "do")
+    def test_request_backoff(self, mocker, request_do_mock):
+        request_do_mock.side_effect = [
+            requests.exceptions.ConnectionError(),
+            requests_mock.create_response(requests.Request())
+        ]
+
+        acquia_data = AcquiaData(self.endpoint, self.api_key,
+                                 self.api_secret)
+        acquia_data.request()
+
+        assert request_do_mock.call_count == 2
