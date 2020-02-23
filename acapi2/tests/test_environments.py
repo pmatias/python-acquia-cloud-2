@@ -464,6 +464,25 @@ class TestEnvironments(BaseTest):
 
         self.assertEqual(response.status_code, 202)
 
+    def test_delete_log_forwarding_destinations(self, mocker):
+        env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        destination_uuid = "df4c5428-8d2e-453d-9edf-e412647449b1"
+        uri = f"{self.endpoint}/environments/{env_id}/"\
+              f"log-forwarding-destinations/{destination_uuid}"
+
+        response_message = {
+            "message": "Log forwarding destination has been deleted."
+        }
+
+        mocker.register_uri("DELETE", uri,
+                            status_code=202, json=response_message)
+
+        response = self.acquia.environment(
+            env_id).delete_log_forwarding_destinations(destination_uuid)
+
+        self.assertEqual(response.status_code, 202)
+        self.assertIn(b"deleted", response.content)
+
     def test_destroy(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         uri = "{base_uri}/environments/{env_id}"

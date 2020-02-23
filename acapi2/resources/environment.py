@@ -119,6 +119,20 @@ class Environment(AcquiaResource):
 
         return response
 
+    def delete_log_forwarding_destinations(
+        self,
+        destination_uuid: str,
+    ) -> Session:
+        """
+        Delete a log forwarding destination.
+
+        :param destination_uuid: log forwarding destination uuid for given env.
+        """
+        uri = f"{self.uri}/log-forwarding-destinations/{destination_uuid}"
+        response = self.request(uri=uri, method="DELETE")
+
+        return response
+
     def clear_varnish_domain(self, domain: str) -> Session:
         """
         Clear the Varnish cache for the domain attached to this environment.
