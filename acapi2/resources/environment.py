@@ -108,6 +108,16 @@ class Environment(AcquiaResource):
         uri = f"{self.uri}/databases"
         return self.request(uri=uri, method="GET").json()
 
+    def delete_backup(self, db_name: str, backup_id: str) -> Session:
+        """
+        Delete a backup
+
+        :param db_name: Database name, typically lower snake case.
+        :param backup_id: Database backup id.
+        """
+        uri = f"{self.uri}/databases/{db_name}/backups/{backup_id}"
+        return self.request(uri=uri, method="DELETE").json()
+
     def delete_domain(self, domain: str) -> Session:
         """
         Remove the domain from the environment.

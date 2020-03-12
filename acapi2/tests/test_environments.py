@@ -412,6 +412,37 @@ class TestEnvironments(BaseTest):
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"created", response.content)
 
+    def test_delete_backup(self, mocker):
+        env_id = "12-d314739e-296f-11e9-b210-d663bd873d93"
+        db_name = "my_db"
+        uri = f"{self.endpoint}/environments/{env_id}/" \
+              f"databases/{db_name}/backups/1"
+
+        response = {
+            "message": "Deleting the database backup.",
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/12-d314"
+                            "739e-296f-11e9-b210-d663bd873d93/databases/"
+                            "my_db/backups/1"
+                },
+                "notification": {
+                    "href": "https://cloud.acquia.com/api/notifications/42b5"
+                            "6cff-0b55-4bdf-a949-1fd0fca61c6c"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/12-d31"
+                            "4739e-296f-11e9-b210-d663bd873d93/databases/"
+                            "my_db/backups"
+                }
+            }
+        }
+
+        mocker.register_uri("DELETE", uri, status_code=202, json=response)
+        response = self.acquia.environment(env_id).delete_backup(db_name, 1)
+        self.assertEqual(response["message"], "Deleting the database backup.")
+        self.assertIn("_links", response)
+
     def test_delete_domain(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         domain = "ceruleanhq.com"
