@@ -84,7 +84,7 @@ for uuid, notification in notifications.items():
 
 ## Roadmap
 
-Current version: **2.0.1**
+Current version: **2.0.3**
 
 ### 2.0.1
 
@@ -104,8 +104,12 @@ which is now being announced as deprecated.
 
 * Tasks endpoint removal (you should use notifications),
 * Credential environment variables removal,
+* Wait until a notification completes,
+* More support for log forwarding
+
+### 2.0.4
 * Distributions endpoint support,
-* Messages endpoing support,
+* Messages endpoint support,
 * Better exceptions handling.
 
 ## Credits
