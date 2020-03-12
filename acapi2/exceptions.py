@@ -12,17 +12,13 @@ class AcquiaCloudException(Exception):
     All acapi2 exceptions should extend this class.
     """
 
-    pass
-
 
 class AcquiaCloudNoDataException(AcquiaCloudException):
     """No data found exception."""
 
-    pass
 
-
-class AcquiaCloudTaskFailedException(AcquiaCloudException):
-    """An Acquia task failure exception."""
+class AcquiaCloudNotificationException(AcquiaCloudException):
+    """An Acquia notification exception."""
 
     def __init__(self, message, task):
         """Constructor.
@@ -34,7 +30,7 @@ class AcquiaCloudTaskFailedException(AcquiaCloudException):
         task: Task
             The Task object for the task that failed.
         """
-        super(AcquiaCloudTaskFailedException, self).__init__(message)
+        super().__init__(message)
         self.message = message
         self.task = task
 
@@ -50,6 +46,13 @@ class AcquiaCloudTaskFailedException(AcquiaCloudException):
         return f"{self.message}\n{task}"
 
 
-class AcquiaCloudPermissionException(AcquiaCloudException):
+class AcquiaCloudTaskFailedException(AcquiaCloudNotificationException):
+    """An Acquia task failure exception."""
 
-    pass
+
+class AcquiaCloudNotificationFailedException(AcquiaCloudNotificationException):
+    """An Acquia notification failure exception."""
+
+
+class AcquiaCloudTimeoutError(AcquiaCloudNotificationException):
+    """Timeout exceeded error."""
