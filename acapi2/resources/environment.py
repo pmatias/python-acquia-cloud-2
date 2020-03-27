@@ -27,6 +27,18 @@ class Environment(AcquiaResource):
         uri = f"{self.uri}/databases/{db_name}/backups/{backup_id}"
         return self.request(uri=uri, method="GET").json()
 
+    def backup_download(self, db_name: str, backup_id: str) -> Session:
+        """
+        Get link to be able to download backup.
+
+        :param db_name: Database name, typically lower snake case.
+        :param backup_id: Database backup id.
+        :return: Acquia response
+        """
+        uri = f"{self.uri}/databases/{db_name}/backups/{backup_id}/" \
+            f"actions/download"
+        return self.request(uri=uri, method="GET").json()
+
     def code_switch(self, branch_tag: str) -> Session:
         """
         Switch code on this environment to a different branch or release tag.
