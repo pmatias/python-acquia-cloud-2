@@ -217,7 +217,7 @@ class TestEnvironments(BaseTest):
         self.assertEqual(response["total"], 2)
         self.assertIn("_embedded", response)
 
-    def backup_details(self, mocker):
+    def test_backup_details(self, mocker):
         env_id = "1-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         db_name = "db_name"
         id_backup = "1"
@@ -287,8 +287,39 @@ class TestEnvironments(BaseTest):
 
         response = self.acquia.environment(env_id).backup_details(db_name,
                                                                   id_backup)
-        self.assertEqual(response["id"], "1")
+        self.assertEqual(response["id"], 1)
         self.assertIn("_embedded", response)
+
+    def test_backup_download(self, mocker):
+        env_id = "1-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        db_name = "db_name"
+        id_backup = "1"
+        uri = f"{self.endpoint}/environments/{env_id}/" \
+              f"databases/{db_name}/backups/{id_backup}/actions/download"
+
+        response = {
+            "url": "http://test-site.com/AH_DOWNLOAD?t=1&d=/mnt/files/site/"
+                   "backups/on-demand/backup.sql.gz&dev=hash",
+            "expires_at": "2020-03-27T10:26:51+00:00",
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/databases/"
+                            "db_name/backups/1/actions/download"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/databases/"
+                            "db_name/backups/1/actions"
+                }
+            }
+        }
+        mocker.register_uri("GET", uri, status_code=200, json=response)
+
+        response = self.acquia.environment(
+            env_id
+        ).backup_download(db_name, id_backup)
+        self.assertIn("url", response)
 
     def test_code_switch(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
