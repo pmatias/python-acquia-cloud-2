@@ -108,6 +108,11 @@ which is now being announced as deprecated.
 * More support for log forwarding
 
 ### 2.0.4
+
+* Minor release: Added support for DB Backup Downloads
+
+### 2.0.5
+* Credential environment variables removal (now for real :) ),
 * Distributions endpoint support,
 * Messages endpoint support,
 * Better exceptions handling.
