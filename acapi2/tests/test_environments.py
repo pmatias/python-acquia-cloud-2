@@ -968,3 +968,97 @@ class TestEnvironments(BaseTest):
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"updated", response.content)
+
+    def test_enable_cron(self, mocker):
+        env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        cron_id = "1889"
+        uri = f"{self.endpoint}/environments/{env_id}/"\
+              f"crons/{cron_id}/actions/enable"
+
+        response = {
+            "message": "The cron is being enabled.",
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "24-a47ac10b-58cc-4372-a567-0e02b2c3d470/crons/1889/"
+                    "actions/enable"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "24-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
+                    "crons/1889/actions"
+                },
+                "notification": {
+                    "href": "https://cloud.acquia.com/api/notifications/"
+                    "ceda2e82-54b7-4181-ae97-6a3163b187b8"
+                },
+            }
+        }
+        mocker.register_uri("POST", uri, status_code=202, json=response)
+
+        response = self.acquia.environment(env_id).enable_cron(cron_id)
+
+        self.assertEqual(response.status_code, 202)
+        self.assertIn(b"The cron is being enabled.", response.content)
+
+    def test_disable_cron(self, mocker):
+        env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        cron_id = "1234"
+        uri = f"{self.endpoint}/environments/{env_id}/"\
+              f"crons/{cron_id}/actions/disable"
+
+        response = {
+            "message": "The cron is being disabled.",
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "24-a47ac10b-58cc-4372-a567-0e02b2c3d470/crons/1234/"
+                    "actions/disable"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "24-a47ac10b-58cc-4372-a567-0e02b2c3d470/crons/"
+                    "1234/actions"
+                },
+                "notification": {
+                    "href": "https://cloud.acquia.com/api/notifications/"
+                    "7b37b885-8ae4-454b-b8fa-ffaeff54f6a4"
+                },
+            }
+        }
+        mocker.register_uri("POST", uri, status_code=202, json=response)
+
+        response = self.acquia.environment(env_id).disable_cron(cron_id)
+
+        self.assertEqual(response.status_code, 202)
+        self.assertIn(b"The cron is being disabled.", response.content)
+
+    def test_delete_cron(self, mocker):
+        env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+        cron_id = "1891"
+        uri = f"{self.endpoint}/environments/{env_id}/"\
+              f"crons/{cron_id}"
+
+        response = {
+            "message": "Deleting cron.",
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "24-a47ac10b-58cc-4372-a567-0e02b2c3d470/crons/1891"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "24-a47ac10b-58cc-4372-a567-0e02b2c3d470/crons"
+                },
+                "notification": {
+                    "href": "https://cloud.acquia.com/api/notifications/"
+                    "767cee8d-05f6-4761-a3dc-755957dfc9e6"
+                },
+            }
+        }
+        mocker.register_uri("DELETE", uri, status_code=202, json=response)
+
+        response = self.acquia.environment(env_id).delete_cron(cron_id)
+
+        self.assertEqual(response.status_code, 202)
+        self.assertIn(b"Deleting cron.", response.content)

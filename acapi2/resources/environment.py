@@ -315,3 +315,33 @@ class Environment(AcquiaResource):
         response = self.request(uri=uri, method="PUT", data=data)
 
         return response
+
+    def delete_cron(self, cron_id: str) -> Session:
+        """
+        Deletes a cron job.
+        :cron_id: An ID that uniquely identifies a cron job.
+        """
+        uri = f"{self.uri}/crons/{cron_id}"
+        response = self.request(uri=uri, method="DELETE")
+
+        return response
+
+    def disable_cron(self, cron_id: str) -> Session:
+        """
+        Disables a cron job.
+        :cron_id: An ID that uniquely identifies a cron job.
+        """
+        uri = f"{self.uri}/crons/{cron_id}/actions/disable"
+        response = self.request(uri=uri, method="POST", data="")
+
+        return response
+
+    def enable_cron(self, cron_id: str) -> Session:
+        """
+        Enables a cron job.
+        :cron_id: An ID that uniquely identifies a cron job.
+        """
+        uri = f"{self.uri}/crons/{cron_id}/actions/enable"
+        response = self.request(uri=uri, method="POST", data="")
+
+        return response
