@@ -207,7 +207,7 @@ class Environment(AcquiaResource):
         response = self.request(uri=uri, method="POST", data=data)
         return response
 
-    def deploy_database(self, id_from: str, db_name: str) -> None:
+    def deploy_database(self, id_from: str, db_name: str) -> Session:
         """
         Copy a database to this environment.
 

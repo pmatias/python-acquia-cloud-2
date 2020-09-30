@@ -11,9 +11,10 @@ Python Client library to communicate with the [Acquia Cloud API V2](http://cloud
 
 The following items will be removed in 2.0.3:
 
-* Support for environment variables `ACQUIA_CLOUD_API_KEY` and 
+* ~~Support for environment variables `ACQUIA_CLOUD_API_KEY` and 
 `ACQUIA_CLOUD_API_SECRET`; how the credentials are provided to the library is
-responsibility of the user.
+responsibility of the user.~~ I've decided not to remove this, for now.
+
 * Tasks object; Acquia API is deprecating this as well, the Notifications object
 should be used instead   
 
@@ -112,7 +113,10 @@ which is now being announced as deprecated.
 * Minor release: Added support for DB Backup Downloads
 
 ### 2.0.5
-* Credential environment variables removal (now for real :) ),
+* ~~Credential environment variables removal (now for real :) )~~ I've decided not to remove this, for now,
+* Taken over https://pypi.org/project/http-hmac-python since it dissapeared.
+
+### 2.0.6
 * Distributions endpoint support,
 * Messages endpoint support,
 * Better exceptions handling.

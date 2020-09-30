@@ -126,7 +126,6 @@ class Acquia(object):
 
     @staticmethod
     def __find_credentials() -> tuple:
-        # TODO: This should go away.
         key = os.environ.get("ACQUIA_CLOUD_API_KEY")
         secret = os.environ.get("ACQUIA_CLOUD_API_SECRET")
         return key, secret
