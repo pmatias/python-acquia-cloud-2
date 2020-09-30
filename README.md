@@ -115,6 +115,7 @@ which is now being announced as deprecated.
 ### 2.0.5
 * ~~Credential environment variables removal (now for real :) )~~ I've decided not to remove this, for now,
 * Taken over https://pypi.org/project/http-hmac-python since it dissapeared.
+* Support for environment cron operations
 
 ### 2.0.6
 * Distributions endpoint support,
