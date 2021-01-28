@@ -351,9 +351,9 @@ class Environment(AcquiaResource):
         Return the SSL settings for the environment.
         """
         uri = f"{self.uri}/ssl"
-
         response = self.request(uri=uri)
-        return response.json()
+
+        return response.json().get('_embedded', {}).get('items')
 
     def get_ssl_certs(self) -> dict:
         """
@@ -426,7 +426,7 @@ class Environment(AcquiaResource):
         :param: cert_id: The Acquia certificate ID.
         """
         uri = f"{self.uri}/ssl/certificates/{cert_id}/actions/activate"
-        response = self.request(uri=uri, method="POST")
+        response = self.request(uri=uri, method="POST", data={})
 
         return response
 
@@ -436,6 +436,6 @@ class Environment(AcquiaResource):
         :param: cert_id: The Acquia certificate ID.
         """
         uri = f"{self.uri}/ssl/certificates/{cert_id}/actions/deactivate"
-        response = self.request(uri=uri, method="POST")
+        response = self.request(uri=uri, method="POST", data={})
 
         return response
