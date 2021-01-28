@@ -353,7 +353,7 @@ class Environment(AcquiaResource):
         uri = f"{self.uri}/ssl"
         response = self.request(uri=uri)
 
-        return response.json().get('_embedded', {}).get('items')
+        return response.json()
 
     def get_ssl_certs(self) -> dict:
         """
@@ -362,7 +362,7 @@ class Environment(AcquiaResource):
         uri = f"{self.uri}/ssl/certificates"
         response = self.request(uri=uri)
 
-        return response.json()
+        return response.json().get('_embedded', {}).get('items')
 
     def get_ssl_cert(self, cert_id) -> dict:
         """
