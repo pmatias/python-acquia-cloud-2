@@ -364,7 +364,7 @@ class Environment(AcquiaResource):
 
         return response.json().get('_embedded', {}).get('items')
 
-    def get_ssl_cert(self, cert_id) -> dict:
+    def get_ssl_cert(self, cert_id: str) -> dict:
         """
         Return an SSL cert.
         """
@@ -410,7 +410,7 @@ class Environment(AcquiaResource):
 
         return response
 
-    def delete_ssl_cert(self, cert_id) -> Session:
+    def delete_ssl_cert(self, cert_id: str) -> Session:
         """
         Remove an SSL cert.
         :param: cert_id: The Acquia certificate ID.
@@ -420,7 +420,7 @@ class Environment(AcquiaResource):
 
         return response
 
-    def activate_ssl_cert(self, cert_id) -> Session:
+    def activate_ssl_cert(self, cert_id: str) -> Session:
         """
         Activate a previously installed SSL cert.
         :param: cert_id: The Acquia certificate ID.
@@ -430,7 +430,7 @@ class Environment(AcquiaResource):
 
         return response
 
-    def deactivate_ssl_cert(self, cert_id) -> Session:
+    def deactivate_ssl_cert(self, cert_id: str) -> Session:
         """
         Deactivate a previously installed SSL cert.
         :param: cert_id: The Acquia certificate ID.
