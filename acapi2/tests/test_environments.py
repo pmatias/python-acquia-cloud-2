@@ -1062,3 +1062,296 @@ class TestEnvironments(BaseTest):
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"Deleting cron.", response.content)
+
+    def test_get_ssl_settings(self, mocker):
+        env_id = "3-110075c3-126e-6b43-c2ce-30be75fb33c2"
+        uri = f"{self.endpoint}/environments/{env_id}/ssl"
+
+        response = {
+            "balancer": {
+                "hostname": "example.us-east-1.elb.amazonaws.com"
+            },
+            "ips": [
+                "127.0.0.1"
+            ],
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "3-110075c3-126e-6b43-c2ce-30be75fb33c2/ssl"
+                },
+                "certificates": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "3-110075c3-126e-6b43-c2ce-30be75fb33c2/ssl/certificates"
+                },
+                "csrs": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "3-110075c3-126e-6b43-c2ce-30be75fb33c2/ssl/csrs"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "3-110075c3-126e-6b43-c2ce-30be75fb33c2"
+                }
+            }
+        }
+
+        mocker.register_uri("GET", uri, status_code=200, json=response)
+        response = self.acquia.environment(env_id).get_ssl_settings()
+        self.assertIn("balancer", response)
+
+    def test_get_ssl_certs(self, mocker):
+        env_id = "5-a1a10dab-62f4-418c-bc58-ab7742078ba8"
+        uri = f"{self.endpoint}/environments/{env_id}/ssl/certificates"
+
+        response = {
+            "total": 3,
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl/certificates"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl"
+                }
+            },
+            "_embedded": {
+                "items": [
+                    {
+                        "id": 7,
+                        "label": None,
+                        "certificate": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
+                        "private_key": None,
+                        "ca": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
+                        "flags": {
+                            "active": True,
+                            "csr": True,
+                            "legacy": True
+                        },
+                        "expires_at": "2022-03-28T00:12:34-0400",
+                        "domains": [
+                            "example.com",
+                            "www.example.com"
+                        ],
+                        "environment": {
+                            "id": "5-a1a10dab-62f4-418c-bc58-ab7742078ba8",
+                            "name": "prod"
+                        },
+                        "_links": {
+                            "self": {
+                                "href": "https://cloud.acquia.com/api/environments/5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl/certificates/7"
+                                },
+                                "csr": {
+                                   "href": "https://cloud.acquia.com/api/"
+                                   "environments/5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl/csrs/7"
+                                }
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "label": "Test Certificate 1",
+                            "certificate": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
+                            "private_key": "-----BEGIN RSA PRIVATE KEY-----...-----END RSA PRIVATE KEY-----",
+                            "ca": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
+                            "flags": {
+                                "active": True,
+                                "csr": False,
+                                "legacy": False
+                            },
+                            "expires_at": "2021-01-01T00:00:00-0400",
+                            "domains": [
+                                "example2.com",
+                                "www.example2.com"
+                            ],
+                            "environment": {
+                                "id": "5-a1a10dab-62f4-418c-bc58-ab7742078ba8",
+                                "name": "prod"
+                            },
+                            "_links": {
+                                "self": {
+                                    "href": "https://cloud.acquia.com/api/environments/5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl/certificates/3"
+                                }
+                            }
+                        },
+                        {
+                            "id": 4,
+                            "label": "Test Certificate 2",
+                            "certificate": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
+                            "private_key": "-----BEGIN RSA PRIVATE KEY-----...-----END RSA PRIVATE KEY-----",
+                            "ca": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
+                            "flags": {
+                                "active": False,
+                                "csr": True,
+                                "legacy": False
+                            },
+                            "expires_at": "2021-01-01T00:00:00-0400",
+                            "domains": [
+                                "example3.com",
+                                "www.example3.com"
+                            ],
+                            "environment": {
+                                "id": "5-a1a10dab-62f4-418c-bc58-ab7742078ba8",
+                                "name": "prod"
+                            },
+                            "_links": {
+                                "self": {
+                                "href": "https://cloud.acquia.com/api/environments/5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl/certificates/4"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+
+        mocker.register_uri("GET", uri, status_code=200, json=response)
+        response = self.acquia.environment(env_id).get_ssl_certs()
+        self.assertIn("certificate", response[0])
+
+    def test_install_ssl_cert(self, mocker):
+        env_id = "123-4ba86d4a-e193-4282-8963-d9d24746f444"
+        uri = f"{self.endpoint}/environments/{env_id}/ssl/certificates"
+
+        legacy = False
+        certificate = "-----BEGIN CERTIFICATE-----abc123....-----END CERTIFICATE-----",
+        private_key = "-----BEGIN RSA PRIVATE KEY-----secret....-----END RSA PRIVATE KEY-----",
+        ca_certificates = "-----BEGIN CERTIFICATE-----123abc....-----END CERTIFICATE-----",
+        csr_id = 123,
+        label = "My New Cert"
+
+        response = {
+            "message": "Installing the certificate.",
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/123-4ba86d4a-e193-4282-8963-d9d24746f444/ssl/certificates"
+                },
+                "notification": {
+                    "href": "https://cloud.acquia.com/api/notifications/8fdacf25-38e4-4621-b5de-e78638fe2ceb"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/123-4ba86d4a-e193-4282-8963-d9d24746f444/ssl"
+                }
+            }
+        }
+
+        mocker.register_uri("POST", uri, status_code=202, json=response)
+
+        response = self.acquia.environment(env_id).install_ssl_cert(
+            label, certificate, private_key, ca_certificates, legacy, csr_id)
+
+        self.assertEqual(response.status_code, 202)
+        self.assertIn(b"Installing the certificate.", response.content)
+
+    def test_get_ssl_cert(self, mocker):
+        env_id = "5-9d46fd9d-e58b-47a3-8e9e-e8e0c2a854b4"
+        cert_id = "13"
+        uri = f"{self.endpoint}/environments/{env_id}/ssl/certificates/{cert_id}"
+
+        response = {
+            "id": 13,
+            "label": "Test Certificate",
+            "certificate": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
+            "private_key": "-----BEGIN RSA PRIVATE KEY-----...-----END RSA PRIVATE KEY-----",
+            "ca": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
+            "flags": {
+                "active": True,
+                "csr": True,
+                "legacy": False
+            },
+            "expires_at": "2022-03-28T00:12:34-0400",
+            "domains": [
+                "example.com",
+                "www.example.com"
+            ],
+            "environment": {
+                "id": "5-9d46fd9d-e58b-47a3-8e9e-e8e0c2a854b4",
+                "name": "prod"
+            },
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "5-9d46fd9d-e58b-47a3-8e9e-e8e0c2a854b4/ssl/certificates/13"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "5-9d46fd9d-e58b-47a3-8e9e-e8e0c2a854b4/ssl/certificates"
+                }
+            }
+        }
+
+        mocker.register_uri("GET", uri, status_code=200, json=response)
+        response = self.acquia.environment(env_id).get_ssl_cert(cert_id)
+        self.assertIn("certificate", response)
+
+    def test_delete_ssl_cert(self, mocker):
+        env_id = "286-a027502b-ad6c-a48e-a7e8-aa0def7d25e1"
+        cert_id = "9"
+        uri = f"{self.endpoint}/environments/{env_id}/ssl/certificates/{cert_id}"
+
+        response = {
+            "message": "Deleting the certificate.",
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/286-a027502b-ad6c-a48e-a7e8-aa0def7d25e1/ssl/certificates/9"
+                },
+                "parent": {
+                    "href": "https://cloud.acquia.com/api/environments/286-a027502b-ad6c-a48e-a7e8-aa0def7d25e1/ssl/certificates"
+                },
+                "notification": {
+                    "href": "https://cloud.acquia.com/api/notifications/767cee8d-05f6-4761-a3dc-755957dfc9e6"
+                }
+            }
+        }
+
+        mocker.register_uri("DELETE", uri, status_code=202, json=response)
+        response = self.acquia.environment(env_id).delete_ssl_cert(cert_id)
+        self.assertEqual(response.status_code, 202)
+        self.assertIn(b"Deleting the certificate.", response.content)
+
+    def test_activate_ssl_cert(self, mocker):
+        env_id = "123-a027502b-ad6c-a48e-a7e8-aa0def7d25e1"
+        cert_id = "1"
+        uri = f"{self.endpoint}/environments/{env_id}/ssl/certificates/{cert_id}/actions/activate"
+
+        response = {
+            "message": "Activating the certificate.",
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "123-a027502b-ad6c-a48e-a7e8-aa0def7d25e1/ssl/certificates/"
+                    "1/actions/activate"
+                },
+                "notification": {
+                    "href": "https://cloud.acquia.com/api/notifications/"
+                    "4ee513c7-13b4-459f-af60-ba50c4f7cb5d"
+                }
+            }
+        }
+
+        mocker.register_uri("POST", uri, status_code=202, json=response)
+        response = self.acquia.environment(env_id).activate_ssl_cert(cert_id)
+        self.assertEqual(response.status_code, 202)
+        self.assertIn(b"Activating the certificate.", response.content)
+
+    def test_deactivate_ssl_cert(self, mocker):
+        env_id = "123-a027502b-ad6c-a48e-a7e8-aa0def7d25e1"
+        cert_id = "4547"
+        uri = f"{self.endpoint}/environments/{env_id}/ssl/certificates/{cert_id}/actions/deactivate"
+
+        response = {
+            "message": "Deactivating the certificate.",
+            "_links": {
+                "self": {
+                    "href": "https://cloud.acquia.com/api/environments/"
+                    "123-a027502b-ad6c-a48e-a7e8-aa0def7d25e1/ssl/certificates/"
+                    "4547/actions/deactivate"
+                },
+                "notification": {
+                    "href": "https://cloud.acquia.com/api/notifications/"
+                    "cb5de18e-5721-4c26-9f67-1a7d806dd09e"
+                }
+            }
+        }
+
+        mocker.register_uri("POST", uri, status_code=202, json=response)
+        response = self.acquia.environment(env_id).deactivate_ssl_cert(cert_id)
+        self.assertEqual(response.status_code, 202)
+        self.assertIn(b"Deactivating the certificate.", response.content)
