@@ -345,3 +345,97 @@ class Environment(AcquiaResource):
         response = self.request(uri=uri, method="POST", data="")
 
         return response
+
+    def get_ssl_settings(self) -> dict:
+        """
+        Return the SSL settings for the environment.
+        """
+        uri = f"{self.uri}/ssl"
+        response = self.request(uri=uri)
+
+        return response.json()
+
+    def get_ssl_certs(self) -> dict:
+        """
+        Return a list of SSL certificates.
+        """
+        uri = f"{self.uri}/ssl/certificates"
+        response = self.request(uri=uri)
+
+        return response.json().get('_embedded', {}).get('items')
+
+    def get_ssl_cert(self, cert_id: str) -> dict:
+        """
+        Return an SSL cert.
+        """
+        uri = f"{self.uri}/ssl/certificates/{cert_id}"
+        response = self.request(uri=uri)
+
+        return response.json()
+
+    def install_ssl_cert(
+        self,
+        label: str,
+        certificate: str,
+        private_key: str,
+        ca_certificates: str = None,
+        legacy: bool = False,
+        csr_id: int = None,
+    ) -> Session:
+        """
+        Add a new SSL cert to the environment.
+        :param: label: Human-friendly identifier for the cert.
+        :param: certificate: The certificate in PEM format.
+        :param: private_key: The private keyfor the cert in PEM format.
+        :param: ca_certificates: Any chain certificates, in PEM format.
+         Defaults to None.
+        :param: legacy: Legacy in the sense of Acquia's legacy architecture,
+         not an old version of the SSL or TLS standards. See Acquia's docs
+         for more details. Defaults to False.
+        :param: csr_id: Associate with an existing installed CSR. Defaults
+         to None.
+        """
+        uri = f"{self.uri}/ssl/certificates"
+        data = {
+            "legacy": legacy,
+            "label": label,
+            "certificate": certificate,
+            "private_key": private_key,
+        }
+        if csr_id is not None:
+            data['csr_id'] = csr_id
+        if ca_certificates is not None:
+            data['ca_certificates'] = ca_certificates
+        response = self.request(uri=uri, method="POST", data=data)
+
+        return response
+
+    def delete_ssl_cert(self, cert_id: str) -> Session:
+        """
+        Remove an SSL cert.
+        :param: cert_id: The Acquia certificate ID.
+        """
+        uri = f"{self.uri}/ssl/certificates/{cert_id}"
+        response = self.request(uri=uri, method="DELETE")
+
+        return response
+
+    def activate_ssl_cert(self, cert_id: str) -> Session:
+        """
+        Activate a previously installed SSL cert.
+        :param: cert_id: The Acquia certificate ID.
+        """
+        uri = f"{self.uri}/ssl/certificates/{cert_id}/actions/activate"
+        response = self.request(uri=uri, method="POST", data={})
+
+        return response
+
+    def deactivate_ssl_cert(self, cert_id: str) -> Session:
+        """
+        Deactivate a previously installed SSL cert.
+        :param: cert_id: The Acquia certificate ID.
+        """
+        uri = f"{self.uri}/ssl/certificates/{cert_id}/actions/deactivate"
+        response = self.request(uri=uri, method="POST", data={})
+
+        return response
