@@ -8,12 +8,12 @@ with open(os.path.join(os.path.dirname(__name__), 'README.md')) as f:
 
 setup(
     name='acapi2',
-    version='2.0.5',
+    version='2.1.0',
     url='https://github.com/pmatias/python-acquia-cloud-2',
     download_url='https://pypi.org/project/acapi2',
     license='MIT',
-    author='Pablo Fabregat',
-    author_email='pablo@ceruleanhq.com',
+    author='Matt Katz',
+    author_email='matt@ceruleanhq.nl',
     description='Acquia Cloud API v2 client library.',
     long_description=long_description,
     long_description_content_type='text/markdown',
