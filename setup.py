@@ -35,7 +35,7 @@ setup(
     install_requires=[
         'backoff>=1.10.0,<2'
         'http-hmac-python>=2.4.1,<3',
-        'requests>=2.20.0,<=2.23.0',
+        'requests>=2.25.0,<=3.0',
         'requests-cache>=0.5.2,<=0.5.9',
         'setuptools>=38.5',
     ]
