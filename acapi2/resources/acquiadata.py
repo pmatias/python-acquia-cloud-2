@@ -2,29 +2,30 @@
 # -*- coding: utf-8 -*-
 
 """Acquia Cloud API Data network resource"""
-import backoff
-import httphmac
 import logging
-import requests
 import time
 import uuid
-
-from acapi2.http_request import HttpRequest
-from acapi2.version import __version__
 from platform import python_version
 from pprint import pformat
 from urllib.parse import urlencode
+
+import backoff
+import httphmac
+import requests
+
+from acapi2.http_request import HttpRequest
+from acapi2.version import __version__
 
 _logger = logging.getLogger("acapi2.resources.acquiadata")
 
 
 class AcquiaData(object):
-    _agent = 'Acquia Cloud API Client/{mver} (Python {pver})'
-    _realm = _agent.format(mver=__version__,
-                           pver=python_version())
+    _agent = "Acquia Cloud API Client/{mver} (Python {pver})"
+    _realm = _agent.format(mver=__version__, pver=python_version())
 
-    def __init__(self, uri: str, api_key: str, api_secret: str,
-                 data: dict = None) -> None:
+    def __init__(
+        self, uri: str, api_key: str, api_secret: str, data: dict = None
+    ) -> None:
         self.uri = uri
         self.api_key = api_key
         self.api_secret = api_secret
@@ -49,15 +50,19 @@ class AcquiaData(object):
     @backoff.on_exception(
         backoff.expo, requests.exceptions.RequestException, max_time=10
     )
-    def request(self, uri: str = None, method: str = "GET",
-                data: dict = None, params: dict = None):
+    def request(
+        self,
+        uri: str = None,
+        method: str = "GET",
+        data: dict = None,
+        params: dict = None,
+    ):
 
         if not uri:
             uri = self.uri
 
         if params:
-            params = {k: v for k, v in params.items() if
-                      v is not None}
+            params = {k: v for k, v in params.items() if v is not None}
             uri = self.generate_url_query(uri, params)
 
         response: requests.Response
@@ -66,7 +71,7 @@ class AcquiaData(object):
             "realm": self._realm,
             "id": self.api_key,
             "nonce": uuid.uuid4().hex,
-            "version": "2.0"
+            "version": "2.0",
         }
         request.with_url(uri).with_method(method).with_time()
         signer = httphmac.V2Signer()
@@ -93,14 +98,17 @@ class AcquiaData(object):
             logging.debug(response.content)
 
         self.last_response = response
-        if response.status_code != requests.codes.ok \
-                and response.status_code != requests.codes.accepted:
+        if (
+            response.status_code != requests.codes.ok
+            and response.status_code != requests.codes.accepted
+        ):
             try:
                 response.raise_for_status()
             except requests.exceptions.HTTPError as exp:
                 _logger.warning(
                     "Failed request response headers: \n%s",
-                    pformat(exp.response.headers, indent=2))
+                    pformat(exp.response.headers, indent=2),
+                )
                 raise
 
         return response

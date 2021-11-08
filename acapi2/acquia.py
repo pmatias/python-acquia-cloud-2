@@ -4,6 +4,7 @@
 """Acquia Main Object"""
 import os
 
+from acapi2.exceptions import AcquiaCloudException
 from acapi2.resources.agreement import Agreement
 from acapi2.resources.agreementlist import AgreementList
 from acapi2.resources.application import Application
@@ -13,16 +14,14 @@ from acapi2.resources.notification import Notification
 from acapi2.resources.permissionslist import PermissionsList
 from acapi2.resources.subscription import Subscription
 from acapi2.resources.subscriptionlist import SubscriptionList
-from acapi2.exceptions import AcquiaCloudException
 
 
 class Acquia(object):
     _api_endpoint = "https://cloud.acquia.com/api"
 
-    def __init__(self,
-                 api_key: str = None,
-                 api_secret: str = None,
-                 endpoint: str = None) -> None:
+    def __init__(
+        self, api_key: str = None, api_secret: str = None, endpoint: str = None
+    ) -> None:
 
         if endpoint:
             self._api_endpoint = endpoint
@@ -44,20 +43,26 @@ class Acquia(object):
         uri = self.get_uri(namespace)
         return Agreement(uri, self.api_key, self.api_secret)
 
-    def applications(self,
-                     filters: str = None,
-                     sort: str = None,
-                     limit: int = None,
-                     offset: int = None) -> ApplicationList:
+    def applications(
+        self,
+        filters: str = None,
+        sort: str = None,
+        limit: int = None,
+        offset: int = None,
+    ) -> ApplicationList:
         qry_params = {
             "filter": filters,
             "sort": sort,
             "limit": limit,
-            "offset": offset
+            "offset": offset,
         }
 
-        apps = ApplicationList(self.api_endpoint, self.api_key,
-                               self.api_secret, qry_params=qry_params)
+        apps = ApplicationList(
+            self.api_endpoint,
+            self.api_key,
+            self.api_secret,
+            qry_params=qry_params,
+        )
         return apps
 
     def application(self, uuid: str) -> Application:
@@ -109,19 +114,20 @@ class Acquia(object):
         return f"{self.api_endpoint}/{path}"
 
     def permissions(self) -> PermissionsList:
-        return PermissionsList(self.api_endpoint,
-                               self.api_key, self.api_secret)
+        return PermissionsList(
+            self.api_endpoint, self.api_key, self.api_secret
+        )
 
     def subscription(self, uuid: str) -> Subscription:
         namespace = "subscriptions/" + uuid
         uri = self.get_uri(namespace)
-        subscription = Subscription(uri, self.api_key,
-                                    self.api_secret)
+        subscription = Subscription(uri, self.api_key, self.api_secret)
         return subscription
 
     def subscriptions(self, filters: dict = None) -> SubscriptionList:
-        subs = SubscriptionList(self.api_endpoint, self.api_key,
-                                self.api_secret, filters=filters)
+        subs = SubscriptionList(
+            self.api_endpoint, self.api_key, self.api_secret, filters=filters
+        )
         return subs
 
     @staticmethod

@@ -3,21 +3,22 @@
 
 """Acquia API task queue resource."""
 import logging
-import requests_cache
 import time
-
 from datetime import datetime, timedelta
+
+import requests_cache
 
 from acapi2.exceptions import AcquiaCloudTaskFailedException
 from acapi2.resources.acquiaresource import AcquiaResource
 
-LOGGER = logging.getLogger('acapi2.resources.task')
+LOGGER = logging.getLogger("acapi2.resources.task")
 
 
 class Task(AcquiaResource):
     """
     Task is deprecated, let's not use it anymore.
     """
+
     POLL_INTERVAL = 3
 
     def mangle_uri(self, uri: str, task_data: dict):
@@ -36,8 +37,10 @@ class Task(AcquiaResource):
 
         while self.is_pending():
             if start >= max_time:
-                msg = f"Time out exceeded while " \
-                      f"waiting for {self.data['uuid']}"
+                msg = (
+                    f"Time out exceeded while "
+                    f"waiting for {self.data['uuid']}"
+                )
                 raise AcquiaCloudTaskFailedException(msg, self.data)
             time.sleep(self.POLL_INTERVAL)
 
@@ -49,7 +52,8 @@ class Task(AcquiaResource):
         end = datetime.now()
         delta = end - start
 
-        LOGGER.info("Waited %.2f seconds for task to complete",
-                    delta.total_seconds())
+        LOGGER.info(
+            "Waited %.2f seconds for task to complete", delta.total_seconds()
+        )
 
         return self

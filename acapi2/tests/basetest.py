@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 
 """ACAPI2 Tests."""
+import unittest
+
 import requests
 import requests_mock
-import unittest
 
 from acapi2 import Acquia
 

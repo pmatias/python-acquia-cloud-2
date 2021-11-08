@@ -3,24 +3,26 @@
 
 """Acquia Environment resource"""
 
-from acapi2.resources.acquialist import AcquiaList
 from acapi2.exceptions import AcquiaCloudNoDataException
+from acapi2.resources.acquialist import AcquiaList
 
 
 class EnvironmentList(AcquiaList):
-    def __init__(self, uri: str,
-                 api_key: str,
-                 api_secret: str,
-                 qry_params: dict = None,
-                 *args,
-                 **kwargs) -> None:
+    def __init__(
+        self,
+        uri: str,
+        api_key: str,
+        api_secret: str,
+        qry_params: dict = None,
+        *args,
+        **kwargs,
+    ) -> None:
         super().__init__(uri, api_key, api_secret, *args, **kwargs)
         self._qry_params = qry_params
         self.fetch()
 
     def fetch(self):
-        envs = self.request(uri=self.uri,
-                            params=self._qry_params).json()
+        envs = self.request(uri=self.uri, params=self._qry_params).json()
         try:
             env_items = envs["_embedded"]["items"]
         except KeyError:

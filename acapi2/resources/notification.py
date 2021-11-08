@@ -5,29 +5,32 @@
 
 
 import logging
-import requests_cache
 import time
-
 from datetime import datetime, timedelta
+
+import requests_cache
 
 from acapi2.exceptions import (
     AcquiaCloudNotificationFailedException,
-    AcquiaCloudTimeoutError
+    AcquiaCloudTimeoutError,
 )
 from acapi2.resources.acquiaresource import AcquiaResource
 
-
-LOGGER = logging.getLogger('acapi2.resources.notification')
+LOGGER = logging.getLogger("acapi2.resources.notification")
 
 
 class Notification(AcquiaResource):
     POLL_INTERVAL = 3
 
-    def __init__(self, uri: str,
-                 api_key: str,
-                 api_secret: str,
-                 filters: dict = None,
-                 *args, **kwargs) -> None:
+    def __init__(
+        self,
+        uri: str,
+        api_key: str,
+        api_secret: str,
+        filters: dict = None,
+        *args,
+        **kwargs,
+    ) -> None:
         super().__init__(uri, api_key, api_secret, *args, **kwargs)
 
     def pending(self) -> bool:
@@ -52,8 +55,10 @@ class Notification(AcquiaResource):
         while self.pending():
             # Ensure the timeout hasn't been exceeded.
             if datetime.now() >= max_time:
-                msg = f"Time out of exceeded while waiting " \
-                      f"for {self.data['uuid']}"
+                msg = (
+                    f"Time out of exceeded while waiting "
+                    f"for {self.data['uuid']}"
+                )
                 raise AcquiaCloudTimeoutError(msg, self.data)
             time.sleep(self.POLL_INTERVAL)
 
@@ -68,7 +73,7 @@ class Notification(AcquiaResource):
         delta = end - start
         LOGGER.info(
             "Waited %.2f seconds for notification to complete",
-            delta.total_seconds()
+            delta.total_seconds(),
         )
 
         return self

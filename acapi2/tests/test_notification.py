@@ -3,13 +3,13 @@
 
 """Test Notification Endpoint"""
 
-import requests_mock
-
 from unittest.mock import patch
+
+import requests_mock
 
 from acapi2.exceptions import (
     AcquiaCloudNotificationFailedException,
-    AcquiaCloudTimeoutError
+    AcquiaCloudTimeoutError,
 )
 from acapi2.resources.notification import Notification
 from acapi2.tests import BaseTest
@@ -18,7 +18,6 @@ from acapi2.tests.util import load_fixture
 
 @requests_mock.Mocker()
 class TestNotification(BaseTest):
-
     def test_pending(self, mocker):
         response = load_fixture("acapi2/tests/fixtures/notification.json")
 

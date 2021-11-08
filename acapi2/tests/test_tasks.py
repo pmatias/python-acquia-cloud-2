@@ -17,30 +17,27 @@ class TestTasks(BaseTest):
             "_links": {
                 "self": {
                     "href": "{baseUri}/applications/0c7e79ab-1c4a"
-                            "-424e-8446-76ae8be7e851/tasks"
+                    "-424e-8446-76ae8be7e851/tasks"
                 },
                 "parent": {
                     "href": "{baseUri}/applications/0c7e79ab-1c4a"
-                            "-424e-8446-76ae8be7e851"
-                }
+                    "-424e-8446-76ae8be7e851"
+                },
             },
             "_embedded": {
                 "items": [
                     {
                         "progress": 0,
                         "user": {
-                            "uuid": "a18a1d80-8896-11e1"
-                                    "-9eb5-12313928d5b8",
+                            "uuid": "a18a1d80-8896-11e1" "-9eb5-12313928d5b8",
                             "first_name": "James",
                             "last_name": "Kirk",
                             "mail": "james.kirk@example.com",
-                            "picture_url":
-                                "https://accounts.acquia.com/"
-                                "path/to/imagepng",
-                            "username": "james.kirk"
+                            "picture_url": "https://accounts.acquia.com/"
+                            "path/to/imagepng",
+                            "username": "james.kirk",
                         },
-                        "uuid": "53098518-0da8-4e41"
-                                "-943b-1198e3614f38",
+                        "uuid": "53098518-0da8-4e41" "-943b-1198e3614f38",
                         "name": "OperationStarted",
                         "title": "Operation title",
                         "description": "Operation description.",
@@ -57,35 +54,29 @@ class TestTasks(BaseTest):
                                 ]
                             }
                         },
-                        "labels": [
-                            "database",
-                            "hosting"
-                        ],
+                        "labels": ["database", "hosting"],
                         "reference_uuid": "53098518-0da8-4e41"
-                                          "-943b-1198e3614f38",
+                        "-943b-1198e3614f38",
                         "_links": {
                             "self": {
                                 "href": "{baseUri}/applications/"
-                                        "0c7e79ab-1c4a-424e-8446"
-                                        "-76ae8be7e851/tasks"
+                                "0c7e79ab-1c4a-424e-8446"
+                                "-76ae8be7e851/tasks"
                             }
-                        }
+                        },
                     },
                     {
                         "progress": 100,
                         "user": {
-                            "uuid": "a18a1d80-8896-11e1"
-                                    "-9eb5-12313928d5b8",
+                            "uuid": "a18a1d80-8896-11e1" "-9eb5-12313928d5b8",
                             "first_name": "James",
                             "last_name": "Kirk",
                             "mail": "james.kirk@example.com",
-                            "picture_url":
-                                "https://accounts.acquia.com/"
-                                "path/to/imagepng",
-                            "username": "james.kirk"
+                            "picture_url": "https://accounts.acquia.com/"
+                            "path/to/imagepng",
+                            "username": "james.kirk",
                         },
-                        "uuid": "63098518-0da8-4e41"
-                                "-943b-1198e3614f38",
+                        "uuid": "63098518-0da8-4e41" "-943b-1198e3614f38",
                         "name": "OperationStarted",
                         "title": "Operation title",
                         "description": "Operation description.",
@@ -102,37 +93,34 @@ class TestTasks(BaseTest):
                                 ]
                             }
                         },
-                        "labels": [
-                            "database",
-                            "hosting"
-                        ],
+                        "labels": ["database", "hosting"],
                         "reference_uuid": "53098518-0da8-4e41"
-                                          "-943b-1198e3614f38",
+                        "-943b-1198e3614f38",
                         "_links": {
                             "self": {
                                 "href": "{baseUri}/applications/"
-                                        "0c7e79ab-1c4a-424e"
-                                        "-8446-76ae8be7e851/tasks"
+                                "0c7e79ab-1c4a-424e"
+                                "-8446-76ae8be7e851/tasks"
                             }
-                        }
-                    }
+                        },
+                    },
                 ]
-            }
+            },
         }
 
         app_uuid = "0c7e79ab-1c4a-424e-8446-76ae8be7e851"
         uri = "{base_uri}/applications/{uuid}/tasks".format(
-            base_uri=self.endpoint,
-            uuid=app_uuid
+            base_uri=self.endpoint, uuid=app_uuid
         )
-        mocker.register_uri("GET", uri,
-                            json=response,
-                            status_code=200)
+        mocker.register_uri("GET", uri, json=response, status_code=200)
         tasks = self.acquia.application(app_uuid).tasks()
         self.assertIsInstance(tasks, TaskList)
 
-    def test_wait_task(self, mocker): pass
+    def test_wait_task(self, mocker):
+        pass
 
-    def test_failed_task(self, mocker): pass
+    def test_failed_task(self, mocker):
+        pass
 
-    def test_task_not_found(self, mocker): pass
+    def test_task_not_found(self, mocker):
+        pass

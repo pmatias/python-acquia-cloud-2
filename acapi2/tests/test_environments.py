@@ -10,208 +10,184 @@ from acapi2.tests import BaseTest
 
 @requests_mock.Mocker()
 class TestEnvironments(BaseTest):
-
     def test_backups(self, mocker):
         env_id = "1-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         db_name = "db_name"
-        uri = f"{self.endpoint}/environments/{env_id}/" \
-              f"databases/{db_name}/backups"
+        uri = (
+            f"{self.endpoint}/environments/{env_id}/"
+            f"databases/{db_name}/backups"
+        )
 
         response = {
             "total": 2,
-            "pagination": {
-                "total": 2,
-                "limit": 2,
-                "offset": 0
-            },
+            "pagination": {"total": 2, "limit": 2, "offset": 0},
             "_links": {
                 "self": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
-                            "databases/db_name/backups"
+                    "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
+                    "databases/db_name/backups"
                 },
                 "parent": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
-                            "databases/db_name"
+                    "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
+                    "databases/db_name"
                 },
                 "limit": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/databases"
-                            "/db_name/backups{?limit}",
-                    "templated": True
+                    "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/databases"
+                    "/db_name/backups{?limit}",
+                    "templated": True,
                 },
                 "offset": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/databases/"
-                            "db_name/backups{?offset}",
-                    "templated": True
+                    "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/databases/"
+                    "db_name/backups{?offset}",
+                    "templated": True,
                 },
                 "sort": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
-                            "databases/db_name/backups{?sort}",
-                    "templated": True
+                    "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
+                    "databases/db_name/backups{?sort}",
+                    "templated": True,
                 },
                 "filter": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/d"
-                            "atabases/db_name/backups{?filter}",
-                    "templated": True
-                }
+                    "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/d"
+                    "atabases/db_name/backups{?filter}",
+                    "templated": True,
+                },
             },
             "_embedded": {
                 "items": [
                     {
                         "id": 1,
-                        "database": {
-                            "id": 14,
-                            "name": "db_name"
-                        },
+                        "database": {"id": 14, "name": "db_name"},
                         "type": "daily",
                         "started_at": "2012-05-15T12:00:00Z",
                         "completed_at": "2012-05-15T12:00:00Z",
-                        "flags": {
-                            "deleted": False
-                        },
+                        "flags": {"deleted": False},
                         "environment": {
                             "id": "1-a47ac10b-58cc-4372-a567-0e02b2c3d470",
-                            "name": "Production"
+                            "name": "Production",
                         },
                         "_links": {
                             "self": {
                                 "href": "https://cloud.acquia.com/api/"
-                                        "environments/1-a47ac10b-58cc-4372-"
-                                        "a567-0e02b2c3d470/databases/"
-                                        "db_name/backups/1"
+                                "environments/1-a47ac10b-58cc-4372-"
+                                "a567-0e02b2c3d470/databases/"
+                                "db_name/backups/1"
                             },
                             "parent": {
                                 "href": "https://cloud.acquia.com/api/"
-                                        "environments/1-a47ac10b-58cc-"
-                                        "4372-a567-0e02b2c3d470/databases"
+                                "environments/1-a47ac10b-58cc-"
+                                "4372-a567-0e02b2c3d470/databases"
                             },
                             "download": {
                                 "href": "https://cloud.acquia.com/api/"
-                                        "environments/1-a47ac10b-58cc-4372"
-                                        "-a567-0e02b2c3d470/databases/"
-                                        "db_name/backups/1/actions/download"
-                            }
-                        }
+                                "environments/1-a47ac10b-58cc-4372"
+                                "-a567-0e02b2c3d470/databases/"
+                                "db_name/backups/1/actions/download"
+                            },
+                        },
                     },
                     {
                         "id": 2,
-                        "database": {
-                            "id": 14,
-                            "name": "db_name"
-                        },
+                        "database": {"id": 14, "name": "db_name"},
                         "type": "daily",
                         "started_at": "2012-03-28T12:00:00Z",
                         "completed_at": "2012-03-28T12:00:01Z",
-                        "flags": {
-                            "deleted": False
-                        },
+                        "flags": {"deleted": False},
                         "environment": {
                             "id": "1-a47ac10b-58cc-4372-a567-0e02b2c3d470",
-                            "name": "Production"
+                            "name": "Production",
                         },
                         "_links": {
                             "self": {
                                 "href": "https://cloud.acquia.com/api/"
-                                        "environments/1-a47ac10b-58cc-4372-"
-                                        "a567-0e02b2c3d470/databases/"
-                                        "db_name/backups/2"
+                                "environments/1-a47ac10b-58cc-4372-"
+                                "a567-0e02b2c3d470/databases/"
+                                "db_name/backups/2"
                             },
                             "parent": {
                                 "href": "https://cloud.acquia.com/api/"
-                                        "environments/1-a47ac10b-58cc-4372-"
-                                        "a567-0e02b2c3d470/databases"
+                                "environments/1-a47ac10b-58cc-4372-"
+                                "a567-0e02b2c3d470/databases"
                             },
                             "download": {
                                 "href": "https://cloud.acquia.com/api/"
-                                        "environments/1-a47ac10b-58cc-4372-"
-                                        "a567-0e02b2c3d470/databases/db_name"
-                                        "/backups/2/actions/download"
-                            }
-                        }
+                                "environments/1-a47ac10b-58cc-4372-"
+                                "a567-0e02b2c3d470/databases/db_name"
+                                "/backups/2/actions/download"
+                            },
+                        },
                     },
                     {
                         "id": 3,
-                        "database": {
-                            "id": 14,
-                            "name": "db_name"
-                        },
+                        "database": {"id": 14, "name": "db_name"},
                         "type": "daily",
                         "started_at": "2017-01-08T04:00:00Z",
                         "completed_at": "2017-01-08T04:00:01Z",
-                        "flags": {
-                            "deleted": False
-                        },
+                        "flags": {"deleted": False},
                         "environment": {
                             "id": "1-a47ac10b-58cc-4372-a567-0e02b2c3d470",
-                            "name": "Production"
+                            "name": "Production",
                         },
                         "_links": {
                             "self": {
                                 "href": "https://cloud.acquia.com/api/"
-                                        "environments/1-a47ac10b-58cc-4372-"
-                                        "a567-0e02b2c3d470/databases/db_name"
-                                        "/backups/3"
+                                "environments/1-a47ac10b-58cc-4372-"
+                                "a567-0e02b2c3d470/databases/db_name"
+                                "/backups/3"
                             },
                             "parent": {
                                 "href": "https://cloud.acquia.com/api/"
-                                        "environments/1-a47ac10b-58cc-4372-"
-                                        "a567-0e02b2c3d470/databases"
+                                "environments/1-a47ac10b-58cc-4372-"
+                                "a567-0e02b2c3d470/databases"
                             },
                             "download": {
                                 "href": "https://cloud.acquia.com/api/"
-                                        "environments/1-a47ac10b-58cc-4372-"
-                                        "a567-0e02b2c3d470/databases/db_name"
-                                        "/backups/3/actions/download"
-                            }
-                        }
+                                "environments/1-a47ac10b-58cc-4372-"
+                                "a567-0e02b2c3d470/databases/db_name"
+                                "/backups/3/actions/download"
+                            },
+                        },
                     },
                     {
                         "id": 4,
-                        "database": {
-                            "id": 14,
-                            "name": "db_name"
-                        },
+                        "database": {"id": 14, "name": "db_name"},
                         "type": "daily",
                         "started_at": "2017-01-08T05:00:02Z",
                         "completed_at": "2017-01-08T05:00:03Z",
-                        "flags": {
-                            "deleted": False
-                        },
+                        "flags": {"deleted": False},
                         "environment": {
                             "id": "1-a47ac10b-58cc-4372-a567-0e02b2c3d470",
-                            "name": "Production"
+                            "name": "Production",
                         },
                         "_links": {
                             "self": {
                                 "href": "https://cloud.acquia.com/api/"
-                                        "environments/1-a47ac10b-58cc-4372-"
-                                        "a567-0e02b2c3d470/databases/db_name"
-                                        "/backups/4"
+                                "environments/1-a47ac10b-58cc-4372-"
+                                "a567-0e02b2c3d470/databases/db_name"
+                                "/backups/4"
                             },
                             "parent": {
                                 "href": "https://cloud.acquia.com/api/"
-                                        "environments/1-a47ac10b-58cc-4372-"
-                                        "a567-0e02b2c3d470/databases"
+                                "environments/1-a47ac10b-58cc-4372-"
+                                "a567-0e02b2c3d470/databases"
                             },
                             "download": {
                                 "href": "https://cloud.acquia.com/api/"
-                                        "environments/1-a47ac10b-58cc-4372-"
-                                        "a567-0e02b2c3d470/databases/db_name"
-                                        "/backups/4/actions/download"
-                            }
-                        }
-                    }
+                                "environments/1-a47ac10b-58cc-4372-"
+                                "a567-0e02b2c3d470/databases/db_name"
+                                "/backups/4/actions/download"
+                            },
+                        },
+                    },
                 ]
-            }
+            },
         }
 
-        mocker.register_uri("GET", uri,
-                            status_code=200, json=response)
+        mocker.register_uri("GET", uri, status_code=200, json=response)
 
         response = self.acquia.environment(env_id).backups(db_name)
         self.assertEqual(response["total"], 2)
@@ -221,41 +197,38 @@ class TestEnvironments(BaseTest):
         env_id = "1-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         db_name = "db_name"
         id_backup = "1"
-        uri = f"{self.endpoint}/environments/{env_id}/" \
-              f"databases/{db_name}/backups/{id_backup}"
+        uri = (
+            f"{self.endpoint}/environments/{env_id}/"
+            f"databases/{db_name}/backups/{id_backup}"
+        )
 
         response = {
             "id": 1,
-            "database": {
-                "id": 14,
-                "name": "db_name"
-            },
+            "database": {"id": 14, "name": "db_name"},
             "type": "daily",
             "started_at": "2012-05-15T12:00:00Z",
             "completed_at": "2012-05-15T12:00:00Z",
-            "flags": {
-                "deleted": False
-            },
+            "flags": {"deleted": False},
             "environment": {
                 "id": "1-a47ac10b-58cc-4372-a567-0e02b2c3d470",
-                "name": "Production"
+                "name": "Production",
             },
             "_links": {
                 "self": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
-                            "database-backups/1"
+                    "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
+                    "database-backups/1"
                 },
                 "download": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
-                            "database-backups/1/actions/download"
+                    "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/"
+                    "database-backups/1/actions/download"
                 },
                 "parent": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/d"
-                            "atabase-backups"
-                }
+                    "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/d"
+                    "atabase-backups"
+                },
             },
             "_embedded": {
                 "environment": {
@@ -264,10 +237,10 @@ class TestEnvironments(BaseTest):
                     "_links": {
                         "self": {
                             "href": "https://cloud.acquia.com/api/"
-                                    "environments/1-a47ac10b-58cc-4372-"
-                                    "a567-0e02b2c3d470"
+                            "environments/1-a47ac10b-58cc-4372-"
+                            "a567-0e02b2c3d470"
                         }
-                    }
+                    },
                 },
                 "database": {
                     "id": 14,
@@ -275,18 +248,18 @@ class TestEnvironments(BaseTest):
                     "_links": {
                         "self": {
                             "href": "https://cloud.acquia.com/api/"
-                                    "environments/1-a47ac10b-58cc-4372-a567-"
-                                    "0e02b2c3d470/databases/db_name"
+                            "environments/1-a47ac10b-58cc-4372-a567-"
+                            "0e02b2c3d470/databases/db_name"
                         }
-                    }
-                }
-            }
+                    },
+                },
+            },
         }
-        mocker.register_uri("GET", uri,
-                            status_code=200, json=response)
+        mocker.register_uri("GET", uri, status_code=200, json=response)
 
-        response = self.acquia.environment(env_id).backup_details(db_name,
-                                                                  id_backup)
+        response = self.acquia.environment(env_id).backup_details(
+            db_name, id_backup
+        )
         self.assertEqual(response["id"], 1)
         self.assertIn("_embedded", response)
 
@@ -294,31 +267,33 @@ class TestEnvironments(BaseTest):
         env_id = "1-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         db_name = "db_name"
         id_backup = "1"
-        uri = f"{self.endpoint}/environments/{env_id}/" \
-              f"databases/{db_name}/backups/{id_backup}/actions/download"
+        uri = (
+            f"{self.endpoint}/environments/{env_id}/"
+            f"databases/{db_name}/backups/{id_backup}/actions/download"
+        )
 
         response = {
             "url": "http://test-site.com/AH_DOWNLOAD?t=1&d=/mnt/files/site/"
-                   "backups/on-demand/backup.sql.gz&dev=hash",
+            "backups/on-demand/backup.sql.gz&dev=hash",
             "expires_at": "2020-03-27T10:26:51+00:00",
             "_links": {
                 "self": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/databases/"
-                            "db_name/backups/1/actions/download"
+                    "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/databases/"
+                    "db_name/backups/1/actions/download"
                 },
                 "parent": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/databases/"
-                            "db_name/backups/1/actions"
-                }
-            }
+                    "1-a47ac10b-58cc-4372-a567-0e02b2c3d470/databases/"
+                    "db_name/backups/1/actions"
+                },
+            },
         }
         mocker.register_uri("GET", uri, status_code=200, json=response)
 
-        response = self.acquia.environment(
-            env_id
-        ).backup_download(db_name, id_backup)
+        response = self.acquia.environment(env_id).backup_download(
+            db_name, id_backup
+        )
         self.assertIn("url", response)
 
     def test_code_switch(self, mocker):
@@ -326,11 +301,16 @@ class TestEnvironments(BaseTest):
         uri = "{base_uri}/environments/{env_id}/code/actions/switch"
         uri = uri.format(base_uri=self.endpoint, env_id=env_id)
 
-        mocker.register_uri("POST", uri, status_code=202,
-                            json={"message": "The code is being switched."})
+        mocker.register_uri(
+            "POST",
+            uri,
+            status_code=202,
+            json={"message": "The code is being switched."},
+        )
 
         response = self.acquia.environment(env_id).code_switch(
-            "my-feature-branch")
+            "my-feature-branch"
+        )
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"switched", response.content)
@@ -348,7 +328,7 @@ class TestEnvironments(BaseTest):
             "max_input_vars": 1000,
             "max_post_size": 256,
             "sendmail_path": "/usr/bin/sendmail",
-            "varnish_over_ssl": False
+            "varnish_over_ssl": False,
         }
 
         response_message = {
@@ -365,27 +345,29 @@ class TestEnvironments(BaseTest):
     def test_create_backup(self, mocker):
         env_id = "1-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         db_name = "db_name"
-        uri = f"{self.endpoint}/environments/{env_id}/" \
-              f"databases/{db_name}/backups"
+        uri = (
+            f"{self.endpoint}/environments/{env_id}/"
+            f"databases/{db_name}/backups"
+        )
 
         response = {
             "message": "Creating the backup.",
             "_links": {
                 "self": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "12-d314739e-296f-11e9-b210-d663bd873d93/"
-                            "databases/my_db/backups/"
+                    "12-d314739e-296f-11e9-b210-d663bd873d93/"
+                    "databases/my_db/backups/"
                 },
                 "notification": {
                     "href": "https://cloud.acquia.com/api/notifications/"
-                            "42b56cff-0b55-4bdf-a949-1fd0fca61c6c"
+                    "42b56cff-0b55-4bdf-a949-1fd0fca61c6c"
                 },
                 "parent": {
                     "href": "https://cloud.acquia.com/api/environments/"
-                            "12-d314739e-296f-11e9-b210-d663bd873d93/"
-                            "databases/my_db/"
-                }
-            }
+                    "12-d314739e-296f-11e9-b210-d663bd873d93/"
+                    "databases/my_db/"
+                },
+            },
         }
 
         mocker.register_uri("POST", uri, status_code=202, json=response)
@@ -402,11 +384,13 @@ class TestEnvironments(BaseTest):
             "message": "The domain 'ceruleanhq.com' is being added."
         }
 
-        mocker.register_uri("POST", uri,
-                            status_code=202, json=response_message)
+        mocker.register_uri(
+            "POST", uri, status_code=202, json=response_message
+        )
 
         response = self.acquia.environment(env_id).create_domain(
-            "ceruleanhq.com")
+            "ceruleanhq.com"
+        )
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"added", response.content)
@@ -421,14 +405,12 @@ class TestEnvironments(BaseTest):
             environment has been created."
         }
 
-        mocker.register_uri("POST", uri,
-                            status_code=202, json=response_message)
+        mocker.register_uri(
+            "POST", uri, status_code=202, json=response_message
+        )
 
         label = "Test destination"
-        sources = [
-            "apache-access",
-            "apache-error"
-        ]
+        sources = ["apache-access", "apache-error"]
         consumer = "syslog"
         credentials = {
             "certificate": "-----BEGIN CERTIFICATE-----...\
@@ -437,8 +419,10 @@ class TestEnvironments(BaseTest):
         address = "example.com:1234"
 
         response = self.acquia.environment(
-            env_id).create_log_forwarding_destinations(
-            label, sources, consumer, credentials, address)
+            env_id
+        ).create_log_forwarding_destinations(
+            label, sources, consumer, credentials, address
+        )
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"created", response.content)
@@ -446,27 +430,29 @@ class TestEnvironments(BaseTest):
     def test_delete_backup(self, mocker):
         env_id = "12-d314739e-296f-11e9-b210-d663bd873d93"
         db_name = "my_db"
-        uri = f"{self.endpoint}/environments/{env_id}/" \
-              f"databases/{db_name}/backups/1"
+        uri = (
+            f"{self.endpoint}/environments/{env_id}/"
+            f"databases/{db_name}/backups/1"
+        )
 
         response = {
             "message": "Deleting the database backup.",
             "_links": {
                 "self": {
                     "href": "https://cloud.acquia.com/api/environments/12-d314"
-                            "739e-296f-11e9-b210-d663bd873d93/databases/"
-                            "my_db/backups/1"
+                    "739e-296f-11e9-b210-d663bd873d93/databases/"
+                    "my_db/backups/1"
                 },
                 "notification": {
                     "href": "https://cloud.acquia.com/api/notifications/42b5"
-                            "6cff-0b55-4bdf-a949-1fd0fca61c6c"
+                    "6cff-0b55-4bdf-a949-1fd0fca61c6c"
                 },
                 "parent": {
                     "href": "https://cloud.acquia.com/api/environments/12-d31"
-                            "4739e-296f-11e9-b210-d663bd873d93/databases/"
-                            "my_db/backups"
-                }
-            }
+                    "4739e-296f-11e9-b210-d663bd873d93/databases/"
+                    "my_db/backups"
+                },
+            },
         }
 
         mocker.register_uri("DELETE", uri, status_code=202, json=response)
@@ -480,67 +466,78 @@ class TestEnvironments(BaseTest):
         uri = "{base_uri}/environments/{env_id}/domains/{domain}"
         uri = uri.format(base_uri=self.endpoint, env_id=env_id, domain=domain)
 
-        mocker.register_uri("DELETE", uri,
-                            status_code=202)
+        mocker.register_uri("DELETE", uri, status_code=202)
 
         response = self.acquia.environment(env_id).delete_domain(
-            "ceruleanhq.com")
+            "ceruleanhq.com"
+        )
 
         self.assertEqual(response.status_code, 202)
 
     def test_clear_varnish_domain(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         domain = "ceruleanhq.com"
-        uri = "{base_uri}/environments/{env_id}/domains/" \
-              "{domain}/actions/clear-varnish"
+        uri = (
+            "{base_uri}/environments/{env_id}/domains/"
+            "{domain}/actions/clear-varnish"
+        )
         uri = uri.format(base_uri=self.endpoint, env_id=env_id, domain=domain)
 
         response_message = {
             "message": "Varnish is being cleared for domain 'ceruleanhq.com'."
         }
 
-        mocker.register_uri("POST", uri,
-                            status_code=202, json=response_message)
+        mocker.register_uri(
+            "POST", uri, status_code=202, json=response_message
+        )
 
-        response = self.acquia.environment(
-            env_id).clear_varnish_domain("ceruleanhq.com")
+        response = self.acquia.environment(env_id).clear_varnish_domain(
+            "ceruleanhq.com"
+        )
 
         self.assertEqual(response.status_code, 202)
 
     def test_clear_varnish_domains(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         domains = ["ceruleanhq.com"]
-        uri = "{base_uri}/environments/{env_id}/domains/" \
-              "actions/clear-varnish"
+        uri = (
+            "{base_uri}/environments/{env_id}/domains/" "actions/clear-varnish"
+        )
         uri = uri.format(base_uri=self.endpoint, env_id=env_id)
 
         response_message = {
             "message": "Varnish is being cleared for the selected domains."
         }
 
-        mocker.register_uri("POST", uri,
-                            status_code=202, json=response_message)
+        mocker.register_uri(
+            "POST", uri, status_code=202, json=response_message
+        )
 
-        response = self.acquia.environment(
-            env_id).clear_varnish_domains(domains)
+        response = self.acquia.environment(env_id).clear_varnish_domains(
+            domains
+        )
 
         self.assertEqual(response.status_code, 202)
 
     def test_delete_log_forwarding_destinations(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         destination_uuid = "df4c5428-8d2e-453d-9edf-e412647449b1"
-        uri = f"{self.endpoint}/environments/{env_id}/"\
-              f"log-forwarding-destinations/{destination_uuid}"
+        uri = (
+            f"{self.endpoint}/environments/{env_id}/"
+            f"log-forwarding-destinations/{destination_uuid}"
+        )
 
         response_message = {
             "message": "Log forwarding destination has been deleted."
         }
 
-        mocker.register_uri("DELETE", uri,
-                            status_code=202, json=response_message)
+        mocker.register_uri(
+            "DELETE", uri, status_code=202, json=response_message
+        )
 
         response = self.acquia.environment(
-            env_id).delete_log_forwarding_destinations(destination_uuid)
+            env_id
+        ).delete_log_forwarding_destinations(destination_uuid)
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"deleted", response.content)
@@ -549,12 +546,11 @@ class TestEnvironments(BaseTest):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         uri = "{base_uri}/environments/{env_id}"
         uri = uri.format(base_uri=self.endpoint, env_id=env_id)
-        response = {
-            "message": "The environment is being deleted."
-        }
+        response = {"message": "The environment is being deleted."}
 
-        mocker.register_uri(url=uri, method="DELETE",
-                            status_code=202, json=response)
+        mocker.register_uri(
+            url=uri, method="DELETE", status_code=202, json=response
+        )
 
         response = self.acquia.environment(env_id).destroy()
 
@@ -566,12 +562,11 @@ class TestEnvironments(BaseTest):
         uri = "{base_uri}/environments/{env_id}/code"
         uri = uri.format(base_uri=self.endpoint, env_id=env_id)
 
-        response_message = {
-            "message": "The code is being deployed."
-        }
+        response_message = {"message": "The code is being deployed."}
 
-        mocker.register_uri("POST", uri,
-                            status_code=202, json=response_message)
+        mocker.register_uri(
+            "POST", uri, status_code=202, json=response_message
+        )
 
         response = self.acquia.environment(env_id).deploy_code(env_id_from)
 
@@ -584,15 +579,15 @@ class TestEnvironments(BaseTest):
         uri = "{base_uri}/environments/{env_id}/databases"
         uri = uri.format(base_uri=self.endpoint, env_id=env_id)
 
-        response_message = {
-            "message": "The database is queued for copying."
-        }
+        response_message = {"message": "The database is queued for copying."}
 
-        mocker.register_uri("POST", uri,
-                            status_code=202, json=response_message)
+        mocker.register_uri(
+            "POST", uri, status_code=202, json=response_message
+        )
 
         response = self.acquia.environment(env_id).deploy_database(
-            env_id_from, "my_new_db")
+            env_id_from, "my_new_db"
+        )
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"queued", response.content)
@@ -607,8 +602,9 @@ class TestEnvironments(BaseTest):
             "message": "The files have been queued for copying."
         }
 
-        mocker.register_uri("POST", uri,
-                            status_code=202, json=response_message)
+        mocker.register_uri(
+            "POST", uri, status_code=202, json=response_message
+        )
 
         response = self.acquia.environment(env_id).deploy_files(env_id_from)
 
@@ -635,19 +631,19 @@ class TestEnvironments(BaseTest):
                         "day_week": "*",
                         "environment": {
                             "id": "24-a47ac10b-58cc-4372-a567-0e02b2c3d470",
-                            "name": "prod"
+                            "name": "prod",
                         },
                         "flags": {
                             "enabled": True,
                             "on_any_web": True,
-                            "system": True
+                            "system": True,
                         },
                         "hour": "8",
                         "id": "43595",
                         "label": None,
                         "minute": "0",
                         "month": "*",
-                        "server": []
+                        "server": [],
                     },
                     {
                         "_links": {
@@ -664,19 +660,19 @@ class TestEnvironments(BaseTest):
                         "day_week": "*",
                         "environment": {
                             "id": "24-a47ac10b-58cc-4372-a567-0e02b2c3d470",
-                            "name": "prod"
+                            "name": "prod",
                         },
                         "flags": {
                             "enabled": True,
                             "on_any_web": True,
-                            "system": False
+                            "system": False,
                         },
                         "hour": "*",
                         "id": "56834",
                         "label": "Site Cron Every Hour",
                         "minute": "0",
                         "month": "*",
-                        "server": []
+                        "server": [],
                     },
                 ]
             },
@@ -688,13 +684,12 @@ class TestEnvironments(BaseTest):
                 "self": {
                     "href": "{baseUri}/environments/\
                             24-a47ac10b-58cc-4372-a567-0e02b2c3d470/crons"
-                }
+                },
             },
-            "total": 2
+            "total": 2,
         }
 
-        mocker.register_uri("GET", uri,
-                            status_code=200, json=response_message)
+        mocker.register_uri("GET", uri, status_code=200, json=response_message)
 
         response = self.acquia.environment(env_id).get_crons()
 
@@ -715,7 +710,7 @@ class TestEnvironments(BaseTest):
                 "parent": {
                     "href": "{base_uri}/environments\
                     /5-185f07c7-9c4f-407b-8968-67892ebcb38a"
-                }
+                },
             },
             "_embedded": {
                 "items": [
@@ -728,24 +723,21 @@ class TestEnvironments(BaseTest):
                             "certificate": {
                                 "certificate": "-----BEGIN CERTIFICATE-----...\
                                 -----END CERTIFICATE-----",
-                                "expires_at": "2018-07-16T16:15:33+00:00"
+                                "expires_at": "2018-07-16T16:15:33+00:00",
                             },
                             "key": None,
-                            "token": "4ded264c8891c400df8fc8905f07beb5f"
+                            "token": "4ded264c8891c400df8fc8905f07beb5f",
                         },
-                        "sources": [
-                            "apache-access",
-                            "apache-error"
-                        ],
+                        "sources": ["apache-access", "apache-error"],
                         "status": "active",
                         "flags": {
                             "enabled": True,
-                            "certificate_expiring": False
+                            "certificate_expiring": False,
                         },
                         "environment": {
                             "id": "123-ea9060c5-1ed8-46ec-87d5-2ce2a0861577",
-                            "name": "Test"
-                        }
+                            "name": "Test",
+                        },
                     },
                     {
                         "uuid": "df4c5428-8d2e-453d-9edf-e412647449b5",
@@ -756,34 +748,31 @@ class TestEnvironments(BaseTest):
                             "certificate": {
                                 "certificate": "-----BEGIN CERTIFICATE-----...\
                                 -----END CERTIFICATE-----",
-                                "expires_at": "2018-07-16T16:15:33+00:00"
+                                "expires_at": "2018-07-16T16:15:33+00:00",
                             },
                             "key": "1d0789d519c0b943cf38f401d30ffbdcd2",
-                            "token": "4ded264c8891c400df8fc8905f07beb5f"
+                            "token": "4ded264c8891c400df8fc8905f07beb5f",
                         },
-                        "sources": [
-                            "drupal-request",
-                            "drupal-watchdog"
-                        ],
+                        "sources": ["drupal-request", "drupal-watchdog"],
                         "status": "active",
                         "flags": {
                             "enabled": False,
-                            "certificate_expiring": True
+                            "certificate_expiring": True,
                         },
                         "environment": {
                             "id": "123-ea9060c5-1ed8-46ec-87d5-2ce2a0861577",
-                            "name": "Test"
-                        }
-                    }
+                            "name": "Test",
+                        },
+                    },
                 ]
-            }
+            },
         }
 
-        mocker.register_uri("GET", uri,
-                            status_code=200, json=response_message)
+        mocker.register_uri("GET", uri, status_code=200, json=response_message)
 
         response = self.acquia.environment(
-            env_id).get_log_forwarding_destinations()
+            env_id
+        ).get_log_forwarding_destinations()
 
         self.assertEqual(response["total"], 2)
         self.assertIn("_embedded", response)
@@ -792,20 +781,13 @@ class TestEnvironments(BaseTest):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         uri = "{base_uri}/environments/{env_id}/"
         uri = uri.format(base_uri=self.endpoint, env_id=env_id)
-        response_message = {
-            'configuration': {
-                'php': {
-                    'version': '7.2'
-                }
-            }
-        }
+        response_message = {"configuration": {"php": {"version": "7.2"}}}
 
-        mocker.register_uri("GET", uri,
-                            status_code=200, json=response_message)
+        mocker.register_uri("GET", uri, status_code=200, json=response_message)
 
         response = self.acquia.environment(env_id).get_php_version()
 
-        self.assertEqual(response['php_version'], '7.2')
+        self.assertEqual(response["php_version"], "7.2")
 
     def test_get_servers(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
@@ -817,12 +799,12 @@ class TestEnvironments(BaseTest):
             "_links": {
                 "self": {
                     "href": "{baseUri}/environments/"
-                            "24-a47ac10b-58cc-4372-a567-0e02b2c3d470/servers"
+                    "24-a47ac10b-58cc-4372-a567-0e02b2c3d470/servers"
                 },
                 "parent": {
                     "href": "{baseUri}/environments/"
-                            "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
-                }
+                    "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
+                },
             },
             "_embedded": {
                 "items": [
@@ -834,15 +816,12 @@ class TestEnvironments(BaseTest):
                         "ip": "10.0.0.1",
                         "status": "normal",
                         "region": "us-west-1",
-                        "roles": [
-                            "web",
-                            "db"
-                        ],
+                        "roles": ["web", "db"],
                         "ami_type": "c1.medium",
                         "configuration": {
                             "memcache": 64,
                             "ecu": 5,
-                            "memory": 1.7
+                            "memory": 1.7,
                         },
                         "flags": {
                             "elastic_ip": False,
@@ -854,19 +833,19 @@ class TestEnvironments(BaseTest):
                             "balancer": False,
                             "memcache": True,
                             "dedicated": False,
-                            "self_service": False
+                            "self_service": False,
                         },
                         "environment": {
                             "id": "24-a47ac10b-58cc-4372-a567-0e02b2c3d470",
-                            "name": "dev"
+                            "name": "dev",
                         },
                         "_links": {
                             "self": {
                                 "href": "{baseUri}/environments/"
-                                        "24-a47ac10b-58cc-4372-a567-"
-                                        "0e02b2c3d470/servers/6"
+                                "24-a47ac10b-58cc-4372-a567-"
+                                "0e02b2c3d470/servers/6"
                             }
-                        }
+                        },
                     },
                     {
                         "id": "4",
@@ -876,14 +855,12 @@ class TestEnvironments(BaseTest):
                         "ip": "10.0.0.2",
                         "status": "normal",
                         "region": "us-west-1",
-                        "roles": [
-                            "bal"
-                        ],
+                        "roles": ["bal"],
                         "ami_type": "m1.small",
                         "configuration": {
                             "memcache": None,
                             "ecu": 1,
-                            "memory": 1.7
+                            "memory": 1.7,
                         },
                         "flags": {
                             "elastic_ip": False,
@@ -895,26 +872,25 @@ class TestEnvironments(BaseTest):
                             "balancer": True,
                             "memcache": False,
                             "dedicated": True,
-                            "self_service": False
+                            "self_service": False,
                         },
                         "environment": {
                             "id": "24-a47ac10b-58cc-4372-a567-0e02b2c3d470",
-                            "name": "dev"
+                            "name": "dev",
                         },
                         "_links": {
                             "self": {
                                 "href": "{baseUri}/environments/"
-                                        "24-a47ac10b-58cc-4372-a567-"
-                                        "0e02b2c3d470/servers/4"
+                                "24-a47ac10b-58cc-4372-a567-"
+                                "0e02b2c3d470/servers/4"
                             }
-                        }
-                    }
+                        },
+                    },
                 ]
-            }
+            },
         }
 
-        mocker.register_uri("GET", uri,
-                            status_code=200, json=response_message)
+        mocker.register_uri("GET", uri, status_code=200, json=response_message)
 
         response = self.acquia.environment(env_id).get_servers()
 
@@ -940,21 +916,19 @@ class TestEnvironments(BaseTest):
     def test_update_log_forwarding_destinations(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         destination_uuid = "df4c5428-8d2e-453d-9edf-e412647449b1"
-        uri = f"{self.endpoint}/environments/{env_id}/"\
-              f"log-forwarding-destinations/{destination_uuid}"
+        uri = (
+            f"{self.endpoint}/environments/{env_id}/"
+            f"log-forwarding-destinations/{destination_uuid}"
+        )
 
         response_message = {
             "message": "Log forwarding destination has been updated."
         }
 
-        mocker.register_uri("PUT", uri,
-                            status_code=202, json=response_message)
+        mocker.register_uri("PUT", uri, status_code=202, json=response_message)
 
         label = "Test destination"
-        sources = [
-            "apache-access",
-            "apache-error"
-        ]
+        sources = ["apache-access", "apache-error"]
         consumer = "syslog"
         credentials = {
             "certificate": "-----BEGIN CERTIFICATE-----...\
@@ -963,8 +937,10 @@ class TestEnvironments(BaseTest):
         address = "example.com:1234"
 
         response = self.acquia.environment(
-            env_id).update_log_forwarding_destinations(
-            label, sources, consumer, credentials, address, destination_uuid)
+            env_id
+        ).update_log_forwarding_destinations(
+            label, sources, consumer, credentials, address, destination_uuid
+        )
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"updated", response.content)
@@ -972,8 +948,10 @@ class TestEnvironments(BaseTest):
     def test_enable_cron(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         cron_id = "1889"
-        uri = f"{self.endpoint}/environments/{env_id}/"\
-              f"crons/{cron_id}/actions/enable"
+        uri = (
+            f"{self.endpoint}/environments/{env_id}/"
+            f"crons/{cron_id}/actions/enable"
+        )
 
         response = {
             "message": "The cron is being enabled.",
@@ -992,7 +970,7 @@ class TestEnvironments(BaseTest):
                     "href": "https://cloud.acquia.com/api/notifications/"
                     "ceda2e82-54b7-4181-ae97-6a3163b187b8"
                 },
-            }
+            },
         }
         mocker.register_uri("POST", uri, status_code=202, json=response)
 
@@ -1004,8 +982,10 @@ class TestEnvironments(BaseTest):
     def test_disable_cron(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         cron_id = "1234"
-        uri = f"{self.endpoint}/environments/{env_id}/"\
-              f"crons/{cron_id}/actions/disable"
+        uri = (
+            f"{self.endpoint}/environments/{env_id}/"
+            f"crons/{cron_id}/actions/disable"
+        )
 
         response = {
             "message": "The cron is being disabled.",
@@ -1024,7 +1004,7 @@ class TestEnvironments(BaseTest):
                     "href": "https://cloud.acquia.com/api/notifications/"
                     "7b37b885-8ae4-454b-b8fa-ffaeff54f6a4"
                 },
-            }
+            },
         }
         mocker.register_uri("POST", uri, status_code=202, json=response)
 
@@ -1036,8 +1016,7 @@ class TestEnvironments(BaseTest):
     def test_delete_cron(self, mocker):
         env_id = "24-a47ac10b-58cc-4372-a567-0e02b2c3d470"
         cron_id = "1891"
-        uri = f"{self.endpoint}/environments/{env_id}/"\
-              f"crons/{cron_id}"
+        uri = f"{self.endpoint}/environments/{env_id}/" f"crons/{cron_id}"
 
         response = {
             "message": "Deleting cron.",
@@ -1054,7 +1033,7 @@ class TestEnvironments(BaseTest):
                     "href": "https://cloud.acquia.com/api/notifications/"
                     "767cee8d-05f6-4761-a3dc-755957dfc9e6"
                 },
-            }
+            },
         }
         mocker.register_uri("DELETE", uri, status_code=202, json=response)
 
@@ -1068,12 +1047,8 @@ class TestEnvironments(BaseTest):
         uri = f"{self.endpoint}/environments/{env_id}/ssl"
 
         response = {
-            "balancer": {
-                "hostname": "example.us-east-1.elb.amazonaws.com"
-            },
-            "ips": [
-                "127.0.0.1"
-            ],
+            "balancer": {"hostname": "example.us-east-1.elb.amazonaws.com"},
+            "ips": ["127.0.0.1"],
             "_links": {
                 "self": {
                     "href": "https://cloud.acquia.com/api/environments/"
@@ -1090,8 +1065,8 @@ class TestEnvironments(BaseTest):
                 "parent": {
                     "href": "https://cloud.acquia.com/api/environments/"
                     "3-110075c3-126e-6b43-c2ce-30be75fb33c2"
-                }
-            }
+                },
+            },
         }
 
         mocker.register_uri("GET", uri, status_code=200, json=response)
@@ -1112,7 +1087,7 @@ class TestEnvironments(BaseTest):
                 "parent": {
                     "href": "https://cloud.acquia.com/api/environments/"
                     "5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl"
-                }
+                },
             },
             "_embedded": {
                 "items": [
@@ -1122,84 +1097,71 @@ class TestEnvironments(BaseTest):
                         "certificate": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
                         "private_key": None,
                         "ca": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
-                        "flags": {
-                            "active": True,
-                            "csr": True,
-                            "legacy": True
-                        },
+                        "flags": {"active": True, "csr": True, "legacy": True},
                         "expires_at": "2022-03-28T00:12:34-0400",
-                        "domains": [
-                            "example.com",
-                            "www.example.com"
-                        ],
+                        "domains": ["example.com", "www.example.com"],
                         "environment": {
                             "id": "5-a1a10dab-62f4-418c-bc58-ab7742078ba8",
-                            "name": "prod"
+                            "name": "prod",
                         },
                         "_links": {
                             "self": {
                                 "href": "https://cloud.acquia.com/api/environments/5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl/certificates/7"
-                                },
-                                "csr": {
-                                   "href": "https://cloud.acquia.com/api/"
-                                   "environments/5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl/csrs/7"
-                                }
+                            },
+                            "csr": {
+                                "href": "https://cloud.acquia.com/api/"
+                                "environments/5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl/csrs/7"
+                            },
+                        },
+                    },
+                    {
+                        "id": 3,
+                        "label": "Test Certificate 1",
+                        "certificate": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
+                        "private_key": "-----BEGIN RSA PRIVATE KEY-----...-----END RSA PRIVATE KEY-----",
+                        "ca": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
+                        "flags": {
+                            "active": True,
+                            "csr": False,
+                            "legacy": False,
+                        },
+                        "expires_at": "2021-01-01T00:00:00-0400",
+                        "domains": ["example2.com", "www.example2.com"],
+                        "environment": {
+                            "id": "5-a1a10dab-62f4-418c-bc58-ab7742078ba8",
+                            "name": "prod",
+                        },
+                        "_links": {
+                            "self": {
+                                "href": "https://cloud.acquia.com/api/environments/5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl/certificates/3"
                             }
                         },
-                        {
-                            "id": 3,
-                            "label": "Test Certificate 1",
-                            "certificate": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
-                            "private_key": "-----BEGIN RSA PRIVATE KEY-----...-----END RSA PRIVATE KEY-----",
-                            "ca": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
-                            "flags": {
-                                "active": True,
-                                "csr": False,
-                                "legacy": False
-                            },
-                            "expires_at": "2021-01-01T00:00:00-0400",
-                            "domains": [
-                                "example2.com",
-                                "www.example2.com"
-                            ],
-                            "environment": {
-                                "id": "5-a1a10dab-62f4-418c-bc58-ab7742078ba8",
-                                "name": "prod"
-                            },
-                            "_links": {
-                                "self": {
-                                    "href": "https://cloud.acquia.com/api/environments/5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl/certificates/3"
-                                }
-                            }
+                    },
+                    {
+                        "id": 4,
+                        "label": "Test Certificate 2",
+                        "certificate": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
+                        "private_key": "-----BEGIN RSA PRIVATE KEY-----...-----END RSA PRIVATE KEY-----",
+                        "ca": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
+                        "flags": {
+                            "active": False,
+                            "csr": True,
+                            "legacy": False,
                         },
-                        {
-                            "id": 4,
-                            "label": "Test Certificate 2",
-                            "certificate": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
-                            "private_key": "-----BEGIN RSA PRIVATE KEY-----...-----END RSA PRIVATE KEY-----",
-                            "ca": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
-                            "flags": {
-                                "active": False,
-                                "csr": True,
-                                "legacy": False
-                            },
-                            "expires_at": "2021-01-01T00:00:00-0400",
-                            "domains": [
-                                "example3.com",
-                                "www.example3.com"
-                            ],
-                            "environment": {
-                                "id": "5-a1a10dab-62f4-418c-bc58-ab7742078ba8",
-                                "name": "prod"
-                            },
-                            "_links": {
-                                "self": {
+                        "expires_at": "2021-01-01T00:00:00-0400",
+                        "domains": ["example3.com", "www.example3.com"],
+                        "environment": {
+                            "id": "5-a1a10dab-62f4-418c-bc58-ab7742078ba8",
+                            "name": "prod",
+                        },
+                        "_links": {
+                            "self": {
                                 "href": "https://cloud.acquia.com/api/environments/5-a1a10dab-62f4-418c-bc58-ab7742078ba8/ssl/certificates/4"
                             }
-                        }
-                    }
+                        },
+                    },
                 ]
-            }
+            },
         }
 
         mocker.register_uri("GET", uri, status_code=200, json=response)
@@ -1211,10 +1173,16 @@ class TestEnvironments(BaseTest):
         uri = f"{self.endpoint}/environments/{env_id}/ssl/certificates"
 
         legacy = False
-        certificate = "-----BEGIN CERTIFICATE-----abc123....-----END CERTIFICATE-----",
-        private_key = "-----BEGIN RSA PRIVATE KEY-----secret....-----END RSA PRIVATE KEY-----",
-        ca_certificates = "-----BEGIN CERTIFICATE-----123abc....-----END CERTIFICATE-----",
-        csr_id = 123,
+        certificate = (
+            "-----BEGIN CERTIFICATE-----abc123....-----END CERTIFICATE-----",
+        )
+        private_key = (
+            "-----BEGIN RSA PRIVATE KEY-----secret....-----END RSA PRIVATE KEY-----",
+        )
+        ca_certificates = (
+            "-----BEGIN CERTIFICATE-----123abc....-----END CERTIFICATE-----",
+        )
+        csr_id = (123,)
         label = "My New Cert"
 
         response = {
@@ -1228,14 +1196,15 @@ class TestEnvironments(BaseTest):
                 },
                 "parent": {
                     "href": "https://cloud.acquia.com/api/environments/123-4ba86d4a-e193-4282-8963-d9d24746f444/ssl"
-                }
-            }
+                },
+            },
         }
 
         mocker.register_uri("POST", uri, status_code=202, json=response)
 
         response = self.acquia.environment(env_id).install_ssl_cert(
-            label, certificate, private_key, ca_certificates, legacy, csr_id)
+            label, certificate, private_key, ca_certificates, legacy, csr_id
+        )
 
         self.assertEqual(response.status_code, 202)
         self.assertIn(b"Installing the certificate.", response.content)
@@ -1243,7 +1212,9 @@ class TestEnvironments(BaseTest):
     def test_get_ssl_cert(self, mocker):
         env_id = "5-9d46fd9d-e58b-47a3-8e9e-e8e0c2a854b4"
         cert_id = "13"
-        uri = f"{self.endpoint}/environments/{env_id}/ssl/certificates/{cert_id}"
+        uri = (
+            f"{self.endpoint}/environments/{env_id}/ssl/certificates/{cert_id}"
+        )
 
         response = {
             "id": 13,
@@ -1251,19 +1222,12 @@ class TestEnvironments(BaseTest):
             "certificate": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
             "private_key": "-----BEGIN RSA PRIVATE KEY-----...-----END RSA PRIVATE KEY-----",
             "ca": "-----BEGIN CERTIFICATE-----...-----END CERTIFICATE-----",
-            "flags": {
-                "active": True,
-                "csr": True,
-                "legacy": False
-            },
+            "flags": {"active": True, "csr": True, "legacy": False},
             "expires_at": "2022-03-28T00:12:34-0400",
-            "domains": [
-                "example.com",
-                "www.example.com"
-            ],
+            "domains": ["example.com", "www.example.com"],
             "environment": {
                 "id": "5-9d46fd9d-e58b-47a3-8e9e-e8e0c2a854b4",
-                "name": "prod"
+                "name": "prod",
             },
             "_links": {
                 "self": {
@@ -1273,8 +1237,8 @@ class TestEnvironments(BaseTest):
                 "parent": {
                     "href": "https://cloud.acquia.com/api/environments/"
                     "5-9d46fd9d-e58b-47a3-8e9e-e8e0c2a854b4/ssl/certificates"
-                }
-            }
+                },
+            },
         }
 
         mocker.register_uri("GET", uri, status_code=200, json=response)
@@ -1284,7 +1248,9 @@ class TestEnvironments(BaseTest):
     def test_delete_ssl_cert(self, mocker):
         env_id = "286-a027502b-ad6c-a48e-a7e8-aa0def7d25e1"
         cert_id = "9"
-        uri = f"{self.endpoint}/environments/{env_id}/ssl/certificates/{cert_id}"
+        uri = (
+            f"{self.endpoint}/environments/{env_id}/ssl/certificates/{cert_id}"
+        )
 
         response = {
             "message": "Deleting the certificate.",
@@ -1297,8 +1263,8 @@ class TestEnvironments(BaseTest):
                 },
                 "notification": {
                     "href": "https://cloud.acquia.com/api/notifications/767cee8d-05f6-4761-a3dc-755957dfc9e6"
-                }
-            }
+                },
+            },
         }
 
         mocker.register_uri("DELETE", uri, status_code=202, json=response)
@@ -1322,8 +1288,8 @@ class TestEnvironments(BaseTest):
                 "notification": {
                     "href": "https://cloud.acquia.com/api/notifications/"
                     "4ee513c7-13b4-459f-af60-ba50c4f7cb5d"
-                }
-            }
+                },
+            },
         }
 
         mocker.register_uri("POST", uri, status_code=202, json=response)
@@ -1347,8 +1313,8 @@ class TestEnvironments(BaseTest):
                 "notification": {
                     "href": "https://cloud.acquia.com/api/notifications/"
                     "cb5de18e-5721-4c26-9f67-1a7d806dd09e"
-                }
-            }
+                },
+            },
         }
 
         mocker.register_uri("POST", uri, status_code=202, json=response)

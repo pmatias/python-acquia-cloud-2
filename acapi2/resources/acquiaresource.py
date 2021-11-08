@@ -7,7 +7,6 @@ from acapi2.resources.acquiadata import AcquiaData
 
 
 class AcquiaResource(AcquiaData):
-
     def __getitem__(self, key):
         if not key and not self.data:
             self.populate_data()

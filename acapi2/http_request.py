@@ -24,14 +24,15 @@ class HttpRequest(httphmac.Request):
         return HttpRequest._session
 
     def do(self):
-        """"Executes the request represented by this object.
+        """ "Executes the request represented by this object.
 
         The requests library will be used for this purpose.
         Use requests.Session object for reuse TCP connection.
         Returns an instance of requests.Response.
         """
         data = None
-        if self.body is not None and self.body != b'':
+        if self.body is not None and self.body != b"":
             data = self.body
-        return self.session.request(self.method, str(self.url), data=data,
-                                    headers=self.header)
+        return self.session.request(
+            self.method, str(self.url), data=data, headers=self.header
+        )

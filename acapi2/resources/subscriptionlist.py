@@ -8,8 +8,9 @@ from acapi2.resources.subscription import Subscription
 
 
 class SubscriptionList(AcquiaList):
-    def __init__(self, uri: str, api_key: str, api_secret: str, *args,
-                 **kwargs) -> None:
+    def __init__(
+        self, uri: str, api_key: str, api_secret: str, *args, **kwargs
+    ) -> None:
         # TODO Filters
         super().__init__(uri, api_key, api_secret, *args, **kwargs)
         self.fetch()
@@ -25,11 +26,11 @@ class SubscriptionList(AcquiaList):
             for sub in sub_items:
                 name = sub["id"]
                 subs_uri = "{base_uri}/{uuid}".format(
-                    base_uri=self.uri, uuid=name)
-                self.__setitem__(name,
-                                 Subscription(subs_uri,
-                                              self.api_key,
-                                              self.api_secret))
+                    base_uri=self.uri, uuid=name
+                )
+                self.__setitem__(
+                    name, Subscription(subs_uri, self.api_key, self.api_secret)
+                )
 
     @property
     def base_uri(self) -> str:

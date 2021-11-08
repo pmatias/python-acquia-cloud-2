@@ -6,10 +6,8 @@ from acapi2.resources.applicationlist import ApplicationList
 
 
 class Subscription(AcquiaResource):
-
     def applications(self):
-        applications = ApplicationList(self.uri, self.api_key,
-                                       self.api_secret)
+        applications = ApplicationList(self.uri, self.api_key, self.api_secret)
         return applications
 
     def entitlements(self):

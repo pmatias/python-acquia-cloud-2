@@ -22,8 +22,5 @@ class TestHttpRequest(BaseTest):
         http_request.body = "body"
         http_request.do()
         mock_session.assert_called_once_with(
-            "GET",
-            "http://localhost/",
-            data="body",
-            headers={}
+            "GET", "http://localhost/", data="body", headers={}
         )

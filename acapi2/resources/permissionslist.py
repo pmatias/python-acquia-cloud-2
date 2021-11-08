@@ -3,16 +3,14 @@
 
 """Permissions API Endpoint"""
 
-from acapi2.resources.acquialist import AcquiaList
 from acapi2.exceptions import AcquiaCloudNoDataException
+from acapi2.resources.acquialist import AcquiaList
 
 
 class PermissionsList(AcquiaList):
-
-    def __init__(self, uri: str,
-                 api_key: str,
-                 api_secret: str,
-                 *args, **kwargs) -> None:
+    def __init__(
+        self, uri: str, api_key: str, api_secret: str, *args, **kwargs
+    ) -> None:
         super().__init__(uri, api_key, api_secret, *args, **kwargs)
         self.fetch()
 
