@@ -8,7 +8,7 @@ with open(os.path.join(os.path.dirname(__name__), "README.md")) as f:
 
 setup(
     name="acapi2",
-    version="2.1.0",
+    version="2.1.1",
     url="https://github.com/pmatias/python-acquia-cloud-2",
     download_url="https://pypi.org/project/acapi2",
     license="MIT",
@@ -26,6 +26,8 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Topic :: Internet",
     ],
     platforms="any",
