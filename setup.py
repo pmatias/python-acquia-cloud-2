@@ -38,7 +38,7 @@ setup(
         "backoff>=1.10.0,<2",
         "http-hmac-python>=2.4.1,<3",
         "requests>=2.25.0,<=3.0",
-        "requests-cache>=0.5.2,<1.0.1",
+        "requests-cache>=0.5.2,<1.0.2",
         "setuptools>=38.5",
     ],
 )
