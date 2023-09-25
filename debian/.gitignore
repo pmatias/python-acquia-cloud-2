@@ -1,0 +1,9 @@
+# Debian dpkg-buildpackage generated bits.
+*.debhelper
+*.debhelper.log
+*.substvars
+.debhelper/
+debhelper-build-stamp
+files
+# Package directories
+/python3-acapi2
