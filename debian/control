@@ -1,0 +1,13 @@
+Source: python3-acapi2
+Section: web
+Priority: optional
+Maintainer: John Franklin <franklin@sentaidigital.com>
+Build-Depends: debhelper (>=9), dh-exec, dh-python, python3-all, python3-setuptools, python3-backoff
+Standards-Version: 3.9.8
+Homepage: https://github.com/pmatias/python-acquia-cloud-2
+
+Package: python3-acapi2
+Architecture: all
+Depends: ${python3:Depends} ${misc:Depends}
+Description: Acquia Cloud API V2 python bindings
+  Python Client library to communicate with the Acquia Cloud API V2.
